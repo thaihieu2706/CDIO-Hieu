@@ -10,3 +10,14 @@
     margin: 10px;
     
 }
+.DuoiTieuDe {
+   display: flex;
+   flex-direction: row;
+   
+   
+}
+.show {
+    width: 950px;
+    height: 320px;
+    float: left;
+}
