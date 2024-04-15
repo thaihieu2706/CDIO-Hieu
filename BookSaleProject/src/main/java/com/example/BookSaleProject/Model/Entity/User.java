@@ -6,7 +6,6 @@ public class User {
         private String password;
         private String email;
         private String sdt;
-        private int age;
         private String address;
         private int role;
         public User(int id, String username, String password, String email, String sdt, int age, String address,
@@ -16,7 +15,6 @@ public class User {
             this.password = password;
             this.email = email;
             this.sdt = sdt;
-            this.age = age;
             this.address = address;
             this.role = role;
         }
@@ -52,12 +50,6 @@ public class User {
         public void setSdt(String sdt) {
             this.sdt = sdt;
         }
-        public int getAge() {
-            return age;
-        }
-        public void setAge(int age) {
-            this.age = age;
-        }
         public String getAddress() {
             return address;
         }
@@ -73,6 +65,6 @@ public class User {
         @Override
         public String toString() {
             return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-                    + ", sdt=" + sdt + ", age=" + age + ", address=" + address + ", role=" + role + "]";
+                    + ", sdt=" + sdt + ", address=" + address + ", role=" + role + "]";
         }
 }
