@@ -4,27 +4,31 @@ import java.sql.Date;
 
 
 public class Bill {
-    private int id;
-    private int idCustomer;
-    private Date date;
-    public Bill(int id, int idCustomer, Date date) {
+    @Override
+    public String toString() {
+        return "Bill [id=" + id + ", user=" + user + ", date=" + date + "]";
+    }
+    public Bill(int id, User user, Date date) {
         this.id = id;
-        this.idCustomer = idCustomer;
+        this.user = user;
         this.date = date;
     }
     public Bill() {
     }
+    private int id;
+    private User user;
+    private Date date;
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
-    public int getIdCustomer() {
-        return idCustomer;
+    public User getUser() {
+        return user;
     }
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
+    public void setUser(User user) {
+        this.user = user;
     }
     public Date getDate() {
         return date;
@@ -32,9 +36,6 @@ public class Bill {
     public void setDate(Date date) {
         this.date = date;
     }
-    @Override
-    public String toString() {
-        return "Bill [id=" + id + ", idCustomer=" + idCustomer + ", date=" + date + "]";
-    }
+
     
 }

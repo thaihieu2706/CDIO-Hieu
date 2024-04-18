@@ -1,20 +1,19 @@
 package com.example.BookSaleProject.Model.Entity;
 
-import java.sql.Date;
 
 public class Book {
     private int id;
     private String name;
     private String author;
     private BookType bookType;
-    private Date date;
+    private String date;
     private String nxb;
     private double price;
     private int SL;
     private String img;
 
     // Constructor
-    public Book(int id, String name, String author, BookType bookType, Date date, String nxb, double price, int SL,String img) {
+    public Book(int id, String name, String author, BookType bookType, String date, String nxb, double price, int SL,String img) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -78,11 +77,11 @@ public class Book {
         this.bookType = bookType;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
