@@ -1,466 +1,348 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-100">
-
+<html lang="en">
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="topnav.css">
+    <script src="dungchung.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <title>Nền tảng - Kiến thức cơ bản về WEB | Bảng tin</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" type="text/css">
-    <!-- Font awesome -->
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
-
-    <!-- Custom css - Các file css do chúng ta tự viết -->
-    <link rel="stylesheet" href="../assets/css/app.css" type="text/css">
+    <title>Mua bán sách</title>
 </head>
-
 <body>
-    <header>
-        <div class="row" style="background-color: aquamarine;padding: 0px;">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3" style="text-align-last: left;">
-                <a href="mainPage.html" style="color: black; font-size: x-large;font-weight: bolder;font-size: 40px;">MuaBanSach.vn</a>
-            </div>
-            <div class="col-sm-4" style="padding-top: 10px;">
-                <form class="form-inline mt-2 mt-md-0" method="get" action="search.html">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Bạn muốn tìm gì ?" aria-label="Search">
-                </form>
-            </div>
-            <div class="col-sm-4" style="padding: 10px;">
-                <div class="dropdown" style="display: inline;">
-                    <button type="button" style="background-color: aquamarine;border:aquamarine;color: black;" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        <strong style="color: black;">Tài khoản của bạn</strong>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <!-- <li><a class="dropdown-item" href="Login.html">Đăng nhập</a></li>
-                         <li><a class="dropdown-item" href="Register.html">Đăng kí</a></li>
-                         -->
-                        <li><a class="dropdown-item" href="login.html">Đăng nhập</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown" style="display: inline;">
-                    <button type="button" style="background-color: aquamarine; border: aquamarine;color: black;" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        <strong style="color: black;">Giỏ hàng</strong>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Xem giỏ hàng</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="row">
+<script> addTopNav(); </script>
+<header>
+    <div class="row" style="background-color: aquamarine;padding: 0px;">
         <div class="col-sm-1"></div>
-        <div class="col-sm-3" style="padding-top: 0.5%;">
-            <i class="fa-solid fa-list" style="font-size: 110%;"></i>
-            <p style="display: inline;font-size: 110%; padding-bottom: 10px; ">DANH MỤC SẢN PHẨM</p>
+        <div class="col-sm-3" style="text-align-last: left;">
+            <a href="mainPage.html" style="color: black; font-size: x-large;font-weight: bolder;font-size: 40px;">MuaBanSach.vn</a>
         </div>
-        <div class="col-sm-4">
-
-        </div>
-        <div class="col-sm-4" style="padding-top: 0.5%;">
-            <p style="display: inline;">HotLine:</p>
-            <p style="color: green; display: inline;">0938 424 289</p>
-        </div>
-    </div>
-    <main role="main">
-        <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
-        <div class="container mt-4">
-            <form name="frmTimKiem" method="get" action="#">
-                <h1 class="text-center">Tìm kiếm sản phẩm</h1>
-                <div class="row">
-                    <div class="col col-md-12">
-                        <div class="text-center">
-                            <button type="button" id="btnReset" class="btn btn-warning">Xóa bộ lọc</button>
-                            <button class="btn btn-primary btn-lg">Tìm kiếm <i class="fa fa-forward"
-                                    aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <aside class="col-sm-4">
-                        <p>Bộ lọc </p>
-                        <div class="card">
-                            <!-- Tìm kiếm theo tên sách -->
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <h6 class="title">Tên sách</h6>
-                                </header>
-                                <div class="filter-content">
-                                    <div class="card-body">
-                                        <input class="form-control" type="text" placeholder="Tìm kiếm"
-                                            aria-label="Search" name="keyword_tensanpham" value="">
-                                    </div> <!-- card-body.// -->
-                                </div>
-                            </article> <!-- // Tìm kiếm theo Tên sách -->
-
-                            <!-- Tìm kiếm theo Loại sách -->
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <h6 class="title">Loại sách</h6>
-                                </header>
-                                <div class="filter-content">
-                                    <div class="card-body">
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">3</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_loaisanpham[]" value="1" id="chk-loaisanpham-1">
-                                            <label class="custom-control-label" for="chk-loaisanpham-1">Văn học nước
-                                                ngoài</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">1</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_loaisanpham[]" value="2" id="chk-loaisanpham-2">
-                                            <label class="custom-control-label" for="chk-loaisanpham-2">Truyện
-                                                tranh</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">4</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_loaisanpham[]" value="3" id="chk-loaisanpham-3">
-                                            <label class="custom-control-label" for="chk-loaisanpham-3">Sách thiếu
-                                                nhi</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">1</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_loaisanpham[]" value="4" id="chk-loaisanpham-4">
-                                            <label class="custom-control-label" for="chk-loaisanpham-4">Văn phòng
-                                                phẩm</label>
-                                        </div> <!-- form-check.// -->
-                                    </div> <!-- card-body.// -->
-                                </div>
-                            </article> <!-- // Tìm kiếm theo Loại sách -->
-
-                            <!-- Tìm kiếm theo Tác giả -->
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <h6 class="title">Tác giả </h6>
-                                </header>
-                                <div class="filter-content">
-                                    <div class="card-body">
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">3</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_nhasanxuat[]" value="1" id="chk-nhasanxuat-1">
-                                            <label class="custom-control-label" for="chk-nhasanxuat-1">Thái Hiếu</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">3</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_nhasanxuat[]" value="2" id="chk-nhasanxuat-2">
-                                            <label class="custom-control-label" for="chk-nhasanxuat-2">Hoàng Việt</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">1</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_nhasanxuat[]" value="3" id="chk-nhasanxuat-3">
-                                            <label class="custom-control-label" for="chk-nhasanxuat-3">Hoàng Quyền</label>
-                                        </div> <!-- form-check.// -->
-                                        <div class="custom-control custom-checkbox">
-                                            <span class="float-right badge badge-light round">1</span>
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="keyword_nhasanxuat[]" value="4" id="chk-nhasanxuat-4">
-                                            <label class="custom-control-label" for="chk-nhasanxuat-4">Anh Tú</label>
-                                        </div> <!-- form-check.// -->
-                                    </div> <!-- card-body.// -->
-                                </div>
-                            </article> <!-- // Tìm kiếm theo Tác giả -->
-
-                            <!-- Tìm kiếm theo khoảng giá tiền -->
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <h6 class="title">Khoảng tiền </h6>
-                                </header>
-                                <div class="filter-content">
-                                    <div class="card-body">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Từ</label>
-                                                <input type="range" class="custom-range" min="0" max="50000000"
-                                                    step="100000" id="sotientu" name="keyword_sotientu" value="0">
-                                                <span><span id="sotientu-text">0</span></span>
-                                            </div>
-                                            <div class="form-group col-md-6 text-right">
-                                                <label>Đến</label>
-                                                <input type="range" class="custom-range" min="0" max="50000000"
-                                                    step="100000" id="sotienden" name="keyword_sotienden"
-                                                    value="50000000">
-                                                <span><span id="sotienden-text">50000000</span></span>
-                                            </div>
-                                        </div>
-                                    </div> <!-- card-body.// -->
-                                </div>
-                            </article> <!-- // Tìm kiếm theo khoảng giá tiền -->
-
-                            <!-- Tìm kiếm theo màu sắc sản phẩm -->
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <h6 class="title">Màu sắc (tùy chọn thêm)</h6>
-                                </header>
-                                <div class="filter-content">
-                                    <div class="card-body">
-                                        <label class="btn btn-danger">
-                                            <input class="" type="checkbox" value="">
-                                            <span class="form-check-label">Đỏ</span>
-                                        </label>
-                                        <label class="btn btn-success">
-                                            <input class="" type="checkbox" value="">
-                                            <span class="form-check-label">Xanh lá</span>
-                                        </label>
-                                        <label class="btn btn-primary">
-                                            <input class="" type="checkbox" value="">
-                                            <span class="form-check-label">Xanh dương</span>
-                                        </label>
-                                    </div> <!-- card-body.// -->
-                                </div>
-                            </article> <!-- // Tìm kiếm theo màu sắc sản phẩm -->
-                        </div> <!-- card.// -->
-                    </aside> <!-- col.// -->
-
-                    <!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
-                    <div class="col-sm-8 mt-2">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Tìm kiếm được 7 sản phẩm</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book1.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Sương mù nơi rừng rậm</h5>
-                                        </a>
-                                        <h6>Văn học nước ngoài</h6>
-                                        <p class="card-text">Sản phẩm của Thái Hiếu năm 2013</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>12,600,000.00</s>
-                                                <b>12,000,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book2.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Hãy nhớ tên anh ấy</h5>
-                                        </a>
-                                        <h6>Sách thiếu nhi</h6>
-                                        <p class="card-text">Xuất bản bới Thái Hiếu năm 2020</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>12,000,000.00</s>
-                                                <b>11,800,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book3.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Thời gian tươi đẹp</h5>
-                                        </a>
-                                        <h6>Văn phòng phẩm</h6>
-                                        <p class="card-text">CPU: Dual-core 1 GHz</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>0.00</s>
-                                                <b>14,890,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book1.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Cô đơn nơi rừng rậm</h5>
-                                        </a>
-                                        <h6>Điện thoại</h6>
-                                        <p class="card-text">Sách chỉ bán không cho</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>0.00</s>
-                                                <b>14,990,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book2.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Cô hồn trong đêm tối</h5>
-                                        </a>
-                                        <h6>Văn bản nước ngoài</h6>
-                                        <p class="card-text">Xuất bản bởi 1 con ma</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>12,000,000.00</s>
-                                                <b>10,990,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book3.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Con chó hoang lạc đường về nhà</h5>
-                                        </a>
-                                        <h6>Điện thoại</h6>
-                                        <p class="card-text">Xuất bản bời chủ của con chó</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>3,000,000.00</s>
-                                                <b>2,699,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="card mb-4 shadow-sm">
-                                    <a href="product-detail.html">
-                                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
-                                            src="../Pictures/book1.jpg">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="product-detail.html">
-                                            <h5>Em buồn lắm anh ơi</h5>
-                                        </a>
-                                        <h6>Máy tính bảng</h6>
-                                        <p class="card-text">Sách do cô gái thất tình viết nên</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="product-detail.html">Xem
-                                                    chi tiết</a>
-                                            </div>
-                                            <small class="text-muted text-right">
-                                                <s>7,950,000.00</s>
-                                                <b>7,500,000.00 vnđ</b>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> <!-- row.// -->
+        <div class="col-sm-4" style="padding-top: 10px;">
+            <form class="form-inline mt-2 mt-md-0" method="get" action="search.html">
+                <input class="form-control mr-sm-2" type="search" placeholder="Bạn muốn tìm gì ?" aria-label="Search">
             </form>
         </div>
-        <!-- End block content -->
-    </main>
-
-    <!-- footer -->
-    <footer class="footer mt-auto py-3">
-        <div class="container">
-            <span>Bản quyền © bởi <a href="https://nentang.vn">Nền Tảng</a> - <script>document.write(new Date().getFullYear());</script>.</span>
-            <span class="text-muted">Hành trang tới Tương lai</span>
-
-            <p class="float-right">
-                <a href="#">Về đầu trang</a>
-            </p>
+        <div class="col-sm-4" style="padding: 10px;">
+            <div class="dropdown" style="display: inline;">
+                <button type="button" style="background-color: aquamarine;border:aquamarine;color: black;"
+                        class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    <strong style="color: black;">Tài khoản của bạn</strong>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="login.html">Đăng nhập</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display: inline;">
+                <button type="button" style="background-color: aquamarine; border: aquamarine;color: black;"
+                        class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    <strong style="color: black;">Giỏ hàng</strong>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Xem giỏ hàng</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
-    <!-- end footer -->
+    </div>
+</header>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3" style="padding-top: 0.5%;">
+        <i class="fa-solid fa-list" style="font-size: 110%;"></i>
+        <p style="display: inline;font-size: 110%; padding-bottom: 10px; ">DANH MỤC SẢN PHẨM</p>
+    </div>
+    <div class="col-sm-4">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/popperjs/popper.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    </div>
+    <div class="col-sm-4" style="padding-top: 0.5%;">
+        <p style="display: inline;">HotLine:</p>
+        <p style="color: green; display: inline;">0334 622 902</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+        <div class="dropdown">
+            <button type="button" style="background-color: white; color: black;border: white; padding-top: 10%;"
+                    class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                <strong style="color: black;">Nổi bật</strong>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="sachBanChay.html">Sách bán chạy</a></li>
+                <li><a class="dropdown-item" href="sachMoi.html">Sách mới</a></li>
+                <li><a class="dropdown-item" href="sapPhatHanh.html">Sắp phát hành</a></li>
+                <li><a class="dropdown-item" href="#">Sách giảm giá</a></li>
+            </ul>
+        </div>
+        <button style="padding-top: 10%;"><a href="">Truyện Tranh-Comic</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Văn học nước ngoài</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Sale cuối năm 2022</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Sách văn học</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Truyện tranh BL</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Sách kĩ năng sống</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Sách thiếu nhi</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Light Novel</a></button>
+        <br>
+        <button style="padding-top: 10%;"><a href="">Văn Phòng Phẩm - Quà Tặng</a></button>
+        <br>
+        <div class="dropdown" style="padding-top: 10%;">
+            <button type="button" style="background-color: white; color: black;border: white;"
+                    class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                <strong style="color: black;">Công ty phát hành</strong>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">IPM</a></li>
+                <li><a class="dropdown-item" href="#">AZ Việt Nam</a></li>
+                <li><a class="dropdown-item" href="#">Sky Book</a></li>
+                <li><a class="dropdown-item" href="#">Kim Đồng</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
+    <div class="col-sm-8 mt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <h6>Tìm kiếm được 7 sản phẩm</h6>
+            </div>
+        </div>
+        <div class="row">
 
-    <!-- Custom script - Các file js do mình tự viết -->
-    <script src="../assets/js/app.js"></script>
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book1.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Sương mù nơi rừng rậm</h5>
+                        </a>
+                        <h6>Văn học nước ngoài</h6>
+                        <p class="card-text">Sản phẩm của Thái Hiếu năm 2013</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>12,600,000.00</s>
+                                <b>12,000,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book2.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Hãy nhớ tên anh ấy</h5>
+                        </a>
+                        <h6>Sách thiếu nhi</h6>
+                        <p class="card-text">Xuất bản bới Thái Hiếu năm 2020</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>12,000,000.00</s>
+                                <b>11,800,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book3.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Thời gian tươi đẹp</h5>
+                        </a>
+                        <h6>Văn phòng phẩm</h6>
+                        <p class="card-text">CPU: Dual-core 1 GHz</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>0.00</s>
+                                <b>14,890,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book1.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Cô đơn nơi rừng rậm</h5>
+                        </a>
+                        <h6>Điện thoại</h6>
+                        <p class="card-text">Sách chỉ bán không cho</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>0.00</s>
+                                <b>14,990,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book2.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Cô hồn trong đêm tối</h5>
+                        </a>
+                        <h6>Văn bản nước ngoài</h6>
+                        <p class="card-text">Xuất bản bởi 1 con ma</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>12,000,000.00</s>
+                                <b>10,990,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book3.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Con chó hoang lạc đường về nhà</h5>
+                        </a>
+                        <h6>Điện thoại</h6>
+                        <p class="card-text">Xuất bản bời chủ của con chó</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>3,000,000.00</s>
+                                <b>2,699,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="product-detail.html">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="350"
+                             src="../Pictures/book1.jpg">
+                    </a>
+                    <div class="card-body">
+                        <a href="product-detail.html">
+                            <h5>Em buồn lắm anh ơi</h5>
+                        </a>
+                        <h6>Máy tính bảng</h6>
+                        <p class="card-text">Sách do cô gái thất tình viết nên</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="product-detail.html">Xem
+                                    chi tiết</a>
+                            </div>
+                            <small class="text-muted text-right">
+                                <s>7,950,000.00</s>
+                                <b>7,500,000.00 vnđ</b>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> <!-- row.// -->
+</form>
+</div>
+<!-- End block content -->
+</main>
+
+<!-- footer -->
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span>Bản quyền © bởi <a href="https://nentang.vn">Nền Tảng</a> - <script>document.write(new Date().getFullYear());</script>.</span>
+        <span class="text-muted">Hành trang tới Tương lai</span>
+
+        <p class="float-right">
+            <a href="#">Về đầu trang</a>
+        </p>
+    </div>
+</footer>
+<!-- end footer -->
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/popperjs/popper.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Custom script - Các file js do mình tự viết -->
+<script src="../assets/js/app.js"></script>
 
 </body>
 
