@@ -30,7 +30,7 @@ public class BookService implements IBookService{
         if (!(bookList.isEmpty())) {
             return bookList;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return null;
     }
 
     @Override

@@ -121,4 +121,9 @@ public class BookRepository {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        BookRepository bookRepository = new BookRepository();
+        System.out.println(bookRepository.getAll().toString());
+    }
 }

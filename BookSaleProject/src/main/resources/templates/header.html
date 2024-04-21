@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,121 +79,125 @@
 </head>
 
 <body>
-    <header class="container-fluid" style="background-color: black; height: 20%;">
+    <div th:fragment="header">
+        <header>
+            <div class="container-fluid" style="background-color: black; height: 20%;" >
 
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-7 ">
-
-                <a href="#" style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: gray;"
-                    onmouseover="this.style.color='white'; this.style.textDecoration='underline'"
-                    onmouseout="this.style.color='gray'; this.style.textDecoration='none'">
-                    43 GROUP BOOKSALE
-                </a>
-
-                <a href="#"
-                    style=" font-family: 'Courier New', Courier, monospace ; text-decoration: none; color: white; "
-                    onmouseover=" this.style.textDecoration='underline'" onmouseout=" this.style.textDecoration='none'">
-                    |ONLINE BOOKSALE</a>
-            </div>
-            <div class="col-sm-3" style="text-align: right;">
-                <a href="#"
-                    style="font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white; font-size: small;"
-                    onmouseover=" this.style.textDecoration='underline'"
-                    onmouseout=" this.style.textDecoration='none'"><i class="fa-solid fa-phone"></i>
-                    HotLine: 0901162097
-                </a>
-            </div>
-            <div class="col-sm-1"></div>
-
-
-        </div>
-        <div style="text-align: center;">
-            <hr style="width: 83%; height: 1px; border: none; background-color: white; margin: 0 auto;">
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-1 "></div>
-            <div class="col-sm-8 ">
                 <div class="row">
-                    <div class="col-sm-5 " style="text-align: left;">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-7 ">
+        
+                        <a href="#" style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: gray;"
+                            onmouseover="this.style.color='white'; this.style.textDecoration='underline'"
+                            onmouseout="this.style.color='gray'; this.style.textDecoration='none'">
+                            GROUP BOOKSALE
+                        </a>
+        
                         <a href="#"
-                            style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
-                            <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
+                            style=" font-family: 'Courier New', Courier, monospace ; text-decoration: none; color: white; "
+                            onmouseover=" this.style.textDecoration='underline'" onmouseout=" this.style.textDecoration='none'">
+                            |ONLINE BOOKSALE</a>
                     </div>
-                    <div class=" col-sm-7 ">
-                        <div class="row" style="text-align: left;">
-
-
-                            <div class="col-sm-3 dropdown">
-                                <a href="#" style="text-decoration: none; color: white; font-size: small;"
-                                    onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'">TẤT CẢ SÁCH</a>
-                                <div class="dropdown-content">
-                                    <a href="#">Mục 1</a>
-                                    <a href="#">Mục 2</a>
-                                    <a href="#">Mục 3</a>
+                    <div class="col-sm-3" style="text-align: right;">
+                        <a href="#"
+                            style="font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white; font-size: small;"
+                            onmouseover=" this.style.textDecoration='underline'"
+                            onmouseout=" this.style.textDecoration='none'"><i class="fa-solid fa-phone"></i>
+                            HotLine: 0901162097
+                        </a>
+                    </div>
+                    <div class="col-sm-1"></div>
+        
+        
+                </div>
+                <div style="text-align: center;">
+                    <hr style="width: 83%; height: 1px; border: none; background-color: white; margin: 0 auto;">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-1 "></div>
+                    <div class="col-sm-8 ">
+                        <div class="row">
+                            <div class="col-sm-5 " style="text-align: left;">
+                                <a href="#"
+                                    style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
+                                    <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
+                            </div>
+                            <div class=" col-sm-7 ">
+                                <div class="row" style="text-align: left;">
+        
+        
+                                    <div class="col-sm-3 dropdown">
+                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                            onmouseover=" this.style.textDecoration='underline'"
+                                            onmouseout=" this.style.textDecoration='none'">TẤT CẢ SÁCH</a>
+                                        <div class="dropdown-content">
+                                            <a href="#">Mục 1</a>
+                                            <a href="#">Mục 2</a>
+                                            <a href="#">Mục 3</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 dropdown">
+                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                            onmouseover=" this.style.textDecoration='underline'"
+                                            onmouseout=" this.style.textDecoration='none'">THỂ LOẠI</a>
+                                        <div class="dropdown-content">
+                                            <a href="#">Thương hiệu 1</a>
+                                            <a href="#">Thương hiệu 2</a>
+                                            <a href="#">Thương hiệu 3</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                            onmouseover=" this.style.textDecoration='underline'"
+                                            onmouseout=" this.style.textDecoration='none'">GIỚI
+                                            THIỆU</a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                            onmouseover=" this.style.textDecoration='underline'"
+                                            onmouseout=" this.style.textDecoration='none'">LIÊN HỆ</a>
+                                    </div>
+        
                                 </div>
                             </div>
-                            <div class="col-sm-3 dropdown">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col">
                                 <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'">THỂ LOẠI</a>
-                                <div class="dropdown-content">
-                                    <a href="#">Thương hiệu 1</a>
-                                    <a href="#">Thương hiệu 2</a>
-                                    <a href="#">Thương hiệu 3</a>
-                                </div>
+                                    onmouseout=" this.style.textDecoration='none'"> <i class="fa-solid fa-user"></i>LOGIN/SIGN
+                                    UP</a>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col">
                                 <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'">GIỚI
-                                    THIỆU</a>
+                                    onmouseout=" this.style.textDecoration='none'"><i class="fa-solid fa-cart-shopping"></i>GIỎ
+                                    HÀNG</a>
                             </div>
-                            <div class="col-sm-3">
-                                <a href="#" style="text-decoration: none; color: white; font-size: small;"
-                                    onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'">LIÊN HỆ</a>
+                            <div class="col">
+                                <a href="#" onclick="showSearchBar()"
+                                    style="text-decoration: none; color: white; font-size: small;"><i
+                                        class="fa-solid fa-magnifying-glass"></i></a>
                             </div>
-
+        
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
                 <div class="row">
-                    <div class="col">
-                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
-                            onmouseover=" this.style.textDecoration='underline'"
-                            onmouseout=" this.style.textDecoration='none'"> <i class="fa-solid fa-user"></i>LOGIN/SIGN
-                            UP</a>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11" id="search-bar" style="display: none; border: none;">
+                        <input type="text" placeholder="Nhập từ khóa tìm kiếm" style="width: 1000px;">
+                        <button onclick="cancelBar()" style="color: black; background-color: white;">Cancel</button>
                     </div>
-                    <div class="col">
-                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
-                            onmouseover=" this.style.textDecoration='underline'"
-                            onmouseout=" this.style.textDecoration='none'"><i class="fa-solid fa-cart-shopping"></i>GIỎ
-                            HÀNG</a>
-                    </div>
-                    <div class="col">
-                        <a href="#" onclick="showSearchBar()"
-                            style="text-decoration: none; color: white; font-size: small;"><i
-                                class="fa-solid fa-magnifying-glass"></i></a>
-                    </div>
-
+                    
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-11" id="search-bar" style="display: none; border: none;">
-                <input type="text" placeholder="Nhập từ khóa tìm kiếm" style="width: 1000px;">
-                <button onclick="cancelBar()" style="color: black; background-color: white;">Cancel</button>
-            </div>
             
-        </div>
-    </header>
-    
+        </header>
+    </div>
 </body>
 
 </html>
