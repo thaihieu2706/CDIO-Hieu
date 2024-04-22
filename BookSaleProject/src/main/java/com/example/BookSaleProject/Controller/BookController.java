@@ -23,18 +23,39 @@ public class BookController {
     @Autowired
     BookService bookService = new BookService();
 
-    @GetMapping(value = {"/getAllBook"})
-    public String getAllBook(Model model){
-        ArrayList<Book> bookList = bookService.getAll();
+    @RequestMapping(value = "/")   
+    public String viewHomePage(Model model){
+        return "index";
+    }
     
-        model.addAttribute("bookList", bookList);
+    @RequestMapping(value = "/getAll")
+        public String viewAllBook(Model model) {
+            ArrayList<Book> bookListAll = bookService.getAll();
+            int numPage=bookListAll.size();
+            if(numPage%12!=0)
+            {
+                numPage=numPage/12+1;
+            }
+            else
+            {
+                numPage=numPage/12;
+            }
+            model.addAttribute("NumOfPage", numPage);
+            return getAllBook(model, "1");
+    }
+
+    @GetMapping(value = {"/getAllBook/{pageNum}"})
+    public String getAllBook(Model model, @PathVariable(name = "pageNum")String currentPage){
+        ArrayList<Book> bookListPage = bookService.getAllByPage(Integer.parseInt(currentPage));
+        model.addAttribute("Previous", Integer.parseInt(currentPage)-1);
+        model.addAttribute("Next", Integer.parseInt(currentPage)+1);
+        model.addAttribute("bookList", bookListPage);
         return "getAllBookForCus";
     }
     
     @GetMapping(value = {"/getBookById"})
     public String getBookById(Model model, @RequestParam(name = "id")String id){
         Book book = bookService.getByID(Integer.parseInt(id));
-        System.out.println("hello");
         model.addAttribute("book", book);
         return "productDetail";
     }
@@ -42,6 +63,7 @@ public class BookController {
     @PostMapping(value = {"/updateBook"})
     public String updateBook(Model model, @ModelAttribute("bookFinded")Book book){
         bookService.update(book);
+        
         return "";
     }
 }

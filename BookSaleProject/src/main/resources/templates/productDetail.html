@@ -28,8 +28,60 @@
 <body>
     <header th:insert="~{header :: header}"></header>
 
-    
+    <div style="padding-top: 20px ;">
+        <hr>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <img th:src="@{'/images/'+${book.img}}" width="470px">
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <p class="h1" th:text="${book.name}"></p>
+                </div>
+                <div>
+                    <p class="h2" th:text="${book.price}+' đ'" style="color: greenyellow;"> đ</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <strong style="min-width: 137px;">Tác giả</strong>
+                    </div>
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <span th:text="${book.author}" style="padding-left: 30px;"></span>
+                    </div>
+                    
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <strong style="min-width: 137px;">Số lượng</strong>
+                    </div>
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <span th:text="${book.SL}" style="padding-left: 30px;"></span>
+                    </div>
 
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <strong style="min-width: 137px;">Nhà xuất bản</strong>
+                    </div>
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <span th:text="${book.nxb}" style="padding-left: 30px;"></span>
+                    </div>
+
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <strong style="min-width: 137px;">Năm xuất bản</strong>
+                    </div>
+                    <div class="col-sm-3" style="padding-top: 20px;">
+                        <span th:text="${book.date}" style="padding-left: 30px;"></span>
+                    </div>
+                   
+                    <div style="padding-top: 40px;">
+                        <strong style="min-width: 137px;">Nội dung:</strong>
+                        <p th:text="${book.detail}"></p>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <footer th:insert="~{footer :: footer}"></footer>
 </body>
 </html>

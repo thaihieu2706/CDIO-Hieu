@@ -24,14 +24,6 @@ public class BookService implements IBookService{
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
-    @Override
-    public ArrayList<Book> getAll() {
-        this.bookList = bookRepository.getAll();
-        if (!(bookList.isEmpty())) {
-            return bookList;
-        }
-        return null;
-    }
 
     @Override
     public Book getByID(int id) {
@@ -50,4 +42,24 @@ public class BookService implements IBookService{
             return true;
         }
         throw new UnsupportedOperationException("Unimplemented method 'addNew'");
-    }}
+    }
+
+    @Override
+    public ArrayList<Book> getAllByPage(int currentPage) {
+        this.bookList = bookRepository.getAllByPage(currentPage);
+        if (!(bookList.isEmpty())) {
+            return bookList;
+        }
+        return null;
+    }
+
+
+    @Override
+    public ArrayList<Book> getAll() {
+        this.bookList = bookRepository.getAll();
+        if (!(bookList.isEmpty())) {
+            return bookList;
+        }
+        return null;
+    }
+}

@@ -17,6 +17,7 @@ public class BookRepository {
     @Autowired
     BookTypeRepository bookTypeRepository = new BookTypeRepository();
 
+
     public ArrayList<Book> getAll(){
         try {
             bookList.clear();
@@ -35,7 +36,39 @@ public class BookRepository {
                 Double price = Double.parseDouble(resultSet.getString("price"));
                 int SL = resultSet.getInt("SL");
                 String img = resultSet.getString("img");
-                Book book = new Book(id, name, author, bookType, date, nxb, price, SL, img);
+                String detail = resultSet.getString("detail");
+                Book book = new Book(id, name, author, bookType, date, nxb, price, SL, img,detail);
+                bookList.add(book);
+            }
+            con.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return bookList;
+    }
+
+    public ArrayList<Book> getAllByPage(int currentPage){
+        try {
+            bookList.clear();
+            Class.forName(BaseConnection.nameClass);
+            Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
+                    BaseConnection.password);
+            PreparedStatement prsm = con.prepareStatement("Select * from booksale.book where id >= ? and id <= ?");
+            prsm.setInt(1, 1+(currentPage-1)*12);
+            prsm.setInt(2, currentPage*12);
+            ResultSet resultSet = prsm.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String author = resultSet.getString("author");
+                BookType bookType = bookTypeRepository.getByID(resultSet.getInt("booktype"));
+                String date = resultSet.getString("date");
+                String nxb = resultSet.getString("nxb");
+                Double price = Double.parseDouble(resultSet.getString("price"));
+                int SL = resultSet.getInt("SL");
+                String img = resultSet.getString("img");
+                String detail = resultSet.getString("detail");
+                Book book = new Book(id, name, author, bookType, date, nxb, price, SL, img, detail);
                 bookList.add(book);
             }
             con.close();
@@ -64,7 +97,8 @@ public class BookRepository {
             Double price = Double.parseDouble(resultSet.getString("price"));
             int SL = resultSet.getInt("SL");
             String img = resultSet.getString("img");
-            Book book = new Book(id, name, author, bookType, date, nxb, price, SL, img);
+            String detail = resultSet.getString("detail");
+            Book book = new Book(id, name, author, bookType, date, nxb, price, SL, img, detail);
             con.close();
             return book;
 
@@ -103,7 +137,7 @@ public class BookRepository {
             Class.forName(BaseConnection.nameClass);
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
-            PreparedStatement prsm = con.prepareStatement("Update BOOKSALE.Book set name=?,author=?,booktype=?,date=?,nxb=?,price=?,SL=?,img=? where id =?");
+            PreparedStatement prsm = con.prepareStatement("Update BOOKSALE.Book set name=?,author=?,booktype=?,date=?,nxb=?,price=?,SL=?,img=?,detail=? where id =?");
             prsm.setString(1,book.getName());
             prsm.setString(2, book.getAuthor());
             prsm.setInt(3, book.getBookType().getId());
@@ -112,7 +146,8 @@ public class BookRepository {
             prsm.setString(6, "'"+book.getPrice()+"'");
             prsm.setInt(7, book.getSL());
             prsm.setString(8, book.getImg());
-            prsm.setInt(9, book.getId());
+            prsm.setString(9, book.getDetail());
+            prsm.setInt(10, book.getId());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
@@ -122,8 +157,4 @@ public class BookRepository {
         return false;
     }
 
-    public static void main(String[] args) {
-        BookRepository bookRepository = new BookRepository();
-        System.out.println(bookRepository.getAll().toString());
-    }
 }
