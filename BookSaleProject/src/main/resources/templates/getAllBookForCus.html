@@ -92,17 +92,20 @@
                                     style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title" th:text="${book.key.name}"></h4>
-                                <p class="card-text" th:text="${book.key.price}"></p>
+                                <h4 class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;"></h4>
+                                <p class="card-text" th:text="${book.key.price}+'đ'" style="color: yellowgreen;"></p>
                                 <div>
                                     <button type="submit"
-                                        style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem
-                                        thông tin</button>
-                                    <a th:href="@{/book/getBookById}" style="display: inline; padding-right: 0px;">
-                                        <i class="fa-solid fa-cart-shopping" style="font-size: larger;"></i>
+                                        style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem thông tin</button>
+                                </div>
+                                <div>
+                                    <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;"></p>
+                                    <i class="fa-solid fa-star" style="color: #FF9529;display: inline;font-size: larger;"></i>
+                                    <a th:href="@{/book/getBookById}" style="display: inline; padding-right: 0px;float: right;">
+                                        <i class="fa-solid fa-cart-shopping" style="font-size: x-large;"></i>
                                     </a>
                                 </div>
-                                <p th:text="${book.value}"></p>
+                                
                             </div>
                         </div>
                     </form>
