@@ -1,20 +1,22 @@
 package com.example.BookSaleProject.Model.Entity;
 
 public class Rate {
-    public Rate(int id, User user, Book book) {
+    @Override
+    public String toString() {
+        return "Rate [id=" + id + ", user=" + user + ", book=" + book + ", score=" + score + "]";
+    }
+    public Rate(int id, User user, Book book, double score) {
         this.id = id;
         this.user = user;
         this.book = book;
+        this.score = score;
     }
     public Rate() {
-    }
-    @Override
-    public String toString() {
-        return "Rate [id=" + id + ", user=" + user + ", book=" + book + "]";
     }
     private int id;
     private User user;
     private Book book;
+    private double score;
     public int getId() {
         return id;
     }
@@ -32,5 +34,11 @@ public class Rate {
     }
     public void setBook(Book book) {
         this.book = book;
+    }
+    public double getScore() {
+        return score;
+    }
+    public void setScore(double score) {
+        this.score = score;
     }
 }

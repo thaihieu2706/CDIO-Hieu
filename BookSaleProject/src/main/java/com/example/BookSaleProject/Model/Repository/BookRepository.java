@@ -19,6 +19,7 @@ public class BookRepository {
 
 
     public ArrayList<Book> getAll(){
+        
         try {
             bookList.clear();
             Class.forName(BaseConnection.nameClass);

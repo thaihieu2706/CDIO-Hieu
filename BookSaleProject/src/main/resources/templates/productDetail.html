@@ -35,39 +35,41 @@
             <div class="col-sm-3">
                 <img th:src="@{'/images/'+${book.img}}" width="470px" class="rounded">
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div>
                     <p class="h1" th:text="${book.name}"></p>
                 </div>
+                <p class="h5" th:text="${rate}" style="display: inline;color: yellow;"></p>
+                <i class="fa-solid fa-star" style="color: yellow;display: inline;font-size: larger;"></i>
                 <div>
                     <p class="h2" th:text="${book.price}+' đ'" style="color: greenyellow;"> đ</p>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-2" style="padding-top: 20px;">
                         <strong style="min-width: 137px;">Tác giả</strong>
                     </div>
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-4" style="padding-top: 20px;">
                         <span th:text="${book.author}" style="padding-left: 30px;"></span>
                     </div>
                     
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-2" style="padding-top: 20px;">
                         <strong style="min-width: 137px;">Số lượng</strong>
                     </div>
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-4" style="padding-top: 20px;">
                         <span th:text="${book.SL}" style="padding-left: 30px;"></span>
                     </div>
 
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-2" style="padding-top: 20px;">
                         <strong style="min-width: 137px;">Nhà xuất bản</strong>
                     </div>
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-4" style="padding-top: 20px;">
                         <span th:text="${book.nxb}" style="padding-left: 30px;"></span>
                     </div>
 
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-2" style="padding-top: 20px;">
                         <strong style="min-width: 137px;">Năm xuất bản</strong>
                     </div>
-                    <div class="col-sm-3" style="padding-top: 20px;">
+                    <div class="col-sm-4" style="padding-top: 20px;">
                         <span th:text="${book.date}" style="padding-left: 30px;"></span>
                     </div>
                    
@@ -79,7 +81,7 @@
 
                     <div style="padding-top: 20px;">
                         <hr>
-                        <div class="col-sm-3" style="padding-top: 20px;padding-bottom: 20px;">
+                        <div style="padding-top: 20px;padding-bottom: 20px;">
                             <strong style="min-width: 137px;display: inline;">Danh mục:</strong>
                             <span th:text="${booktype.name}" style="padding-left: 30px;display: inline;"></span>
                         </div>
@@ -103,7 +105,7 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
                 <div class="row">
-                    <div th:each="book, iterStat : ${bookList}" class="col-sm-3" style="padding-top: 20px;">
+                    <div th:each="book, iterStat : ${bookList}" class="col-sm-4" style="padding-top: 20px;">
                         <form th:action="@{/book/getBookById}" th:method="get">
                             <input type="hidden" th:value="${book.id}" name="id">
                             <div class="card" style="width:300px;" th:if="${book.SL > 0}" >
