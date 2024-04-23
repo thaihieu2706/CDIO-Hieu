@@ -27,6 +27,7 @@ public class BookService implements IBookService{
 
     @Override
     public Book getByID(int id) {
+        bookList.clear();
         getAll();
         for (Book book : bookList) {
             if (book.getId()==id) {
@@ -56,6 +57,7 @@ public class BookService implements IBookService{
 
     @Override
     public ArrayList<Book> getAll() {
+        bookList.clear();
         this.bookList = bookRepository.getAll();
         if (!(bookList.isEmpty())) {
             return bookList;

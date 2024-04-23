@@ -88,7 +88,7 @@
                 <div th:each="book, iterStat : ${bookList}" class="col-sm-3" style="padding-top: 20px;">
                     <form th:action="@{/book/getBookById}" th:method="get">
                         <input type="hidden" th:value="${book.id}" name="id">
-                        <div class="card" style="width:300px;" >
+                        <div class="card" style="width:300px;" th:if="${book.SL > 0}" >
                             <div style="height: 400px; overflow: hidden;">
                                 <img class="card-img-top" th:src="@{'/images/'+${book.img}}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
@@ -103,15 +103,16 @@
             </div>
         </div>
     </div>
-        <div>
-            <ul class="pagination justify-content-center" style="padding-top: 20px;">
-                <li class="page-item"><a class="page-link" th:href="@{/book/getAllBook/__${Previous}__}">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);" th:href="@{/book/getAllBook/1}">1</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);" th:href="@{/book/getAllBook/2}">2</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);" th:href="@{/book/getAllBook/3}">3</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{/book/getAllBook/__${Next}__}">Next</a></li>
-              </ul>
-        </div>
+
+    <div>
+        <ul class="pagination justify-content-center" style="padding-top: 20px;">
+            <li class="page-item" th:if="${currentPage > 1}"><a class="page-link" th:href="@{/book/getAllBook/__${Previous}__}">Trang trước</a></li>
+            <ul class="pagination justify-content-center" th:each="page, iterStat : ${NumOfPage}"> 
+                <li class="page-item"><a class="page-link" th:href="@{/book/getAllBook/__${page}__}" th:text="${page} "></a></li>
+            </ul>
+            <li class="page-item" th:if="${NumOfPage.length > currentPage}"><a class="page-link" th:href="@{/book/getAllBook/__${Next}__}">Trang sau</a></li>
+            </ul>
+    </div>
     <footer th:insert="~{footer :: footer}"></footer>
 </body>
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.BookSaleProject.Model.Entity.Book;
+import com.example.BookSaleProject.Model.Entity.BookType;
 import com.example.BookSaleProject.Model.Service.BookService;
 
 
@@ -23,30 +24,17 @@ public class BookController {
     @Autowired
     BookService bookService = new BookService();
 
-    @RequestMapping(value = "/")   
-    public String viewHomePage(Model model){
-        return "index";
-    }
-    
-    @RequestMapping(value = "/getAll")
-        public String viewAllBook(Model model) {
-            ArrayList<Book> bookListAll = bookService.getAll();
-            int numPage=bookListAll.size();
-            if(numPage%12!=0)
-            {
-                numPage=numPage/12+1;
-            }
-            else
-            {
-                numPage=numPage/12;
-            }
-            model.addAttribute("NumOfPage", numPage);
-            return getAllBook(model, "1");
-    }
-
     @GetMapping(value = {"/getAllBook/{pageNum}"})
     public String getAllBook(Model model, @PathVariable(name = "pageNum")String currentPage){
+        ArrayList<Book> bookListAll = bookService.getAll();
+        int numPages = (int) Math.ceil((double) bookListAll.size() / 12);
+        int[] numPage = new int[numPages];
+        for (int i = 0; i < numPages; i++) {
+            numPage[i] = i + 1;
+        }
         ArrayList<Book> bookListPage = bookService.getAllByPage(Integer.parseInt(currentPage));
+        model.addAttribute("NumOfPage", numPage);
+        model.addAttribute("currentPage", Integer.parseInt(currentPage));
         model.addAttribute("Previous", Integer.parseInt(currentPage)-1);
         model.addAttribute("Next", Integer.parseInt(currentPage)+1);
         model.addAttribute("bookList", bookListPage);
@@ -56,6 +44,20 @@ public class BookController {
     @GetMapping(value = {"/getBookById"})
     public String getBookById(Model model, @RequestParam(name = "id")String id){
         Book book = bookService.getByID(Integer.parseInt(id));
+        BookType bookType = book.getBookType();
+        ArrayList<Book> bookList = bookService.getAll();
+        ArrayList<Book> bookListSame = new ArrayList<>();
+        for (Book book1 : bookList) {
+            if (book1.getBookType().getId() == bookType.getId()&&book1.getId() != book.getId()) {
+                bookListSame.add(book1);
+            }
+            if(bookListSame.size()==4)
+            {
+                break;
+            }
+        }
+        model.addAttribute("bookList", bookListSame);
+        model.addAttribute("booktype", bookType);
         model.addAttribute("book", book);
         return "productDetail";
     }
