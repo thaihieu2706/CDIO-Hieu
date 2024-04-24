@@ -99,6 +99,7 @@ public class BookController {
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
+        model.addAttribute("title", title);
         model.addAttribute("currentPage", Integer.parseInt(currentPage));
         model.addAttribute("Previous", Integer.parseInt(currentPage) - 1);
         model.addAttribute("Next", Integer.parseInt(currentPage) + 1);
@@ -123,7 +124,6 @@ public class BookController {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
         model.addAttribute("bookTypeList", bookTypeList);
-        model.addAttribute("title", title);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);

@@ -23,11 +23,29 @@
     <title>Mua bán sách</title>
 </head>
 
-
 <body>
     <header th:insert="~{header :: header}"></header>
+    <br>
+    <div class="small-background"
+        style="background-image: url('/images/background1.jpg');padding-top: 20px;background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: cover;position: relative;height: 300px;">
+        <div class="row" style="padding-top: 100px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <p th:text="${title}" class="h1" style="color: white;text-align: left;"></p>
+                <a th:href="@{/}"
+                    style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white;font-size: larger;display: inline;"
+                    onmouseover="this.style.textDecoration='underline'"
+                    onmouseout="this.style.color='white'; this.style.textDecoration='none'">
+                    Trang chủ
+                </a>
+                <p th:text="' / '+${title}" class="h5" style="color: white;display: inline;"></p>
+            </div>
+        </div>
 
-    <div class="row">
+    </div>
+
+
+    <div class="row" style="padding-top: 20px;">
         <div class="col-sm-2">
             <div style="padding-left: 4%; padding-top: 4%; width: fit-content;">
                 <div>
@@ -83,6 +101,7 @@
             </div>
         </div>
         <div class="col-md-9">
+            <p class="h3" th:text="${title}" style="padding: 0 0 20px 0;"></p>
             <div class="row">
                 <div th:each="book, status : ${BookRate}" class="col-sm-4" style="padding-top: 20px;">
                     <form th:action="@{/book/getBookById}" th:method="get">
@@ -99,7 +118,7 @@
 
                             <div class="modal" th:id="|bookModal${status.index}|">
                                 <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered">
-                                    <div class="modal-content" style="border: solid;">
+                                    <div class="modal-content">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <img th:src="@{'/images/'+${book.key.img}}" ,
@@ -164,7 +183,8 @@
 
                                                         <div style="padding-top: 2%;">
                                                             <a href="#" style="float: left;">
-                                                                <i class="fa-solid fa-cart-shopping" style="font-size: xx-large;"></i>
+                                                                <i class="fa-solid fa-cart-shopping"
+                                                                    style="font-size: xx-large;"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -174,23 +194,23 @@
                                                 <div class="modal-footer">
                                                     <div>
                                                         <button type="submit"
-                                                        style="border: none; background-color: white; font-weight: bolder;font-size: x-large;">Xem thêm</button>
+                                                            style="border: none; background-color: white; font-weight: bolder;font-size: x-large;">Xem
+                                                            thêm</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-body">
                                 <h4 class="card-title" th:text="${book.key.name}"
                                     style="font-size: larger;font-weight: bold;"></h4>
                                 <p class="card-text" th:text="${book.key.price}+'đ'" style="color: yellowgreen;"></p>
                                 <div>
                                     <button type="submit"
-                                        style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem thông tin
+                                        style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem
+                                        thông tin
                                     </button>
                                 </div>
                                 <div>
