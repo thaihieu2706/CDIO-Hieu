@@ -26,15 +26,15 @@
 <body>
     <div th:fragment="header">
         <header>
-            <div class="container-fluid" style="background-color: black; height: 20%;" >
+            <div class="container-fluid" style="background-color: #01a14b; height: 20%;" >
 
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-7 ">
         
-                        <a href="#" style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: gray;"
+                        <a href="#" style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: black;"
                             onmouseover="this.style.color='white'; this.style.textDecoration='underline'"
-                            onmouseout="this.style.color='gray'; this.style.textDecoration='none'">
+                            onmouseout="this.style.color='black'; this.style.textDecoration='none'">
                             GROUP BOOKSALE
                         </a>
         
@@ -63,33 +63,38 @@
                     <div class="col-sm-1 "></div>
                     <div class="col-sm-8 ">
                         <div class="row">
-                            <div class="col-sm-5 " style="text-align: left;">
+                            <div class="col-sm-4 " style="text-align: left;">
                                 <a th:href="@{/}"
                                     style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
                                     <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
                             </div>
-                            <div class=" col-sm-7 ">
+                            <div class=" col-sm-8 " style="margin-top:10px ;">
                                 <div class="row" style="text-align: left;">
         
         
                                     <div class="col-sm-3 dropdown">
-                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                        <a style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
-                                            onmouseout=" this.style.textDecoration='none'">TẤT CẢ SÁCH</a>
+                                            onmouseout=" this.style.textDecoration='none'">
+                                            <i class="fa-solid fa-list" style="font-size: large"></i>DANH MỤC SẢN PHẨM
+                                        </a>
                                         <div class="dropdown-content">
-                                            <a href="#">Mục 1</a>
-                                            <a href="#">Mục 2</a>
-                                            <a href="#">Mục 3</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Truyện Tranh-Comic</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Văn học nước ngoài</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách văn học</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Truyện tranh BL</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách kĩ năng sống</a>
+                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách thiếu nhi</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-3 dropdown">
-                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                        <a style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">THỂ LOẠI</a>
                                         <div class="dropdown-content">
-                                            <a href="#">Thương hiệu 1</a>
-                                            <a href="#">Thương hiệu 2</a>
-                                            <a href="#">Thương hiệu 3</a>
+                                            <div th:each="type : ${bookTypeList}">
+                                                <a th:href="@{/book/getBookByType/__${type.id}__}" th:text="${type.name}"></a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -108,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" style="margin-top:10px;">
                         <div class="row">
                             <div class="col">
                                 <a href="#" style="text-decoration: none; color: white; font-size: small;"

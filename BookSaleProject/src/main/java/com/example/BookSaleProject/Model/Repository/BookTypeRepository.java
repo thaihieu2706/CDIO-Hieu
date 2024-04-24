@@ -87,9 +87,4 @@ public class BookTypeRepository {
         }
         return false;
     }
-    
-    public static void main(String[] args) {
-        BookTypeRepository bookTypeRepository = new BookTypeRepository();
-        System.out.println(bookTypeRepository.getAll().toString());
-    }
 }

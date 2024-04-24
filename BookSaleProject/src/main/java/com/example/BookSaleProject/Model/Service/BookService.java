@@ -10,7 +10,6 @@ import com.example.BookSaleProject.Model.Repository.BookRepository;
 
 @Service
 public class BookService implements IBookService{
-    ArrayList<Book> bookList = new ArrayList<>();
     
     @Autowired
     BookRepository bookRepository = new BookRepository();
@@ -27,8 +26,7 @@ public class BookService implements IBookService{
 
     @Override
     public Book getByID(int id) {
-        bookList.clear();
-        getAll();
+        ArrayList<Book> bookList = getAll();
         for (Book book : bookList) {
             if (book.getId()==id) {
                 return bookRepository.getByID(id);
@@ -45,20 +43,20 @@ public class BookService implements IBookService{
         throw new UnsupportedOperationException("Unimplemented method 'addNew'");
     }
 
-    @Override
-    public ArrayList<Book> getAllByPage(int currentPage) {
-        this.bookList = bookRepository.getAllByPage(currentPage);
-        if (!(bookList.isEmpty())) {
-            return bookList;
-        }
-        return null;
-    }
+    // @Override
+    // public ArrayList<Book> getAllByPage(int currentPage) {
+    //     ArrayList<Book> bookList = new ArrayList<>();
+    //     bookList = bookRepository.getBookByPage(currentPage);
+    //     if (!(bookList.isEmpty())) {
+    //         return bookList;
+    //     }
+    //     return null;
+    // }
 
 
     @Override
     public ArrayList<Book> getAll() {
-        bookList.clear();
-        this.bookList = bookRepository.getAll();
+        ArrayList<Book> bookList = bookRepository.getAll();
         if (!(bookList.isEmpty())) {
             return bookList;
         }

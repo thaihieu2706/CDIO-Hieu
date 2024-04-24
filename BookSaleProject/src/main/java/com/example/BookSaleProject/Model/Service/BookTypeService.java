@@ -31,8 +31,8 @@ public class BookTypeService implements IBookTypeService {
         for(BookType bookType:bookTypeList){
             if(bookType.getId()==id)
                 return bookTypeRepository.getByID(id);
-        }
-        throw new UnsupportedOperationException("Unimplemented method 'getByID'");
+            }
+        return null;
     }
 
     @Override
