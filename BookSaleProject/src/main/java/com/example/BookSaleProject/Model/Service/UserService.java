@@ -52,8 +52,7 @@ public class UserService implements IUserService{
     }
     
     public User login(String email){
-        userList.clear();
-        userList = userRepository.getAllUser();
+        getAllUser();
         for (User user : userList) {
             if(user.getEmail().equals(email))
                 return user;
@@ -64,14 +63,11 @@ public class UserService implements IUserService{
     public boolean toLogin(User user){
         getAllUser();
         for (User user1 : userList) {
-            if(user1.getEmail().equals(user.getEmail())&&user1.getPassword().equals(user.getPassword()))
+            if(user1.getEmail().equals(user.getEmail()) && user1.getPassword().equals(user.getPassword()))
+            {
                 return true;
+            }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        UserService u = new UserService();
-        System.out.println(u.toLogin(new User(0, null, "john@123", "john.doe@example.com", null, null, 0)));
     }
 }

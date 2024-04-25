@@ -65,7 +65,7 @@
                     <div class="col-sm-7 ">
                         <div class="row">
                             <div class="col-sm-6" style="text-align: left;">
-                                <a th:href="@{/}"
+                                <a th:href="@{/book/index}"
                                     style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
                                     <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
                             </div>
@@ -89,24 +89,8 @@
                                                     </i>
                                                 </a>
                                             </div>
-                                            <!-- <a href="#"><i class="fa-solid fa-book-open-reader"></i> Truyện Tranh-Comic</a>
-                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Văn học nước ngoài</a>
-                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách văn học</a>
-                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Truyện tranh BL</a>
-                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách kĩ năng sống</a>
-                                            <a href="#"><i class="fa-solid fa-book-open-reader"></i> Sách thiếu nhi</a> -->
                                         </div>
                                     </div>
-                                    <!-- <div class="col-sm-3 dropdown">
-                                        <a style="text-decoration: none; color: white; font-size: small;"
-                                            onmouseover=" this.style.textDecoration='underline'"
-                                            onmouseout=" this.style.textDecoration='none'">THỂ LOẠI</a>
-                                        <div class="dropdown-content">
-                                            <div th:each="type : ${bookTypeList}">
-                                                <a th:href="@{/book/getBookByType/__${type.id}__}" th:text="${type.name}"></a>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div class="col-sm-3">
                                         <a href="" style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
@@ -126,18 +110,17 @@
                     <div class="col-sm-4" style="margin-top:10px;">
                         <div class="row">
                             <div class="col">
-                                <div th:if="${session != null and session.userName != null}">
+                                <div th:if="${user != null}">
                                     <a href="{#}" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
                                     onmouseout=" this.style.textDecoration='none'"> <i
-                                        class="fa-solid fa-user"></i><p th:text="${session.userName}"></p></a>
+                                        class="fa-solid fa-user"></i><p th:text="${user.username}"></p></a>
                                 </div>
-                                <div th:unless="${session != null and session.userName != null}">
+                                <div th:unless="${user != null}">
                                     <a th:href="@{/client}" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
                                     onmouseout=" this.style.textDecoration='none'"> <i
-                                        class="fa-solid fa-user"></i>LOGIN/SIGN
-                                    UP</a>
+                                        class="fa-solid fa-user"></i>LOGIN/SIGNUP</a>
                                 </div>
                             </div>
                             <div class="col">

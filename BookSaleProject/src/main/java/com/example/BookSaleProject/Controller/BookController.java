@@ -24,26 +24,25 @@ import com.example.BookSaleProject.Model.Service.RateService;
 
 
 @Controller
-@RequestMapping(value = { "/book", "" })
+@RequestMapping(value = { "/book"})
 public class BookController {
 
     @Autowired
-    BookService bookService = new BookService();
-    BookTypeService bookTypeService = new BookTypeService();
-    RateService rateService = new RateService();
+    private BookService bookService = new BookService();
+    private BookTypeService bookTypeService = new BookTypeService();
+    private RateService rateService = new RateService();
     
-    User user1;
-    HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
-    ArrayList<Book> bookList = new ArrayList<>();
-    ArrayList<Book> bookListAll = bookService.getAll();
-    ArrayList<BookType> bookTypeList = bookTypeService.getAll();
-    String title;
+    private static User user1 = null;
+    private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
+    private ArrayList<Book> bookList = new ArrayList<>();
+    private ArrayList<Book> bookListAll = bookService.getAll();
+    private ArrayList<BookType> bookTypeList = bookTypeService.getAll();
+    private String title;
 
-    @GetMapping(value = "/")   
-    public String viewHomePage(Model model , User user){
+    @GetMapping(value = "/index")   
+    public String viewHomePage(Model model){
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
-        user1 =user;
         ArrayList<Book> newBookList  = new ArrayList<>();
         for (Book book : bookListAll) {
             newBookList .add(book);
@@ -51,7 +50,6 @@ public class BookController {
                 break;
             }
         }
-
         for (Book book : newBookList) {
             bookRate.put(book, rateService.getScoreByIdBook(book));
         }
@@ -77,14 +75,18 @@ public class BookController {
                 bookRateList.remove(topBook);
             }
         }
-        model.addAttribute("userName", user1.getUsername());
+        model.addAttribute("user", user1);
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("newBookList", bookRate);
         model.addAttribute("favouriteBookList", topRatedBooks);
         return "index";
     }
 
-    
+    @GetMapping(value = "/cc")
+    public String redirect(Model model,User user){
+        user1 = user;
+        return viewHomePage(model);
+    }
 
     @GetMapping(value = { "/getBookList/{pageNum}"})
     public String getBookList(Model model, @PathVariable(name = "pageNum") String currentPage) {
@@ -103,6 +105,8 @@ public class BookController {
         for (Book book : bookListPage) {
             bookRate.put(book, rateService.getScoreByIdBook(book));
         }
+       
+        model.addAttribute("user", user1);
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
@@ -130,6 +134,7 @@ public class BookController {
         for (Book book2 : bookListSame) {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
+        model.addAttribute("user", user1);
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);
