@@ -8,4 +8,5 @@ public interface IUserService {
     public ArrayList<User> getAllUser();
     public User getUserById(int id);
     public boolean update(User user);
+    public boolean addNew(User user);
 }

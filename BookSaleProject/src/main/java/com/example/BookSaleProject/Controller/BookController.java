@@ -103,7 +103,7 @@ public class BookController {
         model.addAttribute("currentPage", Integer.parseInt(currentPage));
         model.addAttribute("Previous", Integer.parseInt(currentPage) - 1);
         model.addAttribute("Next", Integer.parseInt(currentPage) + 1);
-        return "getBookListForCus";
+        return "GetBookListForCus";
     }
 
     @GetMapping(value = { "/getBookById" })
@@ -128,7 +128,7 @@ public class BookController {
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);
         model.addAttribute("book", book);
-        return "bookDetail";
+        return "BookDetail";
     }
 
     @GetMapping(value = "/getNewestBook")

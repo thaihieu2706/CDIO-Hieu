@@ -12,10 +12,10 @@ public class RateService implements IRateService {
 
     @Override
     public double getScoreByIdBook(Book book) {
-        if(rateRepository.getScoreByIdBook(book)!=0)
+        if(rateRepository.getScoreByIdBook(book)!=0){
             return rateRepository.getScoreByIdBook(book);
-        else 
-            return 0;
+        }
+        return 0;
     }
 
 }

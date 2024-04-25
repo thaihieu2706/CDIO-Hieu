@@ -22,7 +22,7 @@ public class BookTypeService implements IBookTypeService {
         if (!(bookTypeList.isEmpty())) {
             return bookTypeList;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return null;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BookTypeService implements IBookTypeService {
         if (bookTypeRepository.addNew(bookType)) {
             return true;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'addNew'");
+        return false;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BookTypeService implements IBookTypeService {
         if (bookTypeRepository.update(bookType)) {
             return true;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return false;
     }
     
 }

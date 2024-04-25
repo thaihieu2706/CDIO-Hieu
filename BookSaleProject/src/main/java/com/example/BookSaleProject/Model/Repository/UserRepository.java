@@ -84,4 +84,26 @@ public class UserRepository {
         }
         return false;
     }
+
+    public boolean addNew(User user){
+        try {
+            Class.forName(BaseConnection.nameClass);
+            Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
+                BaseConnection.password);
+            PreparedStatement prsm = con.prepareStatement("Insert into BOOKSALE.user (username,password,email,sdt,address,Role) value (?,?,?,?,?,?)");
+            prsm.setString(1, user.getUsername());
+            prsm.setString(2, user.getPassword());
+            prsm.setString(3, user.getEmail());
+            prsm.setString(4, user.getSdt());
+            prsm.setString(5, user.getAddress());
+            prsm.setInt(6, 2);
+            int result = prsm.executeUpdate();
+            con.close();
+            return result > 0;
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e);
+        }
+        return false;
+    }
 }

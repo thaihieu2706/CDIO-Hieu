@@ -20,7 +20,7 @@ public class BookService implements IBookService{
         if (bookRepository.update(book)) {
             return true;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return false;
     }
 
 
@@ -32,7 +32,7 @@ public class BookService implements IBookService{
                 return bookRepository.getByID(id);
             }
         }
-        throw new UnsupportedOperationException("Unimplemented method 'getByID'");
+        return null;
     }
 
     @Override
@@ -40,19 +40,8 @@ public class BookService implements IBookService{
         if (bookRepository.addNew(book)) {
             return true;
         }
-        throw new UnsupportedOperationException("Unimplemented method 'addNew'");
+        return false;
     }
-
-    // @Override
-    // public ArrayList<Book> getAllByPage(int currentPage) {
-    //     ArrayList<Book> bookList = new ArrayList<>();
-    //     bookList = bookRepository.getBookByPage(currentPage);
-    //     if (!(bookList.isEmpty())) {
-    //         return bookList;
-    //     }
-    //     return null;
-    // }
-
 
     @Override
     public ArrayList<Book> getAll() {
