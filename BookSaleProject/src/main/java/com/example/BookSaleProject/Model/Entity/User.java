@@ -67,4 +67,7 @@ public class User {
             return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
                     + ", sdt=" + sdt + ", address=" + address + ", role=" + role + "]" +"\n";
         }
+        public static void main(String[] args) {
+            
+        }
 }

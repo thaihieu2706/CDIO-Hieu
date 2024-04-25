@@ -16,14 +16,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping(value = {"/client", ""})
-public class ClientController {
+@RequestMapping(value = {"/user"})
+public class UserController {
 
     @Autowired
     private UserService userService = new UserService();
     private BookController bookController = new BookController();
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public String showLogin(Model model, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         User user = new User();
@@ -33,19 +33,13 @@ public class ClientController {
                     String userStr = cookie.getValue();
                     user = userService.login(userStr);
                     model.addAttribute("user", user);
-                    System.out.println(user.toString());
-                    return bookController.redirect(model,user);
+                    return bookController.viewHomePage(model, user);
                 }
             }
         }
         model.addAttribute("user", user);
-        return "Login";
+        return "login";
     }
-
-    // @GetMapping(value = "/logout")
-    // public String louOut(Model model){
-
-    // }
 
     @PostMapping(value = "/login")
     public String toLogin(@ModelAttribute("user") User user1, Model model,
@@ -63,11 +57,24 @@ public class ClientController {
             user = userService.login(user1.getEmail());
             cookie.setMaxAge(60 * 60);
             response.addCookie(cookie);
-            // HttpSession session = request.getSession();
-            // session.setAttribute("userName", user.getUsername());
-            return bookController.redirect(model,user);
+            return bookController.viewHomePage(model,user);
         } else {
             return showLogin(model, request);
         }
+    }
+
+    @GetMapping(value = "/logout")
+    public String logOut(Model model, HttpServletResponse response, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userCookie".equals(cookie.getName())) {
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+        return bookController.viewHomePage(model,new User());
     }
 }

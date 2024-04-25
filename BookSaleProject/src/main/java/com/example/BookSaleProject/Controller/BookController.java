@@ -24,7 +24,7 @@ import com.example.BookSaleProject.Model.Service.RateService;
 
 
 @Controller
-@RequestMapping(value = { "/book"})
+@RequestMapping(value = { "/book", ""})
 public class BookController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class BookController {
     private BookTypeService bookTypeService = new BookTypeService();
     private RateService rateService = new RateService();
     
-    private static User user1 = null;
+    static User user1 = new User();
     private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
     private ArrayList<Book> bookList = new ArrayList<>();
     private ArrayList<Book> bookListAll = bookService.getAll();
@@ -40,7 +40,7 @@ public class BookController {
     private String title;
 
     @GetMapping(value = "/index")   
-    public String viewHomePage(Model model){
+    public String index(Model model){
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
         ArrayList<Book> newBookList  = new ArrayList<>();
@@ -82,10 +82,10 @@ public class BookController {
         return "index";
     }
 
-    @GetMapping(value = "/cc")
-    public String redirect(Model model,User user){
+    @GetMapping(value = "/")
+    public String viewHomePage(Model model,User user){
         user1 = user;
-        return viewHomePage(model);
+        return index(model);
     }
 
     @GetMapping(value = { "/getBookList/{pageNum}"})
@@ -105,7 +105,6 @@ public class BookController {
         for (Book book : bookListPage) {
             bookRate.put(book, rateService.getScoreByIdBook(book));
         }
-       
         model.addAttribute("user", user1);
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("BookRate", bookRate);

@@ -21,7 +21,7 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Login</h4>
-							<form th:method="post" class="my-login-validation" th:action="@{/client/login}" th:object="${user}">
+							<form th:method="post" class="my-login-validation" th:action="@{/user/login}" th:object="${user}">
 								<div class="form-group">
 									<label for="email">Email</label>
 									<input id="email" type="text" class="form-control" th:field="*{email}">
