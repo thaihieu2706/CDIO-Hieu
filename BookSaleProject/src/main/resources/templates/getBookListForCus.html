@@ -71,9 +71,9 @@
                         </ul>
                     </div>
                     <div th:each="type : ${bookTypeList}">
-                        <a style="text-decoration: none; color: black; cursor: pointer;"
+                        <a th:href="@{/book/getBookByType/__${type.id}__}" style="text-decoration: none; color: black; cursor: pointer;"
                         onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
-                            <p th:text="'  '+${type.name}" style="padding-top: 20px;font-weight: normal;" class="h5"></p>
+                            <p th:text="'  '+${type.name}" style="padding-top: 20px;font-weight: lighter;" class="h5"></p>
                         </a>
                         <hr>
                     </div>
@@ -97,7 +97,7 @@
         <div class="col-md-9">
             <p class="h3" th:text="${title}" style="padding: 0 0 20px 0;"></p>
             <div class="row">
-                <div th:each="book, status : ${BookRate}" class="col-sm-4" style="padding-top: 20px;">
+                <div th:each="book, status : ${BookRate}" class="col-sm-4" style="padding-top: 20px; ">
                     <form th:action="@{/book/getBookById}" th:method="get">
                         <input type="hidden" th:value="${book.key.id}" name="id">
                         <div class="card" style="width:300px;">

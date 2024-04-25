@@ -25,62 +25,36 @@
 </head>
 
 <body>
-  <header th:insert="~{header :: header}"></header>
+ 
 
+  <h1 style="text-align:  center; color: pink;"><i class="fa-brands fa-instagram fa-sm"></i> LOGIN</h1>
+    <form th:action="@{/client/login}" th:method="post" th:object="${user}" style="text-align: center; color: pink;">
+        <div style="margin-bottom: 2%;">
+            <label>
+                Email:
+            </label>
+            <div>
+                <input type="text" th:field="*{email}" style="width: 20%; height: 30px;">
+            </div>
+        </div>
+        <div>
+            <label>
+                Password:
+            </label>
+            <div>
+                <input type="password" th:field="*{password}" style="width: 20%; height: 30px;">
+            </div>
+        </div>
+        <div>
+            <input type="checkbox" name="rememberme">
+            <label>
+                Remember me?
+            </label>
+        </div>
+        <div>
+            <button type="submit" style="border: solid pink; color: pink;">Login</button>
+        </div>
 
-  <div class="row">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4" style="padding-top: 0.5%;">
-      <p style="display: inline;">HotLine:</p>
-      <p style="color: green; display: inline;">0938 424 289</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-1"></div>
-    <div class="col-9">
-      <button><a href="mainPage.html" style="font-weight: bold;">Website Mua Bán Sách</a></button>/Đăng Nhập
-    </div>
-    <div class="col-2"></div>
-  </div>
-  <div class="row" style="padding-top: 2%;">
-    <div class="col-1"></div>
-    <div class="col-9">
-      <p style="font-size: 150%; display: inline;"><strong>Đăng nhập</strong>/</p>
-      <button><a href="Register.html"><strong style="font-size: 150%; color: aquamarine;">Đăng kí</strong></a></button>
-      <hr>
-    </div>
-    <div class="col-2"></div>
-  </div>
-  <div class="row" style="padding: 2%;">
-    <div class="col-3"></div>
-    <div class="col-6">
-      <div class="container mt-3">
-        <form action="">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
-            <label for="email">Email</label>
-          </div>
-          <div class="form-floating mt-3 mb-3">
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-            <label for="pwd">Mật Khẩu</label>
-            <button style="padding-top: 2%;"><a href="MissPassword.html" style="font-weight: bold;">Quên mật
-                khẩu?</a></button>
-          </div>
-          <div style="padding-left: 30%;padding-top: 5%;display: inline;">
-            <button type="submit" class="btn btn-primary" style="background-color: aquamarine;"><a href=""><strong
-                  style="color: black;">Đăng Nhập</strong></a></button>
-          </div>
-          <div style="padding-left: 10%;padding-top: 5%;display: inline;">
-            <button class="btn btn-primary" style="width: 15%; background-color: aquamarine;"><a href="Register.html"
-                style="color: black;font-weight: bold ;">Tạo tài khoản</a></button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="col-3"></div>
-  </div>
-
-  <footer th:insert="~{footer :: footer}"></footer>
 </body>
 
 </html>

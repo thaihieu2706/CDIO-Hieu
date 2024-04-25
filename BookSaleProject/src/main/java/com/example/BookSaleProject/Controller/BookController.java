@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.BookSaleProject.Model.Entity.Book;
 import com.example.BookSaleProject.Model.Entity.BookType;
+import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
+
 
 @Controller
 @RequestMapping(value = { "/book", "" })
@@ -30,6 +32,7 @@ public class BookController {
     BookTypeService bookTypeService = new BookTypeService();
     RateService rateService = new RateService();
     
+    User user1;
     HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
     ArrayList<Book> bookList = new ArrayList<>();
     ArrayList<Book> bookListAll = bookService.getAll();
@@ -37,9 +40,10 @@ public class BookController {
     String title;
 
     @GetMapping(value = "/")   
-    public String viewHomePage(Model model){
+    public String viewHomePage(Model model , User user){
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
+        user1 =user;
         ArrayList<Book> newBookList  = new ArrayList<>();
         for (Book book : bookListAll) {
             newBookList .add(book);
@@ -73,11 +77,14 @@ public class BookController {
                 bookRateList.remove(topBook);
             }
         }
+        model.addAttribute("userName", user1.getUsername());
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("newBookList", bookRate);
         model.addAttribute("favouriteBookList", topRatedBooks);
         return "index";
     }
+
+    
 
     @GetMapping(value = { "/getBookList/{pageNum}"})
     public String getBookList(Model model, @PathVariable(name = "pageNum") String currentPage) {

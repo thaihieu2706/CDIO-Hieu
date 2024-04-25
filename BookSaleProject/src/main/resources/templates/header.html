@@ -108,7 +108,7 @@
                                         </div>
                                     </div> -->
                                     <div class="col-sm-3">
-                                        <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                        <a href="" style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">GIỚI
                                             THIỆU</a>
@@ -126,11 +126,19 @@
                     <div class="col-sm-4" style="margin-top:10px;">
                         <div class="row">
                             <div class="col">
-                                <a href="" style="text-decoration: none; color: white; font-size: small;"
+                                <div th:if="${session != null and session.userName != null}">
+                                    <a href="{#}" style="text-decoration: none; color: white; font-size: small;"
+                                    onmouseover=" this.style.textDecoration='underline'"
+                                    onmouseout=" this.style.textDecoration='none'"> <i
+                                        class="fa-solid fa-user"></i><p th:text="${session.userName}"></p></a>
+                                </div>
+                                <div th:unless="${session != null and session.userName != null}">
+                                    <a th:href="@{/client}" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
                                     onmouseout=" this.style.textDecoration='none'"> <i
                                         class="fa-solid fa-user"></i>LOGIN/SIGN
                                     UP</a>
+                                </div>
                             </div>
                             <div class="col">
                                 <a href="#" style="text-decoration: none; color: white; font-size: small;"
