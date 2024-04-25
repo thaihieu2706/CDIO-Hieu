@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,21 +25,23 @@
 <body>
     <div th:fragment="header">
         <header>
-            <div class="container-fluid" style="background-color: #01a14b; height: 20%;" >
+            <div class="container-fluid" style="background-color: #01a14b; height: 20%;">
 
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-7 ">
-        
-                        <a href="#" style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: black;"
+
+                        <a href="#"
+                            style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: black;"
                             onmouseover="this.style.color='white'; this.style.textDecoration='underline'"
                             onmouseout="this.style.color='black'; this.style.textDecoration='none'">
                             GROUP BOOKSALE
                         </a>
-        
+
                         <a href="#"
                             style=" font-family: 'Courier New', Courier, monospace ; text-decoration: none; color: white; "
-                            onmouseover=" this.style.textDecoration='underline'" onmouseout=" this.style.textDecoration='none'">
+                            onmouseover=" this.style.textDecoration='underline'"
+                            onmouseout=" this.style.textDecoration='none'">
                             |ONLINE BOOKSALE</a>
                     </div>
                     <div class="col-sm-3" style="text-align: right;">
@@ -50,8 +53,8 @@
                         </a>
                     </div>
                     <div class="col-sm-1"></div>
-        
-        
+
+
                 </div>
                 <div style="text-align: center;">
                     <hr style="width: 83%; height: 1px; border: none; background-color: white; margin: 0 auto;">
@@ -59,26 +62,32 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-1 "></div>
-                    <div class="col-sm-8 ">
+                    <div class="col-sm-7 ">
                         <div class="row">
-                            <div class="col-sm-4 " style="text-align: left;">
+                            <div class="col-sm-6" style="text-align: left;">
                                 <a th:href="@{/}"
                                     style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
                                     <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
                             </div>
-                            <div class=" col-sm-8 " style="margin-top:10px ;">
+                            <div class=" col-sm-6 " style="margin-top:10px ;">
                                 <div class="row" style="text-align: left;">
-        
-        
-                                    <div class="col-sm-4 dropdown">
+
+
+                                    <div class="col-sm-6 dropdown">
                                         <a style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">
-                                            <i class="fa-solid fa-list" style="font-size: large"></i>DANH MỤC SẢN PHẨM
+                                            <i class="fa-solid fa-list"></i>DANH MỤC SẢN PHẨM
                                         </a>
                                         <div class="dropdown-content">
                                             <div th:each="type : ${bookTypeList}">
-                                                <a th:href="@{/book/getBookByType/__${type.id}__}"><i class="fa-solid fa-book-open-reader"  th:text="${type.name}"></i></a>
+                                                <a th:href="@{/book/getBookByType/__${type.id}__}">
+                                                    <i class="fa-solid fa-book-open-reader">
+                                                        <p th:text="'  '+${type.name}"
+                                                            style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;display: inline-flex;">
+                                                        </p>
+                                                    </i>
+                                                </a>
                                             </div>
                                             <!-- <a href="#"><i class="fa-solid fa-book-open-reader"></i> Truyện Tranh-Comic</a>
                                             <a href="#"><i class="fa-solid fa-book-open-reader"></i> Văn học nước ngoài</a>
@@ -98,34 +107,36 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">GIỚI
                                             THIỆU</a>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">LIÊN HỆ</a>
                                     </div>
-        
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3" style="margin-top:10px;">
+                    <div class="col-sm-4" style="margin-top:10px;">
                         <div class="row">
                             <div class="col">
                                 <a href="" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'"> <i class="fa-solid fa-user"></i>LOGIN/SIGN
+                                    onmouseout=" this.style.textDecoration='none'"> <i
+                                        class="fa-solid fa-user"></i>LOGIN/SIGN
                                     UP</a>
                             </div>
                             <div class="col">
                                 <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
-                                    onmouseout=" this.style.textDecoration='none'"><i class="fa-solid fa-cart-shopping"></i>GIỎ
+                                    onmouseout=" this.style.textDecoration='none'"><i
+                                        class="fa-solid fa-cart-shopping"></i>GIỎ
                                     HÀNG</a>
                             </div>
                             <div class="col">
@@ -133,7 +144,7 @@
                                     style="text-decoration: none; color: white; font-size: small;"><i
                                         class="fa-solid fa-magnifying-glass"></i></a>
                             </div>
-        
+
                         </div>
                     </div>
                 </div>
@@ -143,10 +154,10 @@
                         <input type="text" placeholder="Nhập từ khóa tìm kiếm" style="width: 1000px;">
                         <button onclick="cancelBar()" style="color: black; background-color: white;">Cancel</button>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </header>
     </div>
 </body>
