@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
     <script th:src="@{/js/reUse.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/spinButton.css}">
+    <script th:src="@{/js/spinButton.js}"></script>
     <title>Mua bán sách</title>
 </head>
 
@@ -27,7 +29,8 @@
     <header th:insert="~{header :: header}"></header>
     <br>
     <div class="small-background"
-        style="background-image: url('/images/background1.jpg');padding-top: 20px;background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: cover;position: relative;height: 300px;">
+        style="background-image: url('/images/background1.jpg');padding-top: 20px;
+        background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: cover;position: relative;height: 300px;">
         <div class="row" style="padding-top: 100px;">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
@@ -46,8 +49,9 @@
 
 
     <div class="row" style="padding-top: 20px;">
+        <div class="col-sm-1"></div>
         <div class="col-sm-2">
-            <div style="padding-left: 4%; padding-top: 4%; width: fit-content;">
+            <div style="width: fit-content;">
                 <div>
                     <i class="fa-solid fa-list" style="font-size: 20px;"></i>
                     <p style="display: inline;font-size: 20px; padding-bottom: 10px; ">DANH MỤC SẢN PHẨM</p>
@@ -182,9 +186,14 @@
                                                         </div>
 
                                                         <div style="padding-top: 2%;">
-                                                            <a href="#" style="float: left;">
-                                                                <i class="fa-solid fa-cart-shopping"
-                                                                    style="font-size: xx-large;"></i>
+                                                            <div class="input-group w-auto align-items-center" style="display: inline-flex;">
+                                                                <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 " data-field="quantity">
+                                                                <input type="text" step="1" max="10" value="1" name="quantity" class="quantity-field border-0 text-center" 
+                                                                    style="width: 45px;height: 50px;background-color: #333;color: white;">
+                                                                <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1" data-field="quantity">
+                                                             </div>
+                                                            <a href="#">
+                                                                <i class="fa-solid fa-cart-shopping" style="font-size: 30px;color: #01a14b;">THÊM VÀO GIỎ</i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -206,7 +215,7 @@
                             <div class="card-body">
                                 <h4 class="card-title" th:text="${book.key.name}"
                                     style="font-size: larger;font-weight: bold;"></h4>
-                                <p class="card-text" th:text="${book.key.price}+'đ'" style="color: yellowgreen;"></p>
+                                <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                                 <div>
                                     <button type="submit"
                                         style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem

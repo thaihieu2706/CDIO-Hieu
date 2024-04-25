@@ -43,7 +43,7 @@ public class BookController {
         ArrayList<Book> newBookList  = new ArrayList<>();
         for (Book book : bookListAll) {
             newBookList .add(book);
-            if (newBookList .size()==4) {
+            if (newBookList .size()==3) {
                 break;
             }
         }
@@ -59,7 +59,7 @@ public class BookController {
         }
 
         HashMap<Book, Double> topRatedBooks = new HashMap<Book, Double>();
-        while (topRatedBooks.size()<4 && !bookRateList.isEmpty()) {
+        while (topRatedBooks.size()<3 && !bookRateList.isEmpty()) {
             Book topBook = null;
             double maxRating = Double.MIN_VALUE;
             for (Map.Entry<Book, Double> entry : bookRateList.entrySet()) {

@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
   <script th:src="@{/js/reUse.js}"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/spinButton.css}">
+    <script th:src="@{/js/spinButton.js}"></script>
   <title>Document</title>
 </head>
 
@@ -59,7 +61,7 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
         <div class="row">
-          <div th:each="book , status : ${newBookList}" class="col-sm-3" style="padding-top: 20px;">
+          <div th:each="book , status : ${newBookList}" class="col-sm-4" style="padding-top: 20px;">
             <form th:action="@{/book/getBookById}" th:method="get">
               <input type="hidden" th:value="${book.key.id}" name="id">
               <div class="card" style="width:300px;">
@@ -129,8 +131,18 @@
                               </div>
 
                               <div style="padding-top: 2%;">
-                                <a href="#" style="float: left;">
-                                  <i class="fa-solid fa-cart-shopping" style="font-size: xx-large;"></i>
+                                <div class="input-group w-auto align-items-center" style="display: inline-flex;">
+                                  <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 "
+                                    data-field="quantity">
+                                  <input type="text" step="1" max="10" value="1" name="quantity"
+                                    class="quantity-field border-0 text-center"
+                                    style="width: 45px;height: 50px;background-color: #333;color: white;">
+                                  <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1"
+                                    data-field="quantity">
+                                </div>
+                                <a href="#">
+                                  <i class="fa-solid fa-cart-shopping" style="font-size: 30px;color: #01a14b;">THÊM VÀO
+                                    GIỎ</i>
                                 </a>
                               </div>
                             </div>
@@ -152,7 +164,7 @@
                 </div>
                 <div class="card-body">
                   <h4 class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;"></h4>
-                  <p class="card-text" th:text="${book.key.price}+'đ'" style="color: yellowgreen;"></p>
+                  <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                   <div>
                     <button type="submit"
                       style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem thông
@@ -182,7 +194,7 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
         <div class="row">
-          <div th:each="book,status : ${favouriteBookList}" class="col-sm-3" style="padding-top: 20px;">
+          <div th:each="book,status : ${favouriteBookList}" class="col-sm-4" style="padding-top: 20px;">
             <form th:action="@{/book/getBookById}" th:method="get">
               <input type="hidden" th:value="${book.key.id}" name="id">
               <div class="card" style="width:300px;">
@@ -252,8 +264,18 @@
                               </div>
 
                               <div style="padding-top: 2%;">
-                                <a href="#" style="float: left;">
-                                  <i class="fa-solid fa-cart-shopping" style="font-size: xx-large;"></i>
+                                <div class="input-group w-auto align-items-center" style="display: inline-flex;">
+                                  <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 "
+                                    data-field="quantity">
+                                  <input type="text" step="1" max="10" value="1" name="quantity"
+                                    class="quantity-field border-0 text-center"
+                                    style="width: 45px;height: 50px;background-color: #333;color: white;">
+                                  <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1"
+                                    data-field="quantity">
+                                </div>
+                                <a href="#">
+                                  <i class="fa-solid fa-cart-shopping" style="font-size: 30px;color: #01a14b;">THÊM VÀO
+                                    GIỎ</i>
                                 </a>
                               </div>
                             </div>
@@ -275,7 +297,7 @@
                 </div>
                 <div class="card-body">
                   <h4 class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;"></h4>
-                  <p class="card-text" th:text="${book.key.price}+'đ'" style="color: yellowgreen;"></p>
+                  <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                   <div>
                     <button type="submit"
                       style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem thông
