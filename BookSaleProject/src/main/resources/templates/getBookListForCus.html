@@ -57,41 +57,31 @@
                     <p style="display: inline;font-size: 20px; padding-bottom: 10px; ">DANH MỤC SẢN PHẨM</p>
                 </div>
                 <div>
-                    <div class="dropdown" style="width: fit-content; padding-top: 7px;">
-                        <a type="button"
+                    <div class="dropdown" style="width: fit-content; padding-top: 7px;" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                        <a
+                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';"
                             style="width: fit-content; background-color: white; color: black;border: white; padding-top: 10px;"
                             class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                            <strong style="color: black;">Nổi bật</strong>
+                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">Nổi bật</strong>
                         </a>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="sachBanChay.html">Sách bán chạy</a></li>
-                            <li><a class="dropdown-item" href="sachMoi.html">Sách mới</a></li>
-                            <li><a class="dropdown-item" href="sapPhatHanh.html">Sắp phát hành</a></li>
-                            <li><a class="dropdown-item" href="#">Sách giảm giá</a></li>
+                            <li><a class="dropdown-item" href="#">Sách bán chạy</a></li>
+                            <li><a class="dropdown-item" th:href="@{/book/getNewestBook}">Sách mới</a></li>
+                            <li><a class="dropdown-item" th:href="@{/book/getFavouriteBook}">Sách được yêu thích</a></li>
                         </ul>
                     </div>
-                    <button style="padding-top: 20px;"><a href="">Truyện Tranh-Comic</a></button>
+                    <div th:each="type : ${bookTypeList}">
+                        <a style="text-decoration: none; color: black; cursor: pointer;"
+                        onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <p th:text="'  '+${type.name}" style="padding-top: 20px;font-weight: normal;" class="h5"></p>
+                        </a>
+                        <hr>
+                    </div>
                     <br>
-                    <button style="padding-top: 20px;"><a href="">Văn học nước ngoài</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Sale cuối năm 2022</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Sách văn học</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Truyện tranh BL</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Sách kĩ năng sống</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Sách thiếu nhi</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Light Novel</a></button>
-                    <br>
-                    <button style="padding-top: 20px;"><a href="">Văn Phòng Phẩm - Quà Tặng</a></button>
-                    <br>
-                    <div class="dropdown" style="padding-top: 10px; width: fit-content;">
+                    <div class="dropdown" style="padding-top: 10px; width: fit-content;" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                         <a type="button" style=" background-color: white; color: black;border: white;"
-                            class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                            <strong style="color: black;">Công ty phát hành</strong>
+                            class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">Công ty phát hành</strong>
                         </a>
                         <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="#">IPM</a></li>
@@ -187,13 +177,19 @@
 
                                                         <div style="padding-top: 2%;">
                                                             <div class="input-group w-auto align-items-center" style="display: inline-flex;">
-                                                                <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 " data-field="quantity">
-                                                                <input type="text" step="1" max="10" value="1" name="quantity" class="quantity-field border-0 text-center" 
+                                                                <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 "
+                                                                    data-field="quantity">
+                                                                <input type="text" step="1" max="10" value="1" name="quantity"
+                                                                    class="quantity-field border-0 text-center"
                                                                     style="width: 45px;height: 50px;background-color: #333;color: white;">
-                                                                <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1" data-field="quantity">
-                                                             </div>
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-cart-shopping" style="font-size: 30px;color: #01a14b;">THÊM VÀO GIỎ</i>
+                                                                <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1"
+                                                                    data-field="quantity">
+                                                            </div>
+                                                            <a href="#" style="font-size: 25px;color:#01a14b;border: none;">
+                                                                <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
+                                                                    <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM VÀO GIỎ
+                                                                    </p>
+                                                                </i>
                                                             </a>
                                                         </div>
                                                     </div>
