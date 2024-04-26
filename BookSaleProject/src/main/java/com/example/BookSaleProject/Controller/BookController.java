@@ -21,17 +21,21 @@ import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
+import com.example.BookSaleProject.Model.Service.UserService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value = { "/book", ""})
+@RequestMapping(value = { "/book", "" })
 public class BookController {
 
     @Autowired
     private BookService bookService = new BookService();
     private BookTypeService bookTypeService = new BookTypeService();
     private RateService rateService = new RateService();
-    
+    private UserService userService = new UserService();
+
     static User user1 = new User();
     private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
     private ArrayList<Book> bookList = new ArrayList<>();
@@ -39,29 +43,29 @@ public class BookController {
     private ArrayList<BookType> bookTypeList = bookTypeService.getAll();
     private String title;
 
-    @GetMapping(value = "/index")   
-    public String index(Model model){
+    @GetMapping(value = "/index")
+    public String index(Model model) {
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
-        ArrayList<Book> newBookList  = new ArrayList<>();
+        ArrayList<Book> newBookList = new ArrayList<>();
         for (Book book : bookListAll) {
-            newBookList .add(book);
-            if (newBookList .size()==3) {
+            newBookList.add(book);
+            if (newBookList.size() == 3) {
                 break;
             }
         }
         for (Book book : newBookList) {
             bookRate.put(book, rateService.getScoreByIdBook(book));
         }
-        
+
         HashMap<Book, Double> bookRateList = new HashMap<Book, Double>();
-        
+
         for (Book book : bookListAll) {
             bookRateList.put(book, rateService.getScoreByIdBook(book));
         }
 
         HashMap<Book, Double> topRatedBooks = new HashMap<Book, Double>();
-        while (topRatedBooks.size()<3 && !bookRateList.isEmpty()) {
+        while (topRatedBooks.size() < 3 && !bookRateList.isEmpty()) {
             Book topBook = null;
             double maxRating = Double.MIN_VALUE;
             for (Map.Entry<Book, Double> entry : bookRateList.entrySet()) {
@@ -83,21 +87,33 @@ public class BookController {
     }
 
     @GetMapping(value = "/")
-    public String viewHomePage(Model model,User user){
+    public String viewHomePage(Model model, User user, HttpServletRequest request) {
         user1 = user;
+        if (request.getRequestURI().equals("/")) {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("userCookie".equals(cookie.getName())) {
+                        String userStr = cookie.getValue();
+                        user1 = userService.login(userStr);
+                    }
+                }
+            }
+        }
         return index(model);
     }
 
-    @GetMapping(value = { "/getBookList/{pageNum}"})
+    @GetMapping(value = { "/getBookList/{pageNum}" })
     public String getBookList(Model model, @PathVariable(name = "pageNum") String currentPage) {
         int numPages = (int) Math.ceil((double) bookList.size() / 12);
         int[] numPage = new int[numPages];
         for (int i = 0; i < numPages; i++) {
             numPage[i] = i + 1;
         }
+
         ArrayList<Book> bookListPage = new ArrayList<>();
-        for(int i=(Integer.parseInt(currentPage)-1)*12;i<Integer.parseInt(currentPage)*12;i++){
-            if(bookList.size()<=i )
+        for (int i = (Integer.parseInt(currentPage) - 1) * 12; i < Integer.parseInt(currentPage) * 12; i++) {
+            if (bookList.size() <= i)
                 break;
             bookListPage.add(bookList.get(i));
         }
@@ -105,10 +121,18 @@ public class BookController {
         for (Book book : bookListPage) {
             bookRate.put(book, rateService.getScoreByIdBook(book));
         }
+
+        ArrayList<String> nxbList = new ArrayList<>();
+        for (Book book : bookListAll) {
+            if (!nxbList.contains(book.getNxb())) {
+                nxbList.add(book.getNxb());
+            }
+        }
+        model.addAttribute("NxbList", nxbList);
         model.addAttribute("user", user1);
-        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
+        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("title", title);
         model.addAttribute("currentPage", Integer.parseInt(currentPage));
         model.addAttribute("Previous", Integer.parseInt(currentPage) - 1);
@@ -134,7 +158,6 @@ public class BookController {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
         model.addAttribute("user", user1);
-        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);
@@ -143,18 +166,18 @@ public class BookController {
     }
 
     @GetMapping(value = "/getNewestBook")
-    public String getNewestBook(Model Model){
+    public String getNewestBook(Model model) {
         bookList.clear();
         title = "SÁCH MỚI PHÁT HÀNH";
         for (Book book : bookListAll) {
-            if(Integer.parseInt(book.getDate())>=2010)
+            if (Integer.parseInt(book.getDate()) >= 2010)
                 bookList.add(book);
         }
-        return getBookList(Model,"1");
+        return getBookList(model, "1");
     }
 
     @GetMapping(value = "/getFavouriteBook")
-    public String getFavouriteBook(Model Model){
+    public String getFavouriteBook(Model model) {
         bookRate.clear();
         title = "SÁCH ĐƯỢC YÊU THÍCH";
         for (Book book : bookListAll) {
@@ -166,20 +189,33 @@ public class BookController {
                 bookList.add(entry.getKey());
             }
         }
-        return getBookList(Model,"1");
+        return getBookList(model, "1");
     }
 
     @GetMapping(value = "/getBookByType/{id}")
-    public String getBookByType(Model Model,@PathVariable(value = "id")String id){
+    public String getBookByType(Model model, @PathVariable(value = "id") String id) {
         bookList.clear();
         title = bookTypeService.getByID(Integer.parseInt(id)).getName();
         for (Book book : bookListAll) {
-            if (Integer.parseInt(id)==book.getBookType().getId()) {
+            if (Integer.parseInt(id) == book.getBookType().getId()) {
                 bookList.add(book);
             }
         }
-        return getBookList(Model,"1");
+        return getBookList(model, "1");
     }
+
+    @GetMapping(value = "/getBookByNxb/{nxb}")
+    public String getBookNxb(Model model,@PathVariable(value = "nxb") String nxb) {       
+        bookList.clear();
+        title = nxb;
+        for (Book book : bookListAll) {
+            if (nxb.equals(book.getNxb())) {
+                bookList.add(book);
+            }
+        }
+        return getBookList(model, "1");
+    }
+
     @PostMapping(value = { "/updateBook" })
     public String updateBook(Model model, @ModelAttribute("bookFinded") Book book) {
         bookService.update(book);

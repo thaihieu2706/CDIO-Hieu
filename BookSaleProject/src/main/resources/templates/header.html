@@ -65,9 +65,16 @@
                     <div class="col-sm-7 ">
                         <div class="row">
                             <div class="col-sm-6" style="text-align: left;">
-                                <a th:href="@{/}"
+                                <div th:if="${user.email != null}">
+                                    <a th:href="@{/user/}"
                                     style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
                                     <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
+                                </div>
+                                <div th:unless="${user.email != null}">
+                                    <a th:href="@{/}"
+                                    style="text-decoration: none; color: white;font-family: 'Courier New', Courier, monospace; font-size: xx-large;letter-spacing: 4px;">
+                                    <i class="fa-solid fa-book-open"></i>ONLINE BOOKSALE </a>
+                                </div>
                             </div>
                             <div class=" col-sm-6 " style="margin-top:10px ;">
                                 <div class="row" style="text-align: left;">
@@ -112,7 +119,8 @@
                             <div class="col">
                                 <div th:if="${user.email != null}">
                                     <div class="dropdown">
-                                        <a style="text-decoration: none; color: white; font-size: large;cursor: pointer;">
+                                        <a
+                                            style="text-decoration: none; color: white; font-size: large;cursor: pointer;">
                                             <i class="fa-solid fa-user">
                                                 <p th:text="'  '+${user.username}"
                                                     style="display: inline-flex;font-family:'Times New Roman', Times, serif;font-weight: lighter;">
@@ -139,19 +147,25 @@
 
                                 </div>
                                 <div th:unless="${user.email != null}">
-                                    <a th:href="@{/user}"
-                                        style="text-decoration: none; color: white; font-size: small;"
+                                    <a th:href="@{/user/}" style="text-decoration: none; color: white; font-size: small;"
                                         onmouseover=" this.style.textDecoration='underline'"
                                         onmouseout=" this.style.textDecoration='none'"> <i
                                             class="fa-solid fa-user"></i>LOGIN/SIGNUP</a>
                                 </div>
                             </div>
                             <div class="col">
-                                <a href="#" style="text-decoration: none; color: white; font-size: small;"
+                                <div th:if="${user.email != null}">
+                                    <a href="#" style="text-decoration: none; color: white; font-size: small;"
                                     onmouseover=" this.style.textDecoration='underline'"
                                     onmouseout=" this.style.textDecoration='none'"><i
-                                        class="fa-solid fa-cart-shopping"></i>GIỎ
-                                    HÀNG</a>
+                                        class="fa-solid fa-cart-shopping"></i>GIỎ HÀNG</a>
+                                </div>
+                                <div th:unless="${user.email != null}">
+                                    <a th:href="@{/user/}" style="text-decoration: none; color: white; font-size: small;"
+                                    onmouseover=" this.style.textDecoration='underline'"
+                                    onmouseout=" this.style.textDecoration='none'"><i
+                                        class="fa-solid fa-cart-shopping"></i>GIỎ HÀNG</a>
+                                </div>
                             </div>
                             <div class="col">
                                 <a href="#" onclick="showSearchBar()"

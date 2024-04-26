@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService = new UserService();
     private BookController bookController = new BookController();
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/")
     public String showLogin(Model model, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         User user = new User();
@@ -33,7 +33,7 @@ public class UserController {
                     String userStr = cookie.getValue();
                     user = userService.login(userStr);
                     model.addAttribute("user", user);
-                    return bookController.viewHomePage(model, user);
+                    return bookController.viewHomePage(model, user, request);
                 }
             }
         }
@@ -57,7 +57,7 @@ public class UserController {
             user = userService.login(user1.getEmail());
             cookie.setMaxAge(60 * 60);
             response.addCookie(cookie);
-            return bookController.viewHomePage(model,user);
+            return bookController.viewHomePage(model,user,request);
         } else {
             return showLogin(model, request);
         }
@@ -75,6 +75,6 @@ public class UserController {
                 }
             }
         }
-        return bookController.viewHomePage(model,new User());
+        return bookController.viewHomePage(model,new User(),request);
     }
 }

@@ -84,10 +84,9 @@
                             <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">Công ty phát hành</strong>
                         </a>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="#">IPM</a></li>
-                            <li><a class="dropdown-item" href="#">AZ Việt Nam</a></li>
-                            <li><a class="dropdown-item" href="#">Sky Book</a></li>
-                            <li><a class="dropdown-item" href="#">Kim Đồng</a></li>
+                            <li th:each="nxb: ${NxbList}">
+                                <a style="display: block" class="dropdown-item" th:href="@{/book/getBookByNxb/__${nxb}__}" th:text="${nxb}"></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
