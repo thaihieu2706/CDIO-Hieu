@@ -59,7 +59,7 @@ public class BookController {
         }
 
         HashMap<Book, Double> bookRateList = new HashMap<Book, Double>();
-
+        
         for (Book book : bookListAll) {
             bookRateList.put(book, rateService.getScoreByIdBook(book));
         }
@@ -128,6 +128,7 @@ public class BookController {
                 nxbList.add(book.getNxb());
             }
         }
+        model.addAttribute("BookListAll", nxbList);
         model.addAttribute("NxbList", nxbList);
         model.addAttribute("user", user1);
         model.addAttribute("BookRate", bookRate);

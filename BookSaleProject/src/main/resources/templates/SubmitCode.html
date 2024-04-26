@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<script th:inline="javascript">
+    var code = /*[[${code}]]*/ {};
+    var codeNumber = parseInt(code);
+    function checkCode() {
+        var text = document.getElementById("code").value;
+        console.log(text);
+        if (codeNumber === parseInt(text)) {
+            window.location.href = "/user/";
+        } else {
+            alert("Code sai");
+            document.getElementById("code").value = "";
+        }
+    }
+</script>
+
+<body>
+    <input type="text" name="code" id="code">
+    <button onclick="checkCode()">Submit</button>
+</body>
+</html>

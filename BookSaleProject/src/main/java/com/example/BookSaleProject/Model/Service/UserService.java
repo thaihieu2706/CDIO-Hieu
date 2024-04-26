@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import java.util.HashSet;
+
 
 import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Repository.UserRepository;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     ArrayList<User> userList = new ArrayList<>();
 
@@ -29,10 +33,10 @@ public class UserService implements IUserService{
     @Override
     public User getUserById(int id) {
         getAllUser();
-        for(User user:userList){
-            if(user.getId()==id)
+        for (User user : userList) {
+            if (user.getId() == id)
                 return userRepository.getUserById(id);
-            }
+        }
         return null;
     }
 
@@ -51,54 +55,66 @@ public class UserService implements IUserService{
         }
         return false;
     }
-    
-    public User login(String email){
+
+    public User login(String email) {
         getAllUser();
         for (User user : userList) {
-            if(user.getEmail().equals(email))
+            if (user.getEmail().equals(email))
                 return user;
         }
         return null;
     }
 
-    public boolean toLogin(User user){
+    public boolean toLogin(User user) {
         getAllUser();
         for (User user1 : userList) {
-            if(user1.getEmail().equals(user.getEmail()) && user1.getPassword().equals(user.getPassword()))
-            {
+            if (user1.getEmail().equals(user.getEmail()) && user1.getPassword().equals(user.getPassword())) {
                 return true;
             }
         }
         return false;
     }
 
-    private static final Predicate<String> EMAIL_VALIDATOR = email -> email.matches("^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
+    private static final Predicate<String> EMAIL_VALIDATOR = email -> email
+            .matches("^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
 
-    private static final Predicate<String> USERNAME_VALIDATOR = username -> username.matches("^[a-zA-Z0-9_]+$");
 
     private static final Predicate<String> PASSWORD_VALIDATOR = password -> password.length() >= 8;
 
     private static final Predicate<String> PHONE_VALIDATOR = phone -> phone.matches("^\\d{10}$");
 
-    // private static final Predicate<String> NATION_VALIDATOR = nation -> nation.matches("^[a-zA-Z]+$");
+    // private static final Predicate<String> NATION_VALIDATOR = nation ->
+    // nation.matches("^[a-zA-Z]+$");
 
     public ArrayList<String> getInvalidAttributes(User user) {
         ArrayList<String> invalidAttributes = new ArrayList<>();
-        if (!EMAIL_VALIDATOR.test(user.getEmail())) {
-            invalidAttributes.add("Email Error");
+        HashSet<User> setList = new HashSet<>();
+        setList.addAll(userList);
+        if(!setList.add(user)){
+            invalidAttributes.add("doublicate");
         }
-        if (!USERNAME_VALIDATOR.test(user.getUsername())) {
-            invalidAttributes.add("Username Error");
+        if (!EMAIL_VALIDATOR.test(user.getEmail())) {
+            invalidAttributes.add("email");
         }
         if (!PASSWORD_VALIDATOR.test(user.getPassword())) {
-            invalidAttributes.add("Password Error");
+            invalidAttributes.add("password");
         }
         if (!PHONE_VALIDATOR.test(user.getSdt())) {
-            invalidAttributes.add("Phone Error");
+            invalidAttributes.add("sdt");
         }
-        // if (!NATION_VALIDATOR.test(user.getNation())) {
-        //     invalidAttributes.add("Nation Error");
-        // }
         return invalidAttributes;
+    }
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendMail(String toEmail, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("vietnguyen0312@gmail.com");
+        message.setTo(toEmail);
+        message.setText(body);
+        message.setSubject(subject);
+        mailSender.send(message);
+        System.out.println("Mail Sent successfully....");
     }
 }
