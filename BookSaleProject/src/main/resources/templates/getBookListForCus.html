@@ -208,8 +208,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title" th:text="${book.key.name}"
-                                    style="font-size: larger;font-weight: bold;"></h4>
+                                <p class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></p>
                                 <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                                 <div>
                                     <button type="submit"

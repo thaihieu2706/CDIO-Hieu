@@ -1,6 +1,7 @@
 package com.example.BookSaleProject.Model.Service;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,5 +70,35 @@ public class UserService implements IUserService{
             }
         }
         return false;
+    }
+
+    private static final Predicate<String> EMAIL_VALIDATOR = email -> email.matches("^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
+
+    private static final Predicate<String> USERNAME_VALIDATOR = username -> username.matches("^[a-zA-Z0-9_]+$");
+
+    private static final Predicate<String> PASSWORD_VALIDATOR = password -> password.length() >= 8;
+
+    private static final Predicate<String> PHONE_VALIDATOR = phone -> phone.matches("^\\d{10}$");
+
+    // private static final Predicate<String> NATION_VALIDATOR = nation -> nation.matches("^[a-zA-Z]+$");
+
+    public ArrayList<String> getInvalidAttributes(User user) {
+        ArrayList<String> invalidAttributes = new ArrayList<>();
+        if (!EMAIL_VALIDATOR.test(user.getEmail())) {
+            invalidAttributes.add("Email Error");
+        }
+        if (!USERNAME_VALIDATOR.test(user.getUsername())) {
+            invalidAttributes.add("Username Error");
+        }
+        if (!PASSWORD_VALIDATOR.test(user.getPassword())) {
+            invalidAttributes.add("Password Error");
+        }
+        if (!PHONE_VALIDATOR.test(user.getSdt())) {
+            invalidAttributes.add("Phone Error");
+        }
+        // if (!NATION_VALIDATOR.test(user.getNation())) {
+        //     invalidAttributes.add("Nation Error");
+        // }
+        return invalidAttributes;
     }
 }
