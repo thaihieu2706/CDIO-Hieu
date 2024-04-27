@@ -81,7 +81,7 @@
 
 
                                     <div class="col-sm-6 dropdown">
-                                        <a style="text-decoration: none; color: white; font-size: small; cursor: pointer;"
+                                        <a th:href="@{/getAllBook}" style="text-decoration: none; color: white; font-size: small; cursor: pointer;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">
                                             <i class="fa-solid fa-list"></i>DANH MỤC SẢN PHẨM
@@ -117,14 +117,20 @@
                     <div class="col-sm-4" style="margin-top:10px;">
                         <div class="row">
                             <div class="col">
-                                <div th:if="${user.email != null}">
+                                <div th:if="${user.email==null}">
+                                    <a th:href="@{/user/}" style="text-decoration: none; color: white; font-size: small;"
+                                        onmouseover=" this.style.textDecoration='underline'"
+                                        onmouseout=" this.style.textDecoration='none'"> <i
+                                            class="fa-solid fa-user"></i>LOGIN/SIGNUP</a>
+                                </div>
+                                <div th:unless="${user.email==null}">
                                     <div class="dropdown">
                                         <a
                                             style="text-decoration: none; color: white; font-size: large;cursor: pointer;">
                                             <i class="fa-solid fa-user">
-                                                <p th:text="'  '+${user.username}"
+                                                <span th:text="'  '+${user.username}"
                                                     style="display: inline-flex;font-family:'Times New Roman', Times, serif;font-weight: lighter;">
-                                                </p>
+                                            </span>
                                             </i>
                                         </a>
                                         <div class="dropdown-content">
@@ -144,13 +150,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div th:unless="${user.email != null}">
-                                    <a th:href="@{/user/}" style="text-decoration: none; color: white; font-size: small;"
-                                        onmouseover=" this.style.textDecoration='underline'"
-                                        onmouseout=" this.style.textDecoration='none'"> <i
-                                            class="fa-solid fa-user"></i>LOGIN/SIGNUP</a>
                                 </div>
                             </div>
                             <div class="col">

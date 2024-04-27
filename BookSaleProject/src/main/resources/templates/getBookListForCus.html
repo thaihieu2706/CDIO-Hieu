@@ -35,12 +35,21 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <p th:text="${title}" class="h1" style="color: white;text-align: left;"></p>
-                <a th:href="@{/}"
-                    style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white;font-size: larger;display: inline;"
-                    onmouseover="this.style.textDecoration='underline'"
-                    onmouseout="this.style.color='white'; this.style.textDecoration='none'">
-                    Trang chủ
-                </a>
+                <div style="display: inline-flex;">
+                    <div th:if="${user.email != null}">
+                        <a th:href="@{/user/}"
+                            style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white;font-size: larger;display: inline;"
+                            onmouseover="this.style.textDecoration='underline'"
+                            onmouseout="this.style.color='white'; this.style.textDecoration='none'">Trang chủ</a>
+                    </div>
+                    <div th:unless="${user.email != null}">
+                        <a th:href="@{/}"
+                            style=" font-family: 'Courier New', Courier, monospace; text-decoration: none; color: white;font-size: larger;display: inline;"
+                            onmouseover="this.style.textDecoration='underline'"
+                            onmouseout="this.style.color='white'; this.style.textDecoration='none'">Trang chủ</a>
+                        </a>
+                    </div>
+                </div>
                 <p th:text="' / '+${title}" class="h5" style="color: white;display: inline;"></p>
             </div>
         </div>
@@ -52,40 +61,48 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-2">
             <div style="width: fit-content;">
-                <div>
+                <div onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                     <i class="fa-solid fa-list" style="font-size: 20px;"></i>
-                    <p style="display: inline;font-size: 20px; padding-bottom: 10px; ">DANH MỤC SẢN PHẨM</p>
+                    <a th:href="@{/getAllBook}" style="display: inline;font-size: 20px; padding-bottom: 10px; "
+                    >DANH MỤC SẢN PHẨM</a>
                 </div>
                 <div>
-                    <div class="dropdown" style="width: fit-content; padding-top: 7px;" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
-                        <a
-                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';"
+                    <div class="dropdown" style="padding-top: 10px; width: fit-content;"
+                        onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                        <a type="button" style=" background-color: white; color: black;border: white;"
+                            class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';"
+                                onmouseout="this.style.color='black';">Nhà xuất bản</strong>
+                        </a>
+                        <ul class="dropdown-content">
+                            <li th:each="nxb: ${NxbList}">
+                                <a style="display: block" class="dropdown-item"
+                                    th:href="@{/book/getBookByNxb/__${nxb}__}" th:text="${nxb}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div th:each="type : ${bookTypeList}">
+                        <a th:href="@{/book/getBookByType/__${type.id}__}"
+                            style="text-decoration: none; color: black; cursor: pointer;"
+                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <p th:text="'  '+${type.name}" style="padding-top: 20px;font-weight: lighter;" class="h5">
+                            </p>
+                        </a>
+                        <hr>
+                    </div>
+                    <div class="dropdown" style="width: fit-content; padding-top: 7px;"
+                        onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                        <a onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';"
                             style="width: fit-content; background-color: white; color: black;border: white; padding-top: 10px;"
                             class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">Nổi bật</strong>
+                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';"
+                                onmouseout="this.style.color='black';">Nổi bật</strong>
                         </a>
                         <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="#">Sách bán chạy</a></li>
                             <li><a class="dropdown-item" th:href="@{/book/getNewestBook}">Sách mới</a></li>
-                            <li><a class="dropdown-item" th:href="@{/book/getFavouriteBook}">Sách được yêu thích</a></li>
-                        </ul>
-                    </div>
-                    <div th:each="type : ${bookTypeList}">
-                        <a th:href="@{/book/getBookByType/__${type.id}__}" style="text-decoration: none; color: black; cursor: pointer;"
-                        onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
-                            <p th:text="'  '+${type.name}" style="padding-top: 20px;font-weight: lighter;" class="h5"></p>
-                        </a>
-                        <hr>
-                    </div>
-                    <br>
-                    <div class="dropdown" style="padding-top: 10px; width: fit-content;" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
-                        <a type="button" style=" background-color: white; color: black;border: white;"
-                            class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
-                            <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">Công ty phát hành</strong>
-                        </a>
-                        <ul class="dropdown-content">
-                            <li th:each="nxb: ${NxbList}">
-                                <a style="display: block" class="dropdown-item" th:href="@{/book/getBookByNxb/__${nxb}__}" th:text="${nxb}"></a>
+                            <li><a class="dropdown-item" th:href="@{/book/getFavouriteBook}">Sách được yêu thích</a>
                             </li>
                         </ul>
                     </div>
@@ -175,18 +192,26 @@
                                                         </div>
 
                                                         <div style="padding-top: 2%;">
-                                                            <div class="input-group w-auto align-items-center" style="display: inline-flex;">
-                                                                <input type="button" value="-" class="button-minus border  icon-shape icon-sm mx-1 "
+                                                            <div class="input-group w-auto align-items-center"
+                                                                style="display: inline-flex;">
+                                                                <input type="button" value="-"
+                                                                    class="button-minus border  icon-shape icon-sm mx-1 "
                                                                     data-field="quantity">
-                                                                <input type="text" step="1" max="10" value="1" name="quantity"
+                                                                <input type="text" step="1" max="10" value="1"
+                                                                    name="quantity"
                                                                     class="quantity-field border-0 text-center"
                                                                     style="width: 45px;height: 50px;background-color: #333;color: white;">
-                                                                <input type="button" value="+" class="button-plus border icon-shape icon-sm mx-1"
+                                                                <input type="button" value="+"
+                                                                    class="button-plus border icon-shape icon-sm mx-1"
                                                                     data-field="quantity">
                                                             </div>
-                                                            <a href="#" style="font-size: 25px;color:#01a14b;border: none;">
-                                                                <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
-                                                                    <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM VÀO GIỎ
+                                                            <a href="#"
+                                                                style="font-size: 25px;color:#01a14b;border: none;">
+                                                                <i class="fa-solid fa-cart-shopping"
+                                                                    style="font-weight: bolder;">
+                                                                    <p
+                                                                        style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                                                        THÊM VÀO GIỎ
                                                                     </p>
                                                                 </i>
                                                             </a>
@@ -208,7 +233,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></p>
+                                <p class="card-title" th:text="${book.key.name}"
+                                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                </p>
                                 <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                                 <div>
                                     <button type="submit"

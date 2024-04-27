@@ -21,9 +21,7 @@ import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
-import com.example.BookSaleProject.Model.Service.UserService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -34,7 +32,6 @@ public class BookController {
     private BookService bookService = new BookService();
     private BookTypeService bookTypeService = new BookTypeService();
     private RateService rateService = new RateService();
-    private UserService userService = new UserService();
 
     static User user1 = new User();
     private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
@@ -59,7 +56,7 @@ public class BookController {
         }
 
         HashMap<Book, Double> bookRateList = new HashMap<Book, Double>();
-        
+
         for (Book book : bookListAll) {
             bookRateList.put(book, rateService.getScoreByIdBook(book));
         }
@@ -87,19 +84,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/")
-    public String viewHomePage(Model model, User user, HttpServletRequest request) {
+    public String viewHomePage(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
         user1 = user;
-        if (request.getRequestURI().equals("/")) {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("userCookie".equals(cookie.getName())) {
-                        String userStr = cookie.getValue();
-                        user1 = userService.login(userStr);
-                    }
-                }
-            }
-        }
         return index(model);
     }
 
@@ -206,13 +192,23 @@ public class BookController {
     }
 
     @GetMapping(value = "/getBookByNxb/{nxb}")
-    public String getBookNxb(Model model,@PathVariable(value = "nxb") String nxb) {       
+    public String getBookNxb(Model model, @PathVariable(value = "nxb") String nxb) {
         bookList.clear();
         title = nxb;
         for (Book book : bookListAll) {
             if (nxb.equals(book.getNxb())) {
                 bookList.add(book);
             }
+        }
+        return getBookList(model, "1");
+    }
+
+    @GetMapping(value = "/getAllBook")
+    public String getAllBook(Model model) {
+        title = "Tất cả sản phẩm";
+        bookList.clear();
+        for (Book book : bookListAll) {
+            bookList.add(book);
         }
         return getBookList(model, "1");
     }
