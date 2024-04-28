@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.BookSaleProject.Model.Entity.Book;
 import com.example.BookSaleProject.Model.Entity.BookType;
-import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = { "/book", "" })
@@ -33,14 +31,13 @@ public class BookController {
     private BookTypeService bookTypeService = new BookTypeService();
     private RateService rateService = new RateService();
 
-    static User user1 = new User();
     private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
     private ArrayList<Book> bookList = new ArrayList<>();
     private ArrayList<Book> bookListAll = bookService.getAll();
     private ArrayList<BookType> bookTypeList = bookTypeService.getAll();
     private String title;
 
-    @GetMapping(value = "/index")
+    @GetMapping(value = "/")
     public String index(Model model) {
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
@@ -76,17 +73,10 @@ public class BookController {
                 bookRateList.remove(topBook);
             }
         }
-        model.addAttribute("user", user1);
         model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("newBookList", bookRate);
         model.addAttribute("favouriteBookList", topRatedBooks);
         return "index";
-    }
-
-    @GetMapping(value = "/")
-    public String viewHomePage(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
-        user1 = user;
-        return index(model);
     }
 
     @GetMapping(value = { "/getBookList/{pageNum}" })
@@ -116,7 +106,6 @@ public class BookController {
         }
         model.addAttribute("BookListAll", nxbList);
         model.addAttribute("NxbList", nxbList);
-        model.addAttribute("user", user1);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
         model.addAttribute("bookTypeList", bookTypeList);
@@ -145,7 +134,6 @@ public class BookController {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
         model.addAttribute("bookTypeList", bookTypeList);
-        model.addAttribute("user", user1);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);

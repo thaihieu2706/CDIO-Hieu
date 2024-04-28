@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
 </head>
-<script th:inline="javascript">
-    var code = /*[[${code}]]*/ {};
-    var codeNumber = parseInt(code);
-    function checkCode() {
-        var text = document.getElementById("code").value;
-        console.log(text);
-        if (codeNumber === parseInt(text)) {
-            window.location.href = "/user/";
-        } else {
-            alert("Code sai");
-            document.getElementById("code").value = "";
-        }
-    }
-</script>
 
 <body>
-    <input type="text" name="code" id="code">
-    <button onclick="checkCode()">Submit</button>
+    <script th:inline="javascript">
+        var code = /*[[${code}]]*/ {};
+        var codeNumber = parseInt(code);
+
+        window.onload = function() {
+            document.getElementById("submitBtn").disabled = true;
+        };
+
+        function checkCode() {
+            var text = document.getElementById("code").value;
+            if (text.length === 5) { // Kiểm tra xem đã nhập đủ 5 kí tự chưa
+                if (codeNumber === parseInt(text)) {
+                    document.getElementById("submitBtn").disabled = false; // Kích hoạt nút "Submit"
+                } else {
+                    alert("Code sai");
+                    document.getElementById("submitBtn").disabled = true; // Vô hiệu hóa nút "Submit"
+                }
+            } else {
+                document.getElementById("submitBtn").disabled = true;
+            }
+        }
+    </script>
+
+    <form th:action="@{/user/registerSucess}" th:object="${user}" th:method="post">
+        <input type="hidden" th:field="${user.email}">
+        <input type="hidden" th:field="${user.password}">
+        <input type="hidden" th:field="${user.username}">
+        <input type="hidden" th:field="${user.sdt}">
+        <input type="text" name="code" id="code" oninput="checkCode()"> <!-- Gọi hàm checkCode() khi có sự kiện input -->
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
 </body>
+
 </html>

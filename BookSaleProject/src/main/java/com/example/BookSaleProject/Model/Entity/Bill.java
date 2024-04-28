@@ -1,24 +1,23 @@
 package com.example.BookSaleProject.Model.Entity;
 
-import java.sql.Date;
 
 
 public class Bill {
     
+    
     @Override
     public String toString() {
-        return "Bill [id=" + id + ", cartProBox=" + cartProBox + ", date=" + date + "]";
+        return "Bill [id=" + id + ", idUser=" + idUser + "]";
+    }
+    public Bill(int id, int idUser) {
+        this.id = id;
+        this.idUser = idUser;
     }
     public Bill() {
     }
     private int id;
-    private CartProBox cartProBox;
-    private Date date;
-    public Bill(int id, CartProBox cartProBox, Date date) {
-        this.id = id;
-        this.cartProBox = cartProBox;
-        this.date = date;
-    }
+    private int idUser;
+    
     public int getId() {
         return id;
     }
@@ -26,18 +25,13 @@ public class Bill {
         this.id = id;
     }
     
-    public Date getDate() {
-        return date;
+    public int getIdUser() {
+        return idUser;
     }
-    public void setDate(Date date) {
-        this.date = date;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
-    public CartProBox getCartProBox() {
-        return cartProBox;
-    }
-    public void setCartProBox(CartProBox cartProBox) {
-        this.cartProBox = cartProBox;
-    }
+    
 
     
 }
