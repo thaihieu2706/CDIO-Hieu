@@ -144,6 +144,7 @@ public class BookController {
         for (Book book2 : bookListSame) {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
+        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("user", user1);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);

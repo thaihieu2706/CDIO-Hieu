@@ -64,7 +64,7 @@
                 <div onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                     <i class="fa-solid fa-list" style="font-size: 20px;"></i>
                     <a th:href="@{/getAllBook}" style="display: inline;font-size: 20px; padding-bottom: 10px; "
-                    >DANH MỤC SẢN PHẨM</a>
+                    >Danh Mục Sản Phẩm</a>
                 </div>
                 <div>
                     <div class="dropdown" style="padding-top: 10px; width: fit-content;"
@@ -154,38 +154,39 @@
                                                     <p class="h4" th:text="${book.key.price}+' đ'"
                                                         style="color: #01a14b;"> đ</p>
                                                     <div class="row">
-                                                        <div class="col-sm-2" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <strong style="min-width: 137px;">Tác giả</strong>
                                                         </div>
-                                                        <div class="col-sm-4" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <span th:text="${book.key.author}"
                                                                 style="padding-left: 30px;"></span>
                                                         </div>
 
-                                                        <div class="col-sm-2" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <strong style="min-width: 137px;">Số lượng</strong>
                                                         </div>
-                                                        <div class="col-sm-4" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <span th:text="${book.key.SL}"
                                                                 style="padding-left: 30px;"></span>
                                                         </div>
 
-                                                        <div class="col-sm-2" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Nhà xuất bản</strong>
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
+                                                            <strong style="min-width: 137px;">Nhà xuất
+                                                                bản</strong>
                                                         </div>
-                                                        <div class="col-sm-4" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <span th:text="${book.key.nxb}"
                                                                 style="padding-left: 30px;"></span>
                                                         </div>
 
-                                                        <div class="col-sm-2" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Năm xuất bản</strong>
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
+                                                            <strong style="min-width: 137px;">Năm xuất
+                                                                bản</strong>
                                                         </div>
-                                                        <div class="col-sm-4" style="padding-top: 20px;">
+                                                        <div class="col-sm-3" style="padding-top: 20px;">
                                                             <span th:text="${book.key.date}"
                                                                 style="padding-left: 30px;"></span>
                                                         </div>
-
                                                         <div style="padding-top: 40px;">
                                                             <strong style="min-width: 137px;">Nội dung:</strong>
                                                             <p th:text="${book.key.detail}"></p>
