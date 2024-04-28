@@ -33,6 +33,7 @@ public class UserController {
             for (Cookie cookie : cookies) {
                 if ("userCookie".equals(cookie.getName())) {
                     session.setAttribute("userEmail", cookie.getValue());
+                    session.setAttribute("userName", userService.getUserByEmail(cookie.getValue()).getUsername());
                     return bookController.index(model);
                 }
             }
@@ -57,11 +58,13 @@ public class UserController {
                 cookie.setMaxAge(60 * 60);
                 response.addCookie(cookie);
                 session.setAttribute("userEmail", user1.getEmail());
+                session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
                 return bookController.index(model);
             }
         } else if (!Boolean.TRUE.equals(rememberme)) {
             if (flag) {
                 session.setAttribute("userEmail", user1.getEmail());
+                session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
                 return bookController.index(model);
             }
         } else {
@@ -82,6 +85,7 @@ public class UserController {
                 }
             }
         }
+        session.removeAttribute("userName");
         session.removeAttribute("userEmail");
         return bookController.index(model);
     }
@@ -126,5 +130,10 @@ public class UserController {
     public String registerScuess(Model model, @ModelAttribute(name ="user") User user) {
         userService.addNew(user);
         return "login";
+    }
+
+    @GetMapping(value = "/userInfo")
+    public String userInfo(Model model){
+        return "UserInfo";
     }
 }

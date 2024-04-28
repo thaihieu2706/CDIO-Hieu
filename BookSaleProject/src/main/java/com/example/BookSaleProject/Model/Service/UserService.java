@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import java.util.HashSet;
 
 
 import com.example.BookSaleProject.Model.Entity.User;
@@ -56,7 +55,7 @@ public class UserService implements IUserService {
         return false;
     }
 
-    public User login(String email) {
+    public User getUserByEmail(String email) {
         getAllUser();
         for (User user : userList) {
             if (user.getEmail().equals(email))
@@ -83,14 +82,10 @@ public class UserService implements IUserService {
 
     private static final Predicate<String> PHONE_VALIDATOR = phone -> phone.matches("^\\d{10}$");
 
-    // private static final Predicate<String> NATION_VALIDATOR = nation ->
-    // nation.matches("^[a-zA-Z]+$");
 
     public ArrayList<String> getInvalidAttributes(User user) {
         ArrayList<String> invalidAttributes = new ArrayList<>();
-        HashSet<User> setList = new HashSet<>();
-        setList.addAll(userList);
-        if(!setList.add(user)){
+        if(getUserByEmail(user.getEmail())!=null){
             invalidAttributes.add("doublicate");
         }
         if (!EMAIL_VALIDATOR.test(user.getEmail())) {

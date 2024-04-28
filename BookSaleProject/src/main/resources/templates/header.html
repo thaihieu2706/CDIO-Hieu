@@ -123,7 +123,7 @@
                                         <a
                                             style="text-decoration: none; color: white; font-size: large;cursor: pointer;">
                                             <i class="fa-solid fa-user">
-                                                <p th:text="'  '+${session.userEmail}"
+                                                <p th:text="'  '+${session.userName}"
                                                     style="display: inline-flex;font-family:Arial, Helvetica, sans-serif;
                                                     font-weight: 80;overflow: hidden;text-overflow: ellipsis;max-width: 110px;font-size: medium;">
                                                 </p>
@@ -131,7 +131,7 @@
                                         </a>
                                         <div class="dropdown-content">
                                             <div>
-                                                <a href="#">
+                                                <a th:href="@{/user/userInfo}">
                                                     <p
                                                         style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;display: inline-flex;">
                                                         Tài khoản của tôi</p>
