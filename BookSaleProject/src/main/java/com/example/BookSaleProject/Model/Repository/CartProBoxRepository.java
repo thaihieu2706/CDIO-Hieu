@@ -94,11 +94,4 @@ public class CartProBoxRepository {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        CartProBoxRepository cartProBoxRepository = new CartProBoxRepository();
-        BookRepository bookRepository = new BookRepository();
-        CartRepository cartRepository = new CartRepository();
-        System.out.println(cartProBoxRepository.getAll());
-    }
 }

@@ -1,20 +1,26 @@
 package com.example.BookSaleProject.Model.Entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class BillProBox {
-    private int id;
-    private Bill bill;
-    private Book book;
-    private int SL;
-    private Date date;
-    public BillProBox(int id, Bill bill, Book book, int sL, Date date) {
+    public BillProBox(int id, Bill bill, Book book, int sL, LocalDateTime date) {
         this.id = id;
         this.bill = bill;
         this.book = book;
         SL = sL;
         this.date = date;
     }
+    @Override
+    public String toString() {
+        return "BillProBox [id=" + id + ", bill=" + bill + ", book=" + book + ", SL=" + SL + ", date=" + date + "]";
+    }
+
+    private int id;
+    private Bill bill;
+    private Book book;
+    private int SL;
+    private LocalDateTime date;
+
     public BillProBox() {
     }
     public int getId() {
@@ -41,15 +47,11 @@ public class BillProBox {
     public void setSL(int sL) {
         SL = sL;
     }
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-    @Override
-    public String toString() {
-        return "BillProBox [id=" + id + ", bill=" + bill + ", book=" + book + ", SL=" + SL + ", date=" + date + "]";
     }
 
 }
