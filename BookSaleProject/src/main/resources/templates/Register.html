@@ -14,32 +14,6 @@
   <title>Login</title>
 </head>
 
-<script th:inline="javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    var mess = /*[[${messages}]]*/ {};
-    if (mess !== null && Object.keys(mess).length !== 0) {
-      var messages = mess.split(" ");
-      messages.forEach(message => {
-        if (message === "email") {
-          document.getElementById("email").style.color = "red";
-        }
-        if (message === "duplicate") {
-          document.getElementById("email").style.placeholder = "Email đã tồn tại";
-        }
-        if (message === "sdt") {
-          document.getElementById("sdt").style.color = "red";
-        }
-        if (message === "errorpassword") {
-          document.getElementById("passAgain").style.placeholder = "Mật khẩu không trùng khớp";
-        }
-        if (message === "password") {
-          document.getElementById("password").style.color = "red";
-        }
-      });
-    }
-  });
-</script>
-
 
 
 <body>
@@ -51,7 +25,7 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-              <form th:action="@{/user/register}" th:method="post" th:object="${user}">
+              <form th:action="@{/user/register}" th:method="post" th:object="${user}" onsubmit="return validateForm()">
 
                 <div data-mdb-input-init class="form-outline mb-4">
                   <input type="email" id="email" class="form-control form-control-lg" th:field="*{email}" />
@@ -77,7 +51,50 @@
                   <input type="password" id="passAgain" class="form-control form-control-lg" name="passAgain" />
                   <label class="form-label" for="passAgain">Nhập lại mật khẩu</label>
                 </div>
+                <script th:inline="javascript">
+                  function validateForm() {
+                    var inputs = document.getElementsByTagName("input"); // Lấy tất cả các input trong form
+                    for (var i = 0; i < inputs.length; i++) {
+                      if (inputs[i].value.trim() === "") { // Kiểm tra xem mỗi input có giá trị rỗng không
+                        alert("Vui lòng điền đầy đủ thông tin.");
+                        return false; // Ngăn chặn form được gửi đi
+                      }
+                    }
+                    return true; // Cho phép form được gửi đi nếu tất cả các trường được điền đầy đủ
+                  }
+                  
+                  
 
+                    var mess = /*[[${messages}]]*/ {};
+
+                // Nếu có lỗi, hiển thị chúng
+                if (mess.trim() !== '') {
+                    var errorFields = mess.split(' ');
+                    errorFields.forEach(function (element) {
+                        console.log(element);
+                        if (element.includes("email") ) {
+                          document.getElementById("email").style.borderColor = "red";
+                        }
+                        if (element.includes("duplicate")) {
+                          document.getElementById("email").style.borderColor = "red";
+                          alert("Email đã tồn tại")
+                        }
+                        if (element.includes("sdt")) {
+                          document.getElementById("sdt").style.borderColor = "red";
+                        }
+                        if (element.includes("errorpassword")) {
+                          document.getElementById("passAgain").style.borderColor = "red";
+                        }
+                        if (element.includes("password")) {
+                          document.getElementById("password").style.borderColor = "red";
+                        }
+                    });
+                } else {
+                    // Nếu không có lỗi, gửi form đi
+                    event.target.submit();
+                }
+                  
+                </script>
                 <div class="d-flex justify-content-center">
                   <button type="submit" data-mdb-button-init data-mdb-ripple-init
                     class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>

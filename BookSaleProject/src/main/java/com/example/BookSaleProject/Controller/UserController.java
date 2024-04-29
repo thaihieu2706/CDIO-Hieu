@@ -116,7 +116,7 @@ public class UserController {
             } else {
                 String err = "";
                 for (String error : userService.getInvalidAttributes(user1)) {
-                    err = error + " ";
+                    err += error + " ";
                 }
                 return showRegist(model, err);
             }

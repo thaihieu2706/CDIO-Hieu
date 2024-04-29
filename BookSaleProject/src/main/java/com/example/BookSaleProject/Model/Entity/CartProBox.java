@@ -1,17 +1,20 @@
 package com.example.BookSaleProject.Model.Entity;
 
 public class CartProBox {
+    
     @Override
     public String toString() {
-        return "CartProBox [cart=" + cart + ", book=" + book + ", SL=" + SL + "]";
+        return "CartProBox [id=" + id + ", cart=" + cart + ", book=" + book + ", SL=" + SL + "]";
     }
-    public CartProBox(Cart cart, Book book, int sL) {
+    public CartProBox(int id, Cart cart, Book book, int sL) {
+        this.id = id;
         this.cart = cart;
         this.book = book;
         SL = sL;
     }
     public CartProBox() {
     }
+    int id;
     private Cart cart;
     private Book book;
     private int SL;
@@ -32,6 +35,12 @@ public class CartProBox {
     }
     public void setSL(int sL) {
         SL = sL;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

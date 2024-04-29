@@ -46,7 +46,7 @@ public class UserRepository {
             Class.forName(BaseConnection.nameClass);
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
-            PreparedStatement prsm = con.prepareStatement("Select * from BOOKSALE.BookType where id=?");
+            PreparedStatement prsm = con.prepareStatement("Select * from BOOKSALE.user where id=?");
             prsm.setInt(1, id );
             ResultSet resultSet = prsm.executeQuery();
             if(!resultSet.next()){
@@ -110,5 +110,8 @@ public class UserRepository {
         return false;
     }
 
-   
+   public static void main(String[] args) {
+        UserRepository userRepository = new UserRepository();
+        System.out.println(userRepository.getUserById(1));
+   }
 }

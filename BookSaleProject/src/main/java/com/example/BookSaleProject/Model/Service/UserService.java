@@ -1,6 +1,7 @@
 package com.example.BookSaleProject.Model.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,8 +86,10 @@ public class UserService implements IUserService {
 
     public ArrayList<String> getInvalidAttributes(User user) {
         ArrayList<String> invalidAttributes = new ArrayList<>();
-        if(getUserByEmail(user.getEmail())!=null){
-            invalidAttributes.add("doublicate");
+        HashSet<User> users = new HashSet<>();
+        users.addAll(getAllUser());
+        if(!users.add(user)){
+            invalidAttributes.add("duplicate");
         }
         if (!EMAIL_VALIDATOR.test(user.getEmail())) {
             invalidAttributes.add("email");
