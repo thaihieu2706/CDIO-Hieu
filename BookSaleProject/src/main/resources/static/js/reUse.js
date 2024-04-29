@@ -16,3 +16,4 @@ function cancelBar() {
         all.style.display = "block"
     }
 }
+

@@ -21,8 +21,12 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
   <script th:src="@{/js/reUse.js}"></script>
   <link rel="stylesheet" type="text/css" th:href="@{/css/spinButton.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
   <script th:src="@{/js/spinButton.js}"></script>
   <title>Document</title>
+
+
 </head>
 
 
@@ -52,7 +56,7 @@
       </button>
     </div>
   </div>
-  
+
   <div style="padding-top: 40px;">
     <p class="h2" style="font-weight: bolder;text-align: center;">SÁCH MỚI</p>
     <div class="row" style="padding-top: 20px;">
@@ -62,7 +66,7 @@
           <div th:each="book , status : ${newBookList}" class="col-sm-4" style="padding-top: 20px;">
             <form th:action="@{/book/getBookById}" th:method="get">
               <input type="hidden" th:value="${book.key.id}" name="id">
-              <div class="card" style="width:300px;">
+              <div class="card" style="width:300px;" id="myCard">
                 <button type="button" data-bs-toggle="modal" th:data-bs-target="|#newBookModal${status.index}|">
                   <div style="height: 400px; overflow: hidden;">
                     <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
@@ -70,7 +74,7 @@
                   </div>
                 </button>
 
-                <div class="modal" th:id="|newBookModal${status.index}|">
+                <div class="modal fade" th:id="|newBookModal${status.index}|">
                   <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="row">
@@ -97,37 +101,33 @@
                             <div class="row">
                               <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Tác giả</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.author}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.author}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Số lượng</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.SL}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.SL}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Nhà xuất
-                                    bản</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.nxb}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                                  bản</strong>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.nxb}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Năm xuất
-                                    bản</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.date}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                                  bản</strong>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.date}" style="padding-left: 30px;"></span>
+                              </div>
 
                               <div style="padding-top: 40px;">
                                 <strong style="min-width: 137px;">Nội dung:</strong>
@@ -170,7 +170,9 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <p class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></p>
+                  <p class="card-title" th:text="${book.key.name}"
+                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                  </p>
                   <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                   <div>
                     <button type="submit"
@@ -212,7 +214,7 @@
                   </div>
                 </button>
 
-                <div class="modal" th:id="|favouriteBookModal${status.index}|">
+                <div class="modal fade" th:id="|favouriteBookModal${status.index}|">
                   <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="row">
@@ -239,37 +241,33 @@
                             <div class="row">
                               <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Tác giả</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.author}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.author}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Số lượng</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.SL}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.SL}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Nhà xuất
-                                    bản</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.nxb}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                                  bản</strong>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.nxb}" style="padding-left: 30px;"></span>
+                              </div>
 
-                            <div class="col-sm-3" style="padding-top: 20px;">
+                              <div class="col-sm-3" style="padding-top: 20px;">
                                 <strong style="min-width: 137px;">Năm xuất
-                                    bản</strong>
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 20px;">
-                                <span th:text="${book.key.date}"
-                                    style="padding-left: 30px;"></span>
-                            </div>
+                                  bản</strong>
+                              </div>
+                              <div class="col-sm-3" style="padding-top: 20px;">
+                                <span th:text="${book.key.date}" style="padding-left: 30px;"></span>
+                              </div>
 
                               <div style="padding-top: 40px;">
                                 <strong style="min-width: 137px;">Nội dung:</strong>
@@ -312,7 +310,9 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <p class="card-title" th:text="${book.key.name}" style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></p>
+                  <p class="card-title" th:text="${book.key.name}"
+                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                  </p>
                   <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                   <div>
                     <button type="submit"

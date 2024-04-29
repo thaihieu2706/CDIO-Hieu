@@ -81,14 +81,14 @@ public class BookController {
 
     @GetMapping(value = { "/getBookList/{pageNum}" })
     public String getBookList(Model model, @PathVariable(name = "pageNum") String currentPage) {
-        int numPages = (int) Math.ceil((double) bookList.size() / 12);
+        int numPages = (int) Math.ceil((double) bookList.size() / 9);
         int[] numPage = new int[numPages];
         for (int i = 0; i < numPages; i++) {
             numPage[i] = i + 1;
         }
 
         ArrayList<Book> bookListPage = new ArrayList<>();
-        for (int i = (Integer.parseInt(currentPage) - 1) * 12; i < Integer.parseInt(currentPage) * 12; i++) {
+        for (int i = (Integer.parseInt(currentPage) - 1) * 9; i < Integer.parseInt(currentPage) * 9; i++) {
             if (bookList.size() <= i)
                 break;
             bookListPage.add(bookList.get(i));

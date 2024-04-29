@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
     <script th:src="@{/js/reUse.js}"></script>
+
+    </style>
 </head>
 
 <body>
@@ -74,13 +76,17 @@
 
 
                                     <div class="col-sm-6 dropdown">
-                                        <a th:href="@{/getAllBook}"
-                                            style="text-decoration: none; color: white; font-size: small; cursor: pointer;"
+                                        <a
+                                            style="text-decoration: none; color: white; font-size: small;"
                                             onmouseover=" this.style.textDecoration='underline'"
                                             onmouseout=" this.style.textDecoration='none'">
                                             <i class="fa-solid fa-list"></i>DANH MỤC SẢN PHẨM
                                         </a>
                                         <div class="dropdown-content">
+                                            <a th:href="@{/getAllBook}">
+                                                <p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;display: inline-flex;color: #01a14b;font-weight: bolder;">
+                                                    Tất cả sản phẩm</p>
+                                            </a>
                                             <div th:each="type : ${bookTypeList}">
                                                 <a th:href="@{/book/getBookByType/__${type.id}__}">
                                                     <i class="fa-solid fa-book-open-reader">
