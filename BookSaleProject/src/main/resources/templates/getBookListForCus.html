@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/spinButton.css}">
     <script th:src="@{/js/spinButton.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/Directory.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Animation.css}">
     <title>Mua bán sách</title>
 
 </head>
@@ -78,16 +80,17 @@
                         class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                         onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                         <strong style="color: black;" class="h5" onmouseover="this.style.color='#01a14b';"
-                            onmouseout="this.style.color='black';" >Nhà xuất bản</strong>
+                            onmouseout="this.style.color='black';">Nhà xuất bản</strong>
                     </a>
                     <ul class="dropdown-content" style="max-height: 500px;overflow-y: auto;">
                         <li th:each="nxb: ${NxbList}">
                             <a style="display: block" class="dropdown-item" th:href="@{/book/getBookByNxb/__${nxb}__}"
-                                th:text="${nxb}" data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-right"></a>
+                                th:text="${nxb}" data-mdb-toggle="animation" data-mdb-animation-reset="true"
+                                data-mdb-animation="slide-right"></a>
                         </li>
                     </ul>
                 </div>
-                <div th:each="type : ${bookTypeList}">
+                <div th:each="type : ${session.bookTypeList}">
                     <a th:href="@{/book/getBookByType/__${type.id}__}"
                         style="text-decoration: none; color: black; cursor: pointer;"
                         onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
@@ -105,22 +108,24 @@
                 <div th:each="book, status : ${BookRate}" class="col-sm-4" style="padding-top: 20px; ">
                     <form th:action="@{/book/getBookById}" th:method="get">
                         <input type="hidden" th:value="${book.key.id}" name="id">
-                        <div class="card" style="width:300px;" data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-right">
+                        <div class="card" style="width:300px;" data-mdb-toggle="animation"
+                            data-mdb-animation-reset="true" data-mdb-animation="slide-right">
 
                             <button type="button" data-bs-toggle="modal"
                                 th:data-bs-target="|#bookModal${status.index}|">
                                 <div style="height: 400px; overflow: hidden;">
-                                    <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                                    <img class="card-img-top img-fluid" th:src="@{'/images/'+${book.key.img}}"
                                         style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                             </button>
 
-                            <div class="modal fade" th:id="|bookModal${status.index}|" >
-                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+                            <div class="modal fade" th:id="|bookModal${status.index}|">
+                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+                                    role="document">
                                     <div class="modal-content">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <img th:src="@{'/images/'+${book.key.img}}" ,
+                                                <img th:src="@{'/images/'+${book.key.img}}"
                                                     style="background-size: cover;background-position: center;width: 100%;height: 100%;">
                                             </div>
                                             <div class="col-sm-8">
@@ -237,9 +242,13 @@
                                     <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;"></p>
                                     <i class="fa-solid fa-star"
                                         style="color: #FF9529;display: inline;font-size: larger;"></i>
-                                    <a href="#" style="display: inline; padding-right: 0px;float: right;">
-                                        <i class="fa-solid fa-cart-shopping" style="font-size: x-large;"></i>
-                                    </a>
+                                    <div class="add_to_cart">
+                                        <a href="#"
+                                            style="display: inline; padding-right: 0px;float: right;">
+                                            <input type="hidden" name="SL" value="1">
+                                            <i class="fa-solid fa-cart-shopping" style="font-size: x-large;"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -265,6 +274,7 @@
     <footer th:insert="~{footer :: footer}"></footer>
 
     <script th:src="@{/js/Directory.js}"></script>
+    <script th:src="@{/js/Animation.js}"></script>
 </body>
 
 </html>

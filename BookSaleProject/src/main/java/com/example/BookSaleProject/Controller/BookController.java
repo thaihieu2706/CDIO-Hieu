@@ -21,6 +21,8 @@ import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping(value = { "/book", "" })
@@ -38,7 +40,7 @@ public class BookController {
     private String title;
 
     @GetMapping(value = "/")
-    public String index(Model model) {
+    public String index(Model model,HttpSession session) {
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
         ArrayList<Book> newBookList = new ArrayList<>();
@@ -73,7 +75,7 @@ public class BookController {
                 bookRateList.remove(topBook);
             }
         }
-        model.addAttribute("bookTypeList", bookTypeList);
+        session.setAttribute("bookTypeList", bookTypeList);
         model.addAttribute("newBookList", bookRate);
         model.addAttribute("favouriteBookList", topRatedBooks);
         return "index";
@@ -108,7 +110,6 @@ public class BookController {
         model.addAttribute("NxbList", nxbList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
-        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("title", title);
         model.addAttribute("currentPage", Integer.parseInt(currentPage));
         model.addAttribute("Previous", Integer.parseInt(currentPage) - 1);
@@ -133,7 +134,6 @@ public class BookController {
         for (Book book2 : bookListSame) {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
-        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);

@@ -34,7 +34,7 @@ public class UserController {
                 if ("userCookie".equals(cookie.getName())) {
                     session.setAttribute("userEmail", cookie.getValue());
                     session.setAttribute("userName", userService.getUserByEmail(cookie.getValue()).getUsername());
-                    return bookController.index(model);
+                    return bookController.index(model,session);
                 }
             }
         }
@@ -59,13 +59,13 @@ public class UserController {
                 response.addCookie(cookie);
                 session.setAttribute("userEmail", user1.getEmail());
                 session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
-                return bookController.index(model);
+                return bookController.index(model,session);
             }
         } else if (!Boolean.TRUE.equals(rememberme)) {
             if (flag) {
                 session.setAttribute("userEmail", user1.getEmail());
                 session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
-                return bookController.index(model);
+                return bookController.index(model,session);
             }
         } else {
             return showLogin(model, request, session);
@@ -87,7 +87,7 @@ public class UserController {
         }
         session.removeAttribute("userName");
         session.removeAttribute("userEmail");
-        return bookController.index(model);
+        return bookController.index(model,session);
     }
 
     @GetMapping(value = "/showRegist")

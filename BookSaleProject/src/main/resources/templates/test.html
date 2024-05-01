@@ -1,47 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Liên kết đến tệp CSS của Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Liên kết đến thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/BookSaleProject/src/main/resources/static/css/Modal.css">
+    <title>Document</title>
 </head>
 
+<style>
+    /* CSS cho các phần tử trên trang web */
+    .img-fluid {
+        width: 100%;
+    }
+
+    header {
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 20px;
+    }
+
+    .product {
+        margin-bottom: 2em;
+    }
+
+    .product .image {
+        position: relative;
+    }
+
+    .product .add_to_cart {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        font-size: 2em;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        opacity: 0;
+    }
+
+    .product .add_to_cart:hover {
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 1;
+    }
+
+    .product .add_to_cart:active {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: rgba(255, 255, 255, 0.8);
+    }
+</style>
+
 <body>
-    <div id="modal-container">
-        <div class="modal-background">
-            <div class="modal">
-                <h2>I'm a Modal</h2>
-                <p>Hear me roar.</p>
-                <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
-                    preserveAspectRatio="none">
-                    <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
-                </svg>
+    <!-- Header của trang web -->
+    <header>
+        <nav class="navbar navbar-light">
+            <div class="navbar-brand title">
+                <div>Brand</div>
             </div>
-        </div>
-    </div>
-    <div class="content">
-        <h1>Modal Animations</h1>
-        <div class="buttons">
-            <div id="animation" class="button">Revealing</div>
+            <ul class="navbar-nav panier">
+                <li class="nav-item">
+                    <a class="nav-link" id="panier" href="javascript:void(0)">
+                        <i class="fa fa-shopping-cart mr-1"></i>
+                        <span>Cart</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Phần chứa danh sách sản phẩm -->
+    <div class="container">
+        <h1 class="header">Products</h1>
+        <hr>
+        <div class="row">
+            <!-- Sản phẩm 1 -->
+            <div class="col-sm-4">
+                <div class="product">
+                    <div class="image">
+                        <!-- Hình ảnh sản phẩm -->
+                        <img class="img-fluid" src="https://picsum.photos/400?random&1" alt="Product 1">
+                        <!-- Nút thêm vào giỏ hàng -->
+                        <div class="add_to_cart">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                    <!-- Tên sản phẩm -->
+                    <div>Product 1</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        $('.button').click(function(){
-  var buttonId = $(this).attr('id');
-  $('#modal-container').removeAttr('class').addClass(buttonId);
-  $('body').addClass('modal-active');
-})
-
-$('#modal-container').click(function(){
-  $(this).addClass('out');
-  $('body').removeClass('modal-active');
-});
-
+        // JavaScript cho chức năng thêm sản phẩm vào giỏ hàng
+        
     </script>
-
 </body>
 
 </html>
