@@ -136,8 +136,8 @@ public class UserController {
     @PostMapping(value = "/registerSucess")
     public String registerScuess(Model model, @ModelAttribute(name = "user") User user) {
         userService.addNew(user);
-        cartService.addNew(new Cart(0, user));
-        billService.addNew(new Bill(0, user));
+        cartService.addNew(new Cart(0, userService.getUserByEmail(user.getEmail())));
+        billService.addNew(new Bill(0,  userService.getUserByEmail(user.getEmail())));
         model.addAttribute("Message", "Đăng kí thành công");
         return "login";
     }
