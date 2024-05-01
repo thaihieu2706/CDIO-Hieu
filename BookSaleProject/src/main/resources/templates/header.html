@@ -87,7 +87,7 @@
                                                     style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;display: inline-flex;color: #01a14b;font-weight: bolder;">
                                                     Tất cả sản phẩm</p>
                                             </a>
-                                            <div th:each="type : ${session.bookTypeList}">
+                                            <div th:each="type : ${bookTypeList}">
                                                 <a th:href="@{/book/getBookByType/__${type.id}__}">
                                                     <i class="fa-solid fa-book-open-reader">
                                                         <p th:text="'  '+${type.name}"
@@ -159,14 +159,14 @@
                                     <a th:href="@{/cart/viewCart}"
                                         style="text-decoration: none; color: white; font-size: small;"
                                         onmouseover=" this.style.textDecoration='underline'"
-                                        onmouseout=" this.style.textDecoration='none'"><i
+                                        onmouseout=" this.style.textDecoration='none'" id="panier" href="javascript:void(0)"><i
                                             class="fa-solid fa-cart-shopping"></i>GIỎ HÀNG</a>
                                 </div>
                                 <div th:unless="${session.userEmail!= null}">
                                     <a th:href="@{/user/}"
                                         style="text-decoration: none; color: white; font-size: small;"
                                         onmouseover=" this.style.textDecoration='underline'"
-                                        onmouseout=" this.style.textDecoration='none'" id="panier"><i
+                                        onmouseout=" this.style.textDecoration='none'"><i
                                             class="fa-solid fa-cart-shopping"></i>GIỎ HÀNG</a>
                                 </div>
                             </div>

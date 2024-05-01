@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.BookSaleProject.Model.Entity.Book;
 import com.example.BookSaleProject.Model.Entity.BookType;
@@ -21,26 +20,23 @@ import com.example.BookSaleProject.Model.Service.BookService;
 import com.example.BookSaleProject.Model.Service.BookTypeService;
 import com.example.BookSaleProject.Model.Service.RateService;
 
-import jakarta.servlet.http.HttpSession;
-
-
 @Controller
 @RequestMapping(value = { "/book", "" })
 public class BookController {
 
     @Autowired
-    private BookService bookService = new BookService();
-    private BookTypeService bookTypeService = new BookTypeService();
-    private RateService rateService = new RateService();
+    BookService bookService = new BookService();
+    BookTypeService bookTypeService = new BookTypeService();
+    RateService rateService = new RateService();
 
-    private HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
-    private ArrayList<Book> bookList = new ArrayList<>();
-    private ArrayList<Book> bookListAll = bookService.getAll();
-    private ArrayList<BookType> bookTypeList = bookTypeService.getAll();
-    private String title;
+    HashMap<Book, Double> bookRate = new HashMap<Book, Double>();
+    ArrayList<Book> bookList = new ArrayList<>();
+    ArrayList<Book> bookListAll = bookService.getAll();
+    ArrayList<BookType> bookTypeList = bookTypeService.getAll();
+    String title;
 
     @GetMapping(value = "/")
-    public String index(Model model,HttpSession session) {
+    public String index(Model model) {
         bookRate.clear();
         bookListAll.sort(Comparator.comparing(Book::getDate).reversed());
         ArrayList<Book> newBookList = new ArrayList<>();
@@ -75,14 +71,14 @@ public class BookController {
                 bookRateList.remove(topBook);
             }
         }
-        session.setAttribute("bookTypeList", bookTypeList);
+        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("newBookList", bookRate);
         model.addAttribute("favouriteBookList", topRatedBooks);
         return "index";
     }
 
     @GetMapping(value = { "/getBookList/{pageNum}" })
-    public String getBookList(Model model, @PathVariable(name = "pageNum") String currentPage) {
+    public String getBookList(Model model, @PathVariable(value = "pageNum") String currentPage) {
         int numPages = (int) Math.ceil((double) bookList.size() / 9);
         int[] numPage = new int[numPages];
         for (int i = 0; i < numPages; i++) {
@@ -107,6 +103,7 @@ public class BookController {
             }
         }
         model.addAttribute("BookListAll", nxbList);
+        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("NxbList", nxbList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("NumOfPage", numPage);
@@ -117,8 +114,8 @@ public class BookController {
         return "GetBookListForCus";
     }
 
-    @GetMapping(value = { "/getBookById" })
-    public String getBookById(Model model, @RequestParam(name = "id") String id) {
+    @GetMapping(value = { "/getBookById/{id}" })
+    public String getBookById(Model model, @PathVariable(value = "id")String id) {
         Book book = bookService.getByID(Integer.parseInt(id));
         BookType bookType = book.getBookType();
         ArrayList<Book> bookListSame = new ArrayList<>();
@@ -135,6 +132,7 @@ public class BookController {
             bookRate.put(book2, rateService.getScoreByIdBook(book2));
         }
         model.addAttribute("rate", rateService.getScoreByIdBook(book));
+        model.addAttribute("bookTypeList", bookTypeList);
         model.addAttribute("BookRate", bookRate);
         model.addAttribute("booktype", bookType);
         model.addAttribute("book", book);

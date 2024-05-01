@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Random;
+
+import com.example.BookSaleProject.Model.Entity.Bill;
+import com.example.BookSaleProject.Model.Entity.Cart;
 import com.example.BookSaleProject.Model.Entity.User;
+import com.example.BookSaleProject.Model.Service.BillService;
+import com.example.BookSaleProject.Model.Service.CartService;
 import com.example.BookSaleProject.Model.Service.UserService;
 
 import jakarta.servlet.http.Cookie;
@@ -22,8 +27,10 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private UserService userService = new UserService();
-    private BookController bookController = new BookController();
+    UserService userService = new UserService();
+    BookController bookController = new BookController();
+    BillService billService = new BillService();
+    CartService cartService = new CartService();
 
     @GetMapping(value = "/")
     public String showLogin(Model model, HttpServletRequest request, HttpSession session) {
@@ -34,7 +41,7 @@ public class UserController {
                 if ("userCookie".equals(cookie.getName())) {
                     session.setAttribute("userEmail", cookie.getValue());
                     session.setAttribute("userName", userService.getUserByEmail(cookie.getValue()).getUsername());
-                    return bookController.index(model,session);
+                    return bookController.index(model);
                 }
             }
         }
@@ -59,13 +66,13 @@ public class UserController {
                 response.addCookie(cookie);
                 session.setAttribute("userEmail", user1.getEmail());
                 session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
-                return bookController.index(model,session);
+                return bookController.index(model);
             }
         } else if (!Boolean.TRUE.equals(rememberme)) {
             if (flag) {
                 session.setAttribute("userEmail", user1.getEmail());
                 session.setAttribute("userName", userService.getUserByEmail(user1.getEmail()).getUsername());
-                return bookController.index(model,session);
+                return bookController.index(model);
             }
         } else {
             return showLogin(model, request, session);
@@ -87,7 +94,7 @@ public class UserController {
         }
         session.removeAttribute("userName");
         session.removeAttribute("userEmail");
-        return bookController.index(model,session);
+        return bookController.index(model);
     }
 
     @GetMapping(value = "/showRegist")
@@ -127,13 +134,16 @@ public class UserController {
     }
 
     @PostMapping(value = "/registerSucess")
-    public String registerScuess(Model model, @ModelAttribute(name ="user") User user) {
+    public String registerScuess(Model model, @ModelAttribute(name = "user") User user) {
         userService.addNew(user);
+        cartService.addNew(new Cart(0, user));
+        billService.addNew(new Bill(0, user));
+        model.addAttribute("Message", "Đăng kí thành công");
         return "login";
     }
 
     @GetMapping(value = "/userInfo")
-    public String userInfo(Model model){
+    public String userInfo(Model model) {
         return "UserInfo";
     }
 }

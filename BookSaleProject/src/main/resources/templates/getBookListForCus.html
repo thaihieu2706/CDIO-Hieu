@@ -18,12 +18,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
-    <script th:src="@{/js/reUse.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/spinButton.css}">
-    <script th:src="@{/js/spinButton.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/Directory.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/Animation.css}">
     <title>Mua bán sách</title>
 
 </head>
@@ -59,8 +56,6 @@
         </div>
 
     </div>
-
-
     <div class="row" style="padding-top: 20px;">
         <div class="col-sm-1"></div>
         <div class="col-sm-2">
@@ -90,7 +85,7 @@
                         </li>
                     </ul>
                 </div>
-                <div th:each="type : ${session.bookTypeList}">
+                <div th:each="type : ${bookTypeList}">
                     <a th:href="@{/book/getBookByType/__${type.id}__}"
                         style="text-decoration: none; color: black; cursor: pointer;"
                         onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
@@ -100,159 +95,184 @@
                     <hr>
                 </div>
             </div>
-            <!-- Giải thuật duyệt và render Danh sách sản phẩm theo dòng, cột của Bootstrap -->
         </div>
         <div class="col-md-9">
             <p class="h3" th:text="${title}" style="padding: 0 0 20px 0;"></p>
             <div class="row">
                 <div th:each="book, status : ${BookRate}" class="col-sm-4" style="padding-top: 20px; ">
-                    <form th:action="@{/book/getBookById}" th:method="get">
-                        <input type="hidden" th:value="${book.key.id}" name="id">
-                        <div class="card" style="width:300px;" data-mdb-toggle="animation"
-                            data-mdb-animation-reset="true" data-mdb-animation="slide-right">
+                    <div class="card" style="width:300px;" data-mdb-toggle="animation" data-mdb-animation-reset="true"
+                        data-mdb-animation="slide-right">
+                        <button type="button" data-bs-toggle="modal" th:data-bs-target="|#bookModal${status.index}|">
+                            <div style="height: 400px; overflow: hidden;">
+                                <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </button>
+                        <div class="modal fade" th:id="|bookModal${status.index}|">
+                            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+                                role="document">
+                                <div class="modal-content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <img th:src="@{'/images/'+${book.key.img}}"
+                                                style="background-size: cover;background-position: center;width: 100%;height: 100%;">
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <p class="modal-title" th:text="${book.key.name}"
+                                                    style="font-weight: bold;font-size: xx-large;"></p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    style="font-size: larger;font-weight: bold;"></button>
 
-                            <button type="button" data-bs-toggle="modal"
-                                th:data-bs-target="|#bookModal${status.index}|">
-                                <div style="height: 400px; overflow: hidden;">
-                                    <img class="card-img-top img-fluid" th:src="@{'/images/'+${book.key.img}}"
-                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                            </button>
-
-                            <div class="modal fade" th:id="|bookModal${status.index}|">
-                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
-                                    role="document">
-                                    <div class="modal-content">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img th:src="@{'/images/'+${book.key.img}}"
-                                                    style="background-size: cover;background-position: center;width: 100%;height: 100%;">
                                             </div>
-                                            <div class="col-sm-8">
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <p class="modal-title" th:text="${book.key.name}"
-                                                        style="font-weight: bold;font-size: xx-large;"></p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        style="font-size: larger;font-weight: bold;"></button>
-
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <div style="display: flex;justify-content: left;">
+                                                    <p class="h5" th:text="${book.value}"
+                                                        style="display: inline;color:#FF9529 ;"></p>
+                                                    <i class="fa-solid fa-star"
+                                                        style="color: #FF9529;display: inline;font-size: larger;"></i>
                                                 </div>
-                                                <!-- Modal body -->
-                                                <div class="modal-body">
-                                                    <div style="display: flex;justify-content: left;">
-                                                        <p class="h5" th:text="${book.value}"
-                                                            style="display: inline;color:#FF9529 ;"></p>
-                                                        <i class="fa-solid fa-star"
-                                                            style="color: #FF9529;display: inline;font-size: larger;"></i>
+                                                <p class="h4" th:text="${book.key.price}+' đ'" style="color: #01a14b;">
+                                                    đ</p>
+                                                <div class="row">
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <strong style="min-width: 137px;">Tác giả</strong>
                                                     </div>
-                                                    <p class="h4" th:text="${book.key.price}+' đ'"
-                                                        style="color: #01a14b;"> đ</p>
-                                                    <div class="row">
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Tác giả</strong>
-                                                        </div>
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <span th:text="${book.key.author}"
-                                                                style="padding-left: 30px;"></span>
-                                                        </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <span th:text="${book.key.author}"
+                                                            style="padding-left: 30px;"></span>
+                                                    </div>
 
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Số lượng</strong>
-                                                        </div>
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <span th:text="${book.key.SL}"
-                                                                style="padding-left: 30px;"></span>
-                                                        </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <strong style="min-width: 137px;">Số lượng</strong>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <span th:text="${book.key.SL}"
+                                                            style="padding-left: 30px;"></span>
+                                                    </div>
 
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Nhà xuất
-                                                                bản</strong>
-                                                        </div>
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <span th:text="${book.key.nxb}"
-                                                                style="padding-left: 30px;"></span>
-                                                        </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <strong style="min-width: 137px;">Nhà xuất
+                                                            bản</strong>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <span th:text="${book.key.nxb}"
+                                                            style="padding-left: 30px;"></span>
+                                                    </div>
 
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <strong style="min-width: 137px;">Năm xuất
-                                                                bản</strong>
-                                                        </div>
-                                                        <div class="col-sm-3" style="padding-top: 20px;">
-                                                            <span th:text="${book.key.date}"
-                                                                style="padding-left: 30px;"></span>
-                                                        </div>
-                                                        <div style="padding-top: 40px;">
-                                                            <strong style="min-width: 137px;">Nội dung:</strong>
-                                                            <p th:text="${book.key.detail}"></p>
-                                                        </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <strong style="min-width: 137px;">Năm xuất
+                                                            bản</strong>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-top: 20px;">
+                                                        <span th:text="${book.key.date}"
+                                                            style="padding-left: 30px;"></span>
+                                                    </div>
+                                                    <div style="padding-top: 40px;">
+                                                        <strong style="min-width: 137px;">Nội dung:</strong>
+                                                        <p th:text="${book.key.detail}"></p>
+                                                    </div>
 
+                                                    <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
                                                         <div style="padding-top: 2%;">
                                                             <div class="input-group w-auto align-items-center"
                                                                 style="display: inline-flex;">
                                                                 <input type="button" value="-"
                                                                     class="button-minus border  icon-shape icon-sm mx-1 "
-                                                                    data-field="quantity">
-                                                                <input type="text" step="1" max="10" value="1"
-                                                                    name="quantity"
+                                                                    data-field="SL">
+                                                                <input type="text" value="1" name="SL"
                                                                     class="quantity-field border-0 text-center"
                                                                     style="width: 45px;height: 50px;background-color: #333;color: white;">
                                                                 <input type="button" value="+"
                                                                     class="button-plus border icon-shape icon-sm mx-1"
-                                                                    data-field="quantity">
+                                                                    data-field="SL">
                                                             </div>
-                                                            <a href="#"
-                                                                style="font-size: 25px;color:#01a14b;border: none;">
-                                                                <i class="fa-solid fa-cart-shopping"
-                                                                    style="font-weight: bolder;">
-                                                                    <p
-                                                                        style="display: inline-flex;font-family:'Times New Roman', Times, serif">
-                                                                        THÊM VÀO GIỎ
-                                                                    </p>
-                                                                </i>
-                                                            </a>
+                                                            <div style="display: inline-flex;">
+                                                                <div th:if="${session.userEmail==null}">
+                                                                    <a th:href="@{/user/}"
+                                                                        style="font-size: 25px;color:#01a14b;border: none;">
+                                                                        <i class="fa-solid fa-cart-shopping"
+                                                                            style="font-weight: bolder;">
+                                                                            <p
+                                                                                style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                                                                THÊM VÀO GIỎ HÀNG
+                                                                            </p>
+                                                                        </i>
+                                                                    </a>
+                                                                </div>
+                                                                <div th:unless="${session.userEmail==null}">
+                                                                    <button type="submit"
+                                                                        style="font-size: 25px;color:#01a14b;border: none;">
+                                                                        <i class="fa-solid fa-cart-shopping"
+                                                                            style="font-weight: bolder;">
+                                                                            <p
+                                                                                style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                                                                THÊM VÀO GIỎ HÀNG
+                                                                            </p>
+                                                                        </i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
+                                            </div>
 
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <div>
-                                                        <button type="submit"
-                                                            style="border: none; background-color: white; font-weight: bolder;font-size: x-large;">Xem
-                                                            thêm</button>
-                                                    </div>
-                                                </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <a th:href="@{/book/getBookById/__${book.key.id}__}"
+                                                    style="border: none; background-color: white; font-weight: bolder;font-size: x-large;"
+                                                    onmouseover="this.style.color='#01a14b';"
+                                                    onmouseout="this.style.color='black';">Xem thêm</a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-title" th:text="${book.key.name}"
-                                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                </p>
-                                <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
-                                <div>
-                                    <button type="submit"
-                                        style="border: none; background-color: white; font-weight: bolder;display: inline;">Xem
-                                        thông tin
-                                    </button>
-                                </div>
-                                <div>
-                                    <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;"></p>
-                                    <i class="fa-solid fa-star"
-                                        style="color: #FF9529;display: inline;font-size: larger;"></i>
-                                    <div class="add_to_cart">
-                                        <a href="#"
-                                            style="display: inline; padding-right: 0px;float: right;">
-                                            <input type="hidden" name="SL" value="1">
-                                            <i class="fa-solid fa-cart-shopping" style="font-size: x-large;"></i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="card-body">
+                            <a th:href="@{/book/getBookById/__${book.key.id}__}">
+                                <p class="card-title" th:text="${book.key.name}"
+                                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                    onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                                </p>
+                            </a>
+                            <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div>
+                                        <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;">
+                                        </p>
+                                        <i class="fa-solid fa-star"
+                                            style="color: #FF9529;display: inline;font-size: larger;"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div th:if="${session.userEmail==null}">
+                                        <a th:href="@{/user/}" style="padding-right: 0px;float: right;"
+                                            onmouseover="this.style.color='#01a14b';"
+                                            onmouseout="this.style.color='black';">
+                                            <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></a>
+                                    </div>
+                                    <div th:unless="${session.userEmail==null}">
+                                        <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
+                                            <input type="hidden" name="SL" value="1">
+                                            <button type="submit" style="padding-right: 0px;float: right;"
+                                                onmouseover="this.style.color='#01a14b';"
+                                                onmouseout="this.style.color='black';">
+                                                <i class="fa-solid fa-cart-shopping"
+                                                    style="font-size:x-large;"></i></button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,7 +294,8 @@
     <footer th:insert="~{footer :: footer}"></footer>
 
     <script th:src="@{/js/Directory.js}"></script>
-    <script th:src="@{/js/Animation.js}"></script>
+    <script th:src="@{/js/reUse.js}"></script>
+    <script th:src="@{/js/spinButton.js}"></script>s
 </body>
 
 </html>
