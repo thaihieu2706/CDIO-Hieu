@@ -32,7 +32,8 @@ public class BillRepository {
                 int id = resultSet.getInt("id");
                 User user = userRepository.getUserById(resultSet.getInt("idUser"));
                 LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-                Bill bill = new Bill(id, user, localDateTime);
+                String status = resultSet.getString("status");
+                Bill bill = new Bill(id, user, localDateTime,status);
                 bills.add(bill);
             }
             con.close();
@@ -55,7 +56,8 @@ public class BillRepository {
             }
             User user = userRepository.getUserById(resultSet.getInt("idUser"));
             LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-            Bill bill = new Bill(id, user, localDateTime);
+            String status = resultSet.getString("status");
+            Bill bill = new Bill(id, user, localDateTime,status);
             con.close();
             return bill;
         } catch (Exception e) {
@@ -77,7 +79,8 @@ public class BillRepository {
             }
             int id = resultSet.getInt("id");
             LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-            Bill bill = new Bill(id, user, localDateTime);
+            String status = resultSet.getString("status");
+            Bill bill = new Bill(id, user, localDateTime, status);
             con.close();
             return bill;
         } catch (Exception e) {
@@ -91,9 +94,10 @@ public class BillRepository {
             Class.forName(BaseConnection.nameClass);
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
-            PreparedStatement prsm = con.prepareStatement("Insert into BOOKSALE.bill (idUser,Date) values (?,?)");
+            PreparedStatement prsm = con.prepareStatement("Insert into BOOKSALE.bill (idUser,Date,status) values (?,?,?)");
             prsm.setInt(1,bill.getUser().getId());
             prsm.setString(2, bill.getDate().withNano(0).toString());
+            prsm.setString(3, bill.getStatus());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
@@ -102,5 +106,4 @@ public class BillRepository {
         }
         return false;
     }
-    
 }

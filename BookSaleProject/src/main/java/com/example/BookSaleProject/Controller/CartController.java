@@ -46,19 +46,7 @@ public class CartController {
         for (CartProBox cartProBox : cartProBoxAll) {
             int userIdFromSession = userService.getUserByEmail(session.getAttribute("userEmail").toString()).getId();
             if (cartProBox.getCart().getUser().getId() == userIdFromSession) {
-                int bookId = cartProBox.getBook().getId();
-                boolean bookExists = false;
-                for (CartProBox existingCartProBox : cartProBoxs) {
-                    if (existingCartProBox.getBook().getId() == bookId) {
-                        // Tăng số lượng lên nếu sách đã tồn tại trong cartProBoxs
-                        existingCartProBox.setSL(existingCartProBox.getSL() + cartProBox.getSL());
-                        bookExists = true;
-                        break;
-                    }
-                }
-                if (!bookExists) {
-                    cartProBoxs.add(cartProBox);
-                }
+                cartProBoxs.add(cartProBox);
             }
         }
         for (CartProBox cartProBox : cartProBoxs) {
@@ -82,7 +70,8 @@ public class CartController {
     }
 
     @PostMapping(value = "/update/{id}")
-    public String updateBook(Model model, HttpServletRequest request, @PathVariable(value = "id") String id, @RequestParam(name = "quantity")String SL){
+    public String updateBook(Model model, HttpServletRequest request, @PathVariable(value = "id") String id,
+            @RequestParam(name = "quantity") String SL) {
         for (CartProBox cartProBox : cartProBoxs) {
             if (cartProBox.getId() == Integer.parseInt(id)) {
                 cartProBox.setSL(Integer.parseInt(SL));
@@ -94,7 +83,8 @@ public class CartController {
     }
 
     @PostMapping(value = "/add/{id}")
-    public String addBook(Model model, @PathVariable(value = "id") String id, HttpServletRequest request, @RequestParam(name = "SL")String SL) {
+    public String addBook(Model model, @PathVariable(value = "id") String id, HttpServletRequest request,
+            @RequestParam(name = "SL") String SL) {
         int idBook = Integer.parseInt(id);
         for (CartProBox cartProBox : cartProBoxs) {
             if (cartProBox.getBook().getId() == idBook) {
@@ -105,7 +95,8 @@ public class CartController {
         }
         HttpSession session = request.getSession();
         User userSession = userService.getUserByEmail(session.getAttribute("userEmail").toString());
-        CartProBox cartProBox = new CartProBox(0, cartService.getByIdUser(userSession), bookService.getByID(idBook), Integer.parseInt(SL));
+        CartProBox cartProBox = new CartProBox(0, cartService.getByIdUser(userSession), bookService.getByID(idBook),
+                Integer.parseInt(SL));
         cartProBoxs.add(cartProBox);
         cartProBoxService.addNew(cartProBox);
         return viewCart(model, request);
