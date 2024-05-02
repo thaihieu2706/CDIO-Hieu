@@ -100,7 +100,7 @@ public class CartController {
             if (cartProBox.getBook().getId() == idBook) {
                 cartProBox.setSL(cartProBox.getSL() + Integer.parseInt(SL));
                 cartProBoxService.update(cartProBox);
-                return "redirect:/";
+                return viewCart(model, request);
             }
         }
         HttpSession session = request.getSession();
@@ -108,6 +108,6 @@ public class CartController {
         CartProBox cartProBox = new CartProBox(0, cartService.getByIdUser(userSession), bookService.getByID(idBook), Integer.parseInt(SL));
         cartProBoxs.add(cartProBox);
         cartProBoxService.addNew(cartProBox);
-        return "redirect:/";
+        return viewCart(model, request);
     }
 }

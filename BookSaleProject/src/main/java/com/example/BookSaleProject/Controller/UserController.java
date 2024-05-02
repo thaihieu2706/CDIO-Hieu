@@ -31,6 +31,7 @@ public class UserController {
     BillService billService = new BillService();
     CartService cartService = new CartService();
 
+
     @GetMapping(value = "/")
     public String showLogin(Model model, HttpServletRequest request, HttpSession session) {
         Cookie[] cookies = request.getCookies();
@@ -38,8 +39,9 @@ public class UserController {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("userCookie".equals(cookie.getName())) {
-                    session.setAttribute("userEmail", cookie.getValue());
-                    session.setAttribute("userName", userService.getUserByEmail(cookie.getValue()).getUsername());
+                    String userStr = cookie.getValue();
+                    session.setAttribute("userEmail", userStr);
+                    session.setAttribute("userName", userService.getUserByEmail(userStr).getUsername());
                     return "redirect:/";
                 }
             }
@@ -133,10 +135,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/registerSucess")
-    public String registerScuess(Model model, @ModelAttribute(name = "user") User user) {
+    public String registerSucess(Model model, @ModelAttribute(name = "user") User user) {
         userService.addNew(user);
         cartService.addNew(new Cart(0, userService.getUserByEmail(user.getEmail())));
-        billService.addNew(new Bill(0,  userService.getUserByEmail(user.getEmail())));
+        billService.addNew(new Bill(0, userService.getUserByEmail(user.getEmail())));
         model.addAttribute("Message", "Đăng kí thành công");
         return "login";
     }
