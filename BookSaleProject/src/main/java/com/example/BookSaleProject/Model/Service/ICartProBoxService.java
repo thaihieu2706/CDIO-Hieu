@@ -9,4 +9,5 @@ public interface ICartProBoxService {
     public boolean delete(int id);
     public boolean update(CartProBox cartProBox);
     public boolean addNew(CartProBox cartProBox);
+    public CartProBox getById(int id);
 }

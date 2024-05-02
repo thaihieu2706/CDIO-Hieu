@@ -48,4 +48,14 @@ public class CartProBoxService implements ICartProBoxService {
         }
         return false;
     }
+
+    @Override
+    public CartProBox getById(int id) {
+        getAll();
+        for (CartProBox cartProBox : cartProBoxs) {
+            if (cartProBox.getId() == id)
+                return cartProBoxRepository.getById(id);
+        }
+        return null;
+    }
 }
