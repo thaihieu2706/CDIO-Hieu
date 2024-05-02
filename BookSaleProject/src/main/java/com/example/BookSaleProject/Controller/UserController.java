@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Random;
 
-import com.example.BookSaleProject.Model.Entity.Bill;
 import com.example.BookSaleProject.Model.Entity.Cart;
 import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Service.BillService;
@@ -138,7 +137,6 @@ public class UserController {
     public String registerSucess(Model model, @ModelAttribute(name = "user") User user) {
         userService.addNew(user);
         cartService.addNew(new Cart(0, userService.getUserByEmail(user.getEmail())));
-        billService.addNew(new Bill(0, userService.getUserByEmail(user.getEmail())));
         model.addAttribute("Message", "Đăng kí thành công");
         return "login";
     }

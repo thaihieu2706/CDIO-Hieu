@@ -5,61 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông báo</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">>
 </head>
 
 <body>
 
-    <div id="notification" class="notification">
-        <span class="close" onclick="closeNotification()">&times;</span>
-        <p>This is a notification message.</p>
-    </div>
-
-    <button onclick="showNotification()">Hiển thị thông báo</button>
-
-    <script src="script.js"></script>
-
-    <script>
-        function toggleCheckboxes(source) {
-            var checkboxes = document.getElementsByName('checkBoxNoLabel');
-
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].addEventListener('change', function () {
-                    // Lưu trạng thái của checkbox vào Local Storage
-                    localStorage.setItem(this.id, this.checked);
-                });
-
-                // Khôi phục trạng thái của checkbox từ Local Storage khi trang tải lại
-                var savedValue = localStorage.getItem(checkboxes[i].id);
-                if (savedValue !== null) {
-                    checkboxes[i].checked = savedValue === 'true';
-                }
-            }
-
-            // Tính toán lại tổng số tiền khi checkbox được thay đổi
-            calculateOrderTotal();
-        }
-
-        function calculateOrderTotal() {
-            var checkboxes = document.getElementsByName('checkBoxNoLabel');
-            var orderTotal = 0;
-
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    var price = parseFloat(checkboxes[i].parentNode.parentNode.querySelector('.price').innerText);
-                    orderTotal += price;
-                }
-            }
-
-            var orderTotalElement = document.querySelector('.order-total');
-            if (orderTotalElement) {
-                orderTotalElement.innerText = orderTotal + 'đ';
-            }
-        }
-
-        // Gọi hàm toggleCheckboxes khi tải lại trang
-        window.onload = toggleCheckboxes;
-    </script>
+    <i class="material-icons">cặc</i>
 
 </body>
 

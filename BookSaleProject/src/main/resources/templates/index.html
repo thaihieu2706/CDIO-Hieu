@@ -23,7 +23,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script>
   <script th:src="@{/js/spinButton.js}"></script>
-  <title>Document</title>
 </head>
 
 <body>
@@ -79,7 +78,7 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                           <p class="modal-title" th:text="${book.key.name}"
-                            style="font-weight: bold;font-size: xx-large;"></p>
+                            style="font-size: xx-large;"></p>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"
                             style="font-size: larger;font-weight: bold;"></button>
 
@@ -179,7 +178,7 @@
               <div class="card-body">
                 <a th:href="@{/book/getBookById/__${book.key.id}__}">
                   <p class="card-title" th:text="${book.key.name}"
-                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                    style="font-size: larger;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                     onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                   </p>
                 </a>
@@ -247,7 +246,7 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                           <p class="modal-title" th:text="${book.key.name}"
-                            style="font-weight: bold;font-size: xx-large;"></p>
+                            style="font-size: xx-large;"></p>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"
                             style="font-size: larger;font-weight: bold;"></button>
 
@@ -345,7 +344,7 @@
               <div class="card-body">
                 <a th:href="@{/book/getBookById/__${book.key.id}__}">
                   <p class="card-title" th:text="${book.key.name}"
-                    style="font-size: larger;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                    style="font-size: larger;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                     onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                   </p>
                 </a>

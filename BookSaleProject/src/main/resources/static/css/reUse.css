@@ -62,5 +62,9 @@ iframe {
     transform: none;
 }
 
-
+.modal-title,
+.card-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
 

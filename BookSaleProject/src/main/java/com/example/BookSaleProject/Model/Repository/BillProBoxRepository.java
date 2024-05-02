@@ -1,8 +1,6 @@
 package com.example.BookSaleProject.Model.Repository;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import com.example.BookSaleProject.Model.Entity.CartProBox;
 @Repository
 public class BillProBoxRepository {
     ArrayList<BillProBox> billProBoxs = new ArrayList<>();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
 
     @Autowired
     BillRepository billRepository = new BillRepository();
@@ -34,8 +32,7 @@ public class BillProBoxRepository {
                 int id = resultSet.getInt("id");
                 Bill bill = billRepository.getById(resultSet.getInt("idBill"));
                 CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
-                LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-                BillProBox billProBox = new BillProBox(id, bill, cartProBox, localDateTime);
+                BillProBox billProBox = new BillProBox(id, bill, cartProBox);
                 billProBoxs.add(billProBox);
             }
             con.close();
@@ -51,10 +48,9 @@ public class BillProBoxRepository {
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
             PreparedStatement prsm = con
-                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idCartProBox,Date) values (?,?,?)");
+                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idCartProBox) values (?,?)");
             prsm.setInt(1, billProBox.getBill().getId());
             prsm.setInt(2, billProBox.getCartProBox().getId());
-            prsm.setString(3, billProBox.getDate().withNano(0).toString());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
@@ -78,8 +74,7 @@ public class BillProBoxRepository {
             }
             Bill bill = billRepository.getById(resultSet.getInt("idBill"));
             CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
-            LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-            BillProBox billProBox = new BillProBox(id, bill, cartProBox, localDateTime);
+            BillProBox billProBox = new BillProBox(id, bill, cartProBox);
             con.close();
             return billProBox;
         } catch (Exception e) {

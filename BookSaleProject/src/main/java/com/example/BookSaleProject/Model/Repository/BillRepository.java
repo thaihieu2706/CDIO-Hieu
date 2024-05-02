@@ -1,6 +1,8 @@
 package com.example.BookSaleProject.Model.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.example.BookSaleProject.Model.Entity.User;
 @Repository
 public class BillRepository {
     ArrayList<Bill> bills = new ArrayList<>();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     
     @Autowired
     UserRepository userRepository = new UserRepository();
@@ -28,7 +31,8 @@ public class BillRepository {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 User user = userRepository.getUserById(resultSet.getInt("idUser"));
-                Bill bill = new Bill(id, user);
+                LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
+                Bill bill = new Bill(id, user, localDateTime);
                 bills.add(bill);
             }
             con.close();
@@ -50,7 +54,8 @@ public class BillRepository {
                 throw new IllegalArgumentException("Cannot Find");
             }
             User user = userRepository.getUserById(resultSet.getInt("idUser"));
-            Bill bill = new Bill(id, user);
+            LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
+            Bill bill = new Bill(id, user, localDateTime);
             con.close();
             return bill;
         } catch (Exception e) {
@@ -71,7 +76,8 @@ public class BillRepository {
                 throw new IllegalArgumentException("Cannot Find");
             }
             int id = resultSet.getInt("id");
-            Bill bill = new Bill(id, user);
+            LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
+            Bill bill = new Bill(id, user, localDateTime);
             con.close();
             return bill;
         } catch (Exception e) {
@@ -85,8 +91,9 @@ public class BillRepository {
             Class.forName(BaseConnection.nameClass);
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
-            PreparedStatement prsm = con.prepareStatement("Insert into BOOKSALE.bill (idUser) values (?)");
+            PreparedStatement prsm = con.prepareStatement("Insert into BOOKSALE.bill (idUser,Date) values (?,?)");
             prsm.setInt(1,bill.getUser().getId());
+            prsm.setString(2, bill.getDate().withNano(0).toString());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
