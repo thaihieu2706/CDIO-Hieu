@@ -2,6 +2,7 @@ package com.example.BookSaleProject.Controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,18 +38,32 @@ public class BillController {
     BookTypeService bookTypeService = new BookTypeService();
 
     ArrayList<BillProBox> billProBoxs = new ArrayList<>();
+    HashMap<BillProBox,Double> biHashMap = new HashMap<>();
     
     @GetMapping(value = "/viewPayment")
-    public String viewPayment(Model model, @RequestParam(name = "selectedIds")String ids, HttpServletRequest request){
+    public String viewPayment(Model model, @RequestParam(value = "selectedIds")String ids, HttpServletRequest request){
+        
         String idCartPro[] = ids.split(",");
+        System.out.println(idCartPro.toString());
         HttpSession session = request.getSession();
+        User user =  userService.getUserByEmail(session.getAttribute("userEmail").toString());
+        Bill bill = new Bill(0, user, LocalDateTime.now().withNano(0), "chưa thanh toán");
+        // billService.addNew(bill);
         for (String id : idCartPro) {
-            User user =  userService.getUserByEmail(session.getAttribute("userEmail").toString());
-            Bill bill = new Bill(0, user, LocalDateTime.now(), "Đã thanh toán");
             CartProBox cartProBox = cartProBoxService.getById(Integer.parseInt(id));
             BillProBox billProBox = new BillProBox(0, bill, cartProBox);
-            billProBoxService.addNew(billProBox);
+            billProBoxs.add(billProBox);
+            // billProBoxService.addNew(billProBox);
         }
+        double total = 0;
+        for (BillProBox billProBox : billProBoxs) {
+            total += billProBox.getCartProBox().getSL()*billProBox.getCartProBox().getBook().getPrice();
+            biHashMap.put(billProBox, billProBox.getCartProBox().getSL()*billProBox.getCartProBox().getBook().getPrice());
+        }
+        model.addAttribute("total", total);
+        model.addAttribute("bill", bill);
+        model.addAttribute("bookTypeList", bookTypeService.getAll());
+        model.addAttribute("billProBoxs", biHashMap);
         return "Payment";
     }
 

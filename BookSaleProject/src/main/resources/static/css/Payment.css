@@ -1,0 +1,132 @@
+
+.title {
+    margin-bottom: 7.5vh; /* Làm rộng gấp 1.5 lần */
+}
+
+.card {
+    margin: auto;
+    max-width: 1425px; /* Làm rộng gấp 1.5 lần */
+    width: 90%;
+    box-shadow: 0 9px 30px 0 rgba(0, 0, 0, 0.19); /* Làm rộng gấp 1.5 lần */
+    border-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+    border: transparent;
+}
+
+
+
+.cart {
+    background-color: #fff;
+    padding: 6vh 7.5vh; /* Làm rộng gấp 1.5 lần */
+    border-bottom-left-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+    border-top-left-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+}
+
+.card:hover{
+    transform: none;
+}
+
+
+
+.summary {
+    background-color: #ddd;
+    border-top-right-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+    border-bottom-right-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+    padding: 6vh; /* Làm rộng gấp 1.5 lần */
+    color: rgb(65, 65, 65);
+}
+
+@media(max-width:767px) {
+    .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1.5rem; /* Làm rộng gấp 1.5 lần */
+    }
+}
+
+.summary .col-2 {
+    padding: 0;
+}
+
+.summary .col-10 {
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+.title b {
+    font-size: 2.25rem; /* Làm rộng gấp 1.5 lần */
+}
+
+.main {
+    margin: 0;
+    padding: 3vh 0; /* Làm rộng gấp 1.5 lần */
+    width: 100%;
+}
+
+.col-2,
+.col {
+    padding: 0 1.5vh; /* Làm rộng gấp 1.5 lần */
+}
+
+a {
+    padding: 0 1.5vh; /* Làm rộng gấp 1.5 lần */
+}
+
+.close {
+    margin-left: auto;
+    font-size: 1.05rem; /* Làm rộng gấp 1.5 lần */
+}
+
+img {
+    width: 5.25rem; /* Làm rộng gấp 1.5 lần */
+}
+
+.back-to-shop {
+    margin-top: 6.75rem; /* Làm rộng gấp 1.5 lần */
+}
+
+h5 {
+    margin-top: 6vh; /* Làm rộng gấp 1.5 lần */
+}
+
+hr {
+    margin-top: 1.875rem; /* Làm rộng gấp 1.5 lần */
+}
+
+form {
+    padding: 3vh 0; /* Làm rộng gấp 1.5 lần */
+}
+
+select {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 2.25vh 1.5vh; /* Làm rộng gấp 1.5 lần */
+    margin-bottom: 6vh; /* Làm rộng gấp 1.5 lần */
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+.btn {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 1.05rem; /* Làm rộng gấp 1.5 lần */
+    margin-top: 6vh; /* Làm rộng gấp 1.5 lần */
+    padding: 1.5vh; /* Làm rộng gấp 1.5 lần */
+    border-radius: 0;
+}
+
+.btn:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+
+.btn:hover {
+    color: white;
+}
