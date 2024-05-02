@@ -11,15 +11,16 @@ import org.springframework.stereotype.Repository;
 import com.example.BookSaleProject.Model.BaseConnection;
 import com.example.BookSaleProject.Model.Entity.Bill;
 import com.example.BookSaleProject.Model.Entity.BillProBox;
-import com.example.BookSaleProject.Model.Entity.Book;
+import com.example.BookSaleProject.Model.Entity.CartProBox;
 
 @Repository
 public class BillProBoxRepository {
     ArrayList<BillProBox> billProBoxs = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
     @Autowired
     BillRepository billRepository = new BillRepository();
-    BookRepository bookRepository = new BookRepository();
+    CartProBoxRepository cartProBoxRepository = new CartProBoxRepository();
 
     public ArrayList<BillProBox> getAll() {
         try {
@@ -32,10 +33,9 @@ public class BillProBoxRepository {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 Bill bill = billRepository.getById(resultSet.getInt("idBill"));
-                Book book = bookRepository.getByID(resultSet.getInt("idBook"));
+                CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
                 LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-                int SL = resultSet.getInt("SL");
-                BillProBox billProBox = new BillProBox(id, bill, book, SL, localDateTime);
+                BillProBox billProBox = new BillProBox(id, bill, cartProBox, localDateTime);
                 billProBoxs.add(billProBox);
             }
             con.close();
@@ -51,11 +51,10 @@ public class BillProBoxRepository {
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
             PreparedStatement prsm = con
-                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idBook,SL,Date) values (?,?,?,?)");
+                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idCartProBox,Date) values (?,?,?)");
             prsm.setInt(1, billProBox.getBill().getId());
-            prsm.setInt(2, billProBox.getBook().getId());
-            prsm.setInt(3, billProBox.getSL());
-            prsm.setString(4, billProBox.getDate().withNano(0).toString());
+            prsm.setInt(2, billProBox.getCartProBox().getId());
+            prsm.setString(3, billProBox.getDate().withNano(0).toString());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
@@ -78,10 +77,9 @@ public class BillProBoxRepository {
                 throw new IllegalArgumentException("Cannot Find");
             }
             Bill bill = billRepository.getById(resultSet.getInt("idBill"));
-            Book book = bookRepository.getByID(resultSet.getInt("idBook"));
-            int SL = resultSet.getInt("SL");
+            CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
             LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Date"), formatter);
-            BillProBox billProBox = new BillProBox(id, bill, book, SL, localDateTime);
+            BillProBox billProBox = new BillProBox(id, bill, cartProBox, localDateTime);
             con.close();
             return billProBox;
         } catch (Exception e) {
