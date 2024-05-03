@@ -9,7 +9,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-
 import com.example.BookSaleProject.Model.Entity.User;
 import com.example.BookSaleProject.Model.Repository.UserRepository;
 
@@ -20,6 +19,7 @@ public class UserService implements IUserService {
 
     @Autowired
     UserRepository userRepository = new UserRepository();
+    
 
     @Override
     public ArrayList<User> getAllUser() {
@@ -78,17 +78,15 @@ public class UserService implements IUserService {
     private static final Predicate<String> EMAIL_VALIDATOR = email -> email
             .matches("^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
 
-
     private static final Predicate<String> PASSWORD_VALIDATOR = password -> password.length() >= 8;
 
     private static final Predicate<String> PHONE_VALIDATOR = phone -> phone.matches("^\\d{10}$");
-
 
     public ArrayList<String> getInvalidAttributes(User user) {
         ArrayList<String> invalidAttributes = new ArrayList<>();
         HashSet<User> users = new HashSet<>();
         users.addAll(getAllUser());
-        if(!users.add(user)){
+        if (!users.add(user)) {
             invalidAttributes.add("duplicate");
         }
         if (!EMAIL_VALIDATOR.test(user.getEmail())) {
@@ -102,7 +100,6 @@ public class UserService implements IUserService {
         }
         return invalidAttributes;
     }
-
     @Autowired
     private JavaMailSender mailSender;
 

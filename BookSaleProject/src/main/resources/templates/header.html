@@ -124,11 +124,12 @@
                                 <div th:unless="${session.userEmail==null}">
                                     <div class="dropdown">
                                         <a
-                                            style="text-decoration: none; color: white;cursor: pointer;">
+                                            style="text-decoration: none; color: white;cursor: pointer;
+                                            overflow: hidden;text-overflow: ellipsis;max-width: 110px;">
                                             <i class="fa-solid fa-user"></i>
                                             <p th:text="'  '+${session.userName}"
                                                     style="display: inline-flex;font-family:Arial, Helvetica, sans-serif;
-                                                    font-weight: lighter;overflow: hidden;text-overflow: ellipsis;max-width: 110px;">
+                                                    font-weight: lighter;">
                                                 </p>
                                         </a>
                                         <div class="dropdown-content">

@@ -3,14 +3,20 @@ package com.example.BookSaleProject.Model.Entity;
 
 public class BillProBox {
 
-    private int id;
-    private Bill bill;
-    private CartProBox cartProBox;
-    public BillProBox(int id, Bill bill, CartProBox cartProBox) {
+    @Override
+    public String toString() {
+        return "BillProBox [id=" + id + ", bill=" + bill + ", book=" + book + ", SL=" + SL + "]";
+    }
+    public BillProBox(int id, Bill bill, Book book, int sL) {
         this.id = id;
         this.bill = bill;
-        this.cartProBox = cartProBox;
+        this.book = book;
+        SL = sL;
     }
+    private int id;
+    private Bill bill;
+    private Book book;
+    private int SL;
     public BillProBox() {
     }
     public int getId() {
@@ -25,17 +31,17 @@ public class BillProBox {
     public void setBill(Bill bill) {
         this.bill = bill;
     }
-
-    public CartProBox getCartProBox() {
-        return cartProBox;
+    public Book getBook() {
+        return book;
     }
-    public void setCartProBox(CartProBox cartProBox) {
-        this.cartProBox = cartProBox;
+    public void setBook(Book book) {
+        this.book = book;
     }
-    @Override
-    public String toString() {
-        return "BillProBox [id=" + id + ", bill=" + bill + ", cartProBox=" + cartProBox + "]";
+    public int getSL() {
+        return SL;
     }
-
+    public void setSL(int sL) {
+        SL = sL;
+    }
 
 }

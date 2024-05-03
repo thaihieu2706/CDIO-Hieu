@@ -32,8 +32,8 @@
                 <div class="col-lg-10 col-xl-8">
                     <div class="card" style="border-radius: 10px;">
                         <div class="card-header">
-                            <h5 class="text-muted">Thanks for your Order, <span style="color: #80c9ff;"
-                                    th:text="${session.userName}"></span>!</h5>
+                            <p class="text-muted h5">Thanks for your Order, <span style="color: #80c9ff;"
+                                    th:text="${session.userName}"></span>!</p>
                         </div>
                         <div class="card-body p-4">
                             <div>
@@ -44,25 +44,25 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <img th:src="@{'/images/'+${billProBox.key.cartProBox.book.img}}"
+                                                <img th:src="@{'/images/'+${billProBox.key.book.img}}"
                                                     class="img-fluid">
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-muted mb-0"
-                                                    th:text="${billProBox.key.cartProBox.book.name}">
+                                                    th:text="${billProBox.key.book.name}">
                                                 </p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-muted mb-0 small"
-                                                    th:text="${billProBox.key.cartProBox.book.author}"></p>
+                                                    th:text="${billProBox.key.book.author}"></p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-muted mb-0 small"
-                                                    th:text="${billProBox.key.cartProBox.book.bookType.name}"></p>
+                                                    th:text="${billProBox.key.book.bookType.name}"></p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-muted mb-0 small"
-                                                    th:text="'SL: '+${billProBox.key.cartProBox.SL}"></p>
+                                                    th:text="'SL: '+${billProBox.key.SL}"></p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-muted mb-0 small" th:text="${billProBox.value}+ ' đ' ">

@@ -9,16 +9,15 @@ import org.springframework.stereotype.Repository;
 import com.example.BookSaleProject.Model.BaseConnection;
 import com.example.BookSaleProject.Model.Entity.Bill;
 import com.example.BookSaleProject.Model.Entity.BillProBox;
-import com.example.BookSaleProject.Model.Entity.CartProBox;
+import com.example.BookSaleProject.Model.Entity.Book;
 
 @Repository
 public class BillProBoxRepository {
     ArrayList<BillProBox> billProBoxs = new ArrayList<>();
 
-
     @Autowired
     BillRepository billRepository = new BillRepository();
-    CartProBoxRepository cartProBoxRepository = new CartProBoxRepository();
+    BookRepository bookRepository = new BookRepository();
 
     public ArrayList<BillProBox> getAll() {
         try {
@@ -31,8 +30,9 @@ public class BillProBoxRepository {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 Bill bill = billRepository.getById(resultSet.getInt("idBill"));
-                CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
-                BillProBox billProBox = new BillProBox(id, bill, cartProBox);
+                Book book = bookRepository.getByID(resultSet.getInt("idBook"));
+                int SL = resultSet.getInt("SL");
+                BillProBox billProBox = new BillProBox(id, bill, book, SL);
                 billProBoxs.add(billProBox);
             }
             con.close();
@@ -48,9 +48,10 @@ public class BillProBoxRepository {
             Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
                     BaseConnection.password);
             PreparedStatement prsm = con
-                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idCartProBox) values (?,?)");
+                    .prepareStatement("Insert into BOOKSALE.billprobox (idBill,idBook,SL) values (?,?,?)");
             prsm.setInt(1, billProBox.getBill().getId());
-            prsm.setInt(2, billProBox.getCartProBox().getId());
+            prsm.setInt(2, billProBox.getBook().getId());
+            prsm.setInt(3, billProBox.getSL());
             int result = prsm.executeUpdate();
             con.close();
             return result > 0;
@@ -59,6 +60,14 @@ public class BillProBoxRepository {
             System.out.println(e);
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        BillProBoxRepository billProBoxRepository = new BillProBoxRepository();
+        
+    BillRepository billRepository = new BillRepository();
+    BookRepository bookRepository = new BookRepository();
+        System.out.println(billProBoxRepository.addNew(new BillProBox(0, billRepository.getById(1), bookRepository.getByID(1), 1)));
     }
 
     public BillProBox getById(int id) {
@@ -73,8 +82,9 @@ public class BillProBoxRepository {
                 throw new IllegalArgumentException("Cannot Find");
             }
             Bill bill = billRepository.getById(resultSet.getInt("idBill"));
-            CartProBox cartProBox = cartProBoxRepository.getById(resultSet.getInt("idCartProBox"));
-            BillProBox billProBox = new BillProBox(id, bill, cartProBox);
+            Book book = bookRepository.getByID(resultSet.getInt("idBook"));
+            int SL = resultSet.getInt("SL");
+            BillProBox billProBox = new BillProBox(id, bill, book, SL);
             con.close();
             return billProBox;
         } catch (Exception e) {

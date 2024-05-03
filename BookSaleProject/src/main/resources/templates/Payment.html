@@ -38,16 +38,16 @@
                 <div th:each="billProBox : ${billProBoxs}">
                     <div class="row border-top">
                         <div class="row main align-items-center">
-                            <div class="col-2"><img class="img-fluid" th:src="@{'/images/'+${billProBox.key.cartProBox.book.img}}"></div>
+                            <div class="col-2"><img class="img-fluid" th:src="@{'/images/'+${billProBox.key.book.img}}"></div>
                             <div class="col-4">
-                                <div class="h5" th:text="${billProBox.key.cartProBox.book.name}"></div>
-                                <div class="h6" th:text="${billProBox.key.cartProBox.book.bookType.name}"></div>
+                                <div class="h5" th:text="${billProBox.key.book.name}"></div>
+                                <div class="h6" th:text="${billProBox.key.book.bookType.name}"></div>
                             </div>
                             <div class="col-2">
-                                <p class="h6" th:text="${billProBox.key.cartProBox.SL}"></p>
+                                <p class="h6" th:text="${billProBox.key.SL}"></p>
                             </div>
                             <div class="col-4">
-                                <p class="h6" th:text="${billProBox.key.cartProBox.book.price} + ' đ' "  ></p>
+                                <p class="h6" th:text="${billProBox.key.book.price} + ' đ' "  ></p>
                             </div>
                         </div>
                     </div>
