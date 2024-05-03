@@ -69,7 +69,10 @@
                     <div class="col">TOTAL PRICE</div>
                     <div class="col text-right" th:text="${total}+' đ'"> </div>
                 </div>
-                <button class="btn">Thanh toán</button>
+                <form th:action="@{/bill/showOrder}" method="get">
+                    <button class="btn" type="submit">Thanh toán</button>
+                </form>
+                
             </div>
         </div>
     </div>

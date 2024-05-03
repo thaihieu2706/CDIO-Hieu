@@ -53,4 +53,12 @@ public class BillService implements IBillService {
         return null;
     }
 
+    @Override
+    public boolean update(Bill bill) {
+        if (billRepository.update(bill)) {
+            return true;
+        }
+        return false;
+    }
+
 }

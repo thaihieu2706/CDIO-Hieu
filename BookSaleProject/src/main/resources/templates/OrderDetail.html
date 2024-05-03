@@ -19,53 +19,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
-    <script th:src="@{/js/reUse.js}"></script>
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/OrderDetail.css}">
+
 </head>
+
 
 <body>
     <header th:insert="~{header :: header}"></header>
-
     <section class="h-100 gradient-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-lg-10 col-xl-8">
                     <div class="card" style="border-radius: 10px;">
-                        <div class="card-header px-4 py-5">
-                            <h5 class="text-muted mb-0">Thanks for your Order, <span
-                                    style="color: #80c9ff;">Anna</span>!</h5>
+                        <div class="card-header">
+                            <h5 class="text-muted">Thanks for your Order, <span style="color: #80c9ff;"
+                                    th:text="${session.userName}"></span>!</h5>
                         </div>
                         <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <p class="lead fw-normal mb-0" style="color: #808080;">Biên lai</p>
+                            <div>
+                                <p class="lead fw-normal" style="color: #808080;">Biên lai</p>
                             </div>
-                            <div th:each="">
+                            <div th:each="billProBox : ${billProBoxs}">
                                 <div class="card shadow-0 border mb-4">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
-                                                    class="img-fluid" alt="Phone">
+                                                <img th:src="@{'/images/'+${billProBox.key.cartProBox.book.img}}"
+                                                    class="img-fluid">
                                             </div>
-                                            <div
-                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0">Samsung Galaxy</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0"
+                                                    th:text="${billProBox.key.cartProBox.book.name}">
+                                                </p>
                                             </div>
-                                            <div
-                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small">White</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0 small"
+                                                    th:text="${billProBox.key.cartProBox.book.author}"></p>
                                             </div>
-                                            <div
-                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small">Capacity: 64GB</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0 small"
+                                                    th:text="${billProBox.key.cartProBox.book.bookType.name}"></p>
                                             </div>
-                                            <div
-                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small">Qty: 1</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0 small"
+                                                    th:text="'SL: '+${billProBox.key.cartProBox.SL}"></p>
                                             </div>
-                                            <div
-                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small">$499</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0 small" th:text="${billProBox.value}+ ' đ' ">
+                                                </p>
                                             </div>
                                         </div>
                                         <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
@@ -74,32 +75,33 @@
                             </div>
 
 
-                            <div class="d-flex justify-content-between pt-2">
+                            <div class="orderDetail">
                                 <p class="fw-bold mb-0">Order Details</p>
                             </div>
 
-                            <div class="d-flex justify-content-between pt-2">
-                                <p class="text-muted mb-0">Mã hóa đơn</p>
+                            <div class="orderDetail">
+                                <p class="text-muted mb-0" th:text=" 'Địa chỉ giao hàng: ' + ${user.address}"></p>
                             </div>
 
-                            <div class="d-flex justify-content-between">
-                                <p class="text-muted mb-0">Thời gian lập hóa đơn</p>
+                            <div class="orderDetail">
+                                <p class="text-muted mb-0" th:text=" 'Thời gian lập hóa đơn: ' + ${bill.date}"></p>
                             </div>
 
                         </div>
                         <div class="card-footer border-0 px-4 py-5"
-                            style="background-color: #808080; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                            style="background-color: #808080; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+                            border: 0; padding-left: 1rem; padding-right: 1rem; padding-top: 1.25rem; padding-bottom: 1.25rem;">
                             <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                                Total
-                                paid: <span class="h2 mb-0 ms-2">$1040</span></h5>
+                                Total paid: <span style="font-size: 1.5rem;margin-bottom: 0;margin-left: 0.5rem;"
+                                    th:text="${total} + ' đ' "></span></h5>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
-
     <footer th:insert="~{footer :: footer}"></footer>
+
+    <script th:src="@{/js/reUse.js}"></script>
 </body>
 
 </html>

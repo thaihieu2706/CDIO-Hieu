@@ -2,37 +2,39 @@ package com.example.BookSaleProject.Model.Entity;
 
 
 public class History {
-    @Override
-    public String toString() {
-        return "History [id=" + id + ", billProBox=" + billProBox + ", detail=" + detail + "]";
-    }
-    public History(int id, BillProBox billProBox, String detail) {
-        this.id = id;
-        this.billProBox = billProBox;
-        this.detail = detail;
-    }
+    
     public History() {
     }
     private int id;
-    private BillProBox billProBox;
+    private Bill bill;
     String detail;
+    public History(int id, Bill bill, String detail) {
+        this.id = id;
+        this.bill = bill;
+        this.detail = detail;
+    }
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
-    public BillProBox getBillProBox() {
-        return billProBox;
-    }
-    public void setBillProBox(BillProBox billProBox) {
-        this.billProBox = billProBox;
-    }
+    
     public String getDetail() {
         return detail;
     }
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+    public Bill getBill() {
+        return bill;
+    }
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+    @Override
+    public String toString() {
+        return "History [id=" + id + ", bill=" + bill + ", detail=" + detail + "]";
     }
     
 }

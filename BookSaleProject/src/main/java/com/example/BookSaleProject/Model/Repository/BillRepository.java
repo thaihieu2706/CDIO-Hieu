@@ -106,4 +106,21 @@ public class BillRepository {
         }
         return false;
     }
+
+    public boolean update(Bill bill){
+        try {
+            Class.forName(BaseConnection.nameClass);
+            Connection con = DriverManager.getConnection(BaseConnection.url, BaseConnection.username,
+                    BaseConnection.password);
+            PreparedStatement prsm = con.prepareStatement("Update BOOKSALE.bill set status=? where id =?");
+            prsm.setString(1, bill.getStatus());
+            prsm.setInt(2, bill.getId());
+            int result = prsm.executeUpdate();
+            con.close();
+            return result > 0;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
+    }
 }

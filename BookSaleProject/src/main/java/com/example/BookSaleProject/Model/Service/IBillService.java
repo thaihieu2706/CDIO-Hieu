@@ -10,4 +10,5 @@ public interface IBillService {
     public boolean addNew(Bill bill);
     public Bill getById(int id);
     public Bill getByIdUser(User user);
+    public boolean update(Bill bill);
 }

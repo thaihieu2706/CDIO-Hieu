@@ -31,5 +31,13 @@ public class HistoryService implements IHistoryService {
         }
         return null;
     }
+
+    @Override
+    public boolean update(History history) {
+        if (historyRepository.update(history)) {
+            return true;
+        }
+        return false;
+    }
     
 }
