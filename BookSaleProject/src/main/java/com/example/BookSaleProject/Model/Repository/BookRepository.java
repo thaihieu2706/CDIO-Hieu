@@ -89,7 +89,7 @@ public class BookRepository {
             prsm.setInt(3, book.getBookType().getId());
             prsm.setString(4, book.getDate());
             prsm.setString(5, book.getNxb());
-            prsm.setString(6, "'"+book.getPrice()+"'");
+            prsm.setString(6, ""+book.getPrice());
             prsm.setInt(7, book.getSL());
             prsm.setString(8, book.getImg());
             int result = prsm.executeUpdate();
@@ -113,7 +113,7 @@ public class BookRepository {
             prsm.setInt(3, book.getBookType().getId());
             prsm.setString(4, book.getDate());
             prsm.setString(5, book.getNxb());
-            prsm.setString(6, "'"+book.getPrice()+"'");
+            prsm.setString(6, "" + book.getPrice());
             prsm.setInt(7, book.getSL());
             prsm.setString(8, book.getImg());
             prsm.setString(9, book.getDetail());

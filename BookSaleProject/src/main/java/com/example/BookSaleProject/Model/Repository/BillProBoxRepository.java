@@ -62,14 +62,6 @@ public class BillProBoxRepository {
         return false;
     }
 
-    public static void main(String[] args) {
-        BillProBoxRepository billProBoxRepository = new BillProBoxRepository();
-        
-    BillRepository billRepository = new BillRepository();
-    BookRepository bookRepository = new BookRepository();
-        System.out.println(billProBoxRepository.addNew(new BillProBox(0, billRepository.getById(1), bookRepository.getByID(1), 1)));
-    }
-
     public BillProBox getById(int id) {
         try {
             Class.forName(BaseConnection.nameClass);

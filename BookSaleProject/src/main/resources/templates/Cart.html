@@ -19,7 +19,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reUse.css}">
-    <script th:src="@{/js/reUse.js}"></script>
     <link rel="stylesheet" href="/src/main/resources/static/css/Cart.css">
 </head>
 
@@ -88,6 +87,9 @@
                                                     <p class="mb-0" name="author"
                                                         th:text="${cartProBox.key.book.author}">
                                                     </p>
+                                                    <p class="text-muted mb-0 small" name="SL" 
+                                                        th:text="'Còn: '+ ${cartProBox.key.book.SL}">
+                                                    </p>
                                                 </div>
                                             </div>
                                         </th>
@@ -95,7 +97,7 @@
                                             <p class="mb-0" style="font-weight: 500;"
                                                 th:text="${cartProBox.key.book.bookType.name}"></p>
                                         </td>
-                                        <form th:action="@{/cart/update/__${cartProBox.key.id}__}" th:method="post">
+                                        <form th:action="@{/cart/update/__${cartProBox.key.id}__}" th:method="post" id="cart-form">
                                             <td class="align-middle">
                                                 <div class="d-flex flex-row">
                                                     <button data-mdb-button-init data-mdb-ripple-init
@@ -104,9 +106,9 @@
                                                         <i class="fas fa-minus"></i>
                                                     </button>
 
-                                                    <input min="0" name="quantity" th:value="${cartProBox.key.SL}"
+                                                    <input min="1" th:max="${cartProBox.key.book.SL}" name="quantity" th:value="${cartProBox.key.SL}"
                                                         type="number" class="form-control form-control-sm"
-                                                        style="width: 50px;" />
+                                                        style="width: 50px;" pattern="[0-9]">
 
                                                     <button data-mdb-button-init data-mdb-ripple-init
                                                         class="btn btn-link px-2" type="submit"
@@ -154,56 +156,8 @@
 
     <footer th:insert="~{footer :: footer}"></footer>
 
-    <script th:inline="javascript">
-        function toggleCheckboxes(source) {
-            checkboxes = document.getElementsByName('checkBoxNoLabel');
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = source.checked;
-            }
-            checkBoxFunction();
-        }
-
-        var selectedIds = [];
-
-        function checkBoxFunction() {
-            var checkboxes = document.getElementsByName('checkBoxNoLabel');
-            var paymentButton = document.querySelector('.btn-primary');
-            var orderTotal = 0;
-            var atLeastOneChecked = false;
-            selectedIds = [];
-
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    atLeastOneChecked = true;
-                    selectedIds.push(checkboxes[i].id);
-                    var price = parseFloat(checkboxes[i].parentNode.parentNode.querySelector('.price').innerText);
-                    orderTotal += price;
-                }
-            }
-
-            var orderTotalElement = document.querySelector('.order-total');
-            if (orderTotalElement) {
-                orderTotalElement.innerText = orderTotal + 'đ';
-            }
-
-            if (atLeastOneChecked) {
-                paymentButton.removeAttribute('disabled'); // Kích hoạt nút "Thanh toán"
-            } else {
-                paymentButton.setAttribute('disabled', 'disabled'); // Vô hiệu hóa nút "Thanh toán"
-            }
-
-            window.onload = toggleCheckboxes;
-        }
-
-        // Hàm để xử lý sự kiện khi nút thanh toán được nhấn
-        function handlePayment() {
-            // Chuyển mảng selectedIds sang chuỗi để gửi đến servlet
-            var selectedIdsString = selectedIds.join(",");
-
-            // Gửi các ID đã chọn đến servlet bằng cách chuyển hướng URL
-            window.location.href = "/bill/viewPayment?selectedIds=" + selectedIdsString;
-        }
-    </script>
+    <script th:src="@{/js/reUse.js}"></script>
+    <script th:src="@{/js/Cart.js}"></script>
 </body>
 
 </html>

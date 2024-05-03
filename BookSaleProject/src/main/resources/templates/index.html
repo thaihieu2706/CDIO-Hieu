@@ -58,27 +58,52 @@
       <div class="col-sm-8">
         <div class="row">
           <div th:each="book , status : ${newBookList}" class="col-sm-4" style="padding-top: 20px;">
-            <div class="card" style="width:300px;" id="myCard" onmouseover="removeAnimation(this)"
-              onmouseout="addAnimation(this)">
-              <button type="button" data-bs-toggle="modal" th:data-bs-target="|#newBookModal${status.index}|">
-                <div style="height: 400px; overflow: hidden;">
-                  <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
-                    style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="card" style="width:300px;" data-mdb-toggle="animation" data-mdb-animation-reset="true"
+              data-mdb-animation="slide-right">
+              <button type="button" data-bs-toggle="modal" th:data-bs-target="|#newestBook${status.index}|">
+                <div th:if="${book.key.SL}!=0">
+                  <div style="height: 400px; overflow: hidden;">
+                    <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+
+                  </div>
+                </div>
+                <div th:unless="${book.key.SL}!=0">
+                  <div style="height: 400px; overflow: hidden;">
+                    <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                      style="width: 100%; height: 100%; object-fit: cover;opacity: 0.7;">
+                    <div
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-size: xx-large; font-weight: bold;">
+                      Hết Hàng
+                    </div>
+                  </div>
                 </div>
               </button>
-              <div class="modal fade" th:id="|newBookModal${status.index}|">
-                <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered">
+              <div class="modal fade" th:id="|newestBook${status.index}|">
+                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                     <div class="row">
                       <div class="col-sm-4">
-                        <img th:src="@{'/images/'+${book.key.img}}" ,
-                          style="background-size: cover;background-position: center;width: 100%;height: 100%;">
+                        <div th:if="${book.key.SL}!=0">
+                          <img th:src="@{'/images/'+${book.key.img}}"
+                            style="background-size: cover; background-position: center; width: 100%; height: 100%;">
+                        </div>
+                        <div th:unless="${book.key.SL}!=0" style="position: relative;">
+                          <img th:src="@{'/images/'+${book.key.img}}"
+                            style="background-size: cover; background-position: center; width: 100%; height: 100%;opacity: 0.7;">
+                          <div
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <div
+                              style="color: #333; padding: 10px; font-size: xx-large; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                              Hết Hàng
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-sm-8">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                          <p class="modal-title" th:text="${book.key.name}"
-                            style="font-size: xx-large;"></p>
+                          <p class="modal-title" th:text="${book.key.name}" style="font-size: xx-large;"></p>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"
                             style="font-size: larger;font-weight: bold;"></button>
 
@@ -89,7 +114,8 @@
                             <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;"></p>
                             <i class="fa-solid fa-star" style="color: #FF9529;display: inline;font-size: larger;"></i>
                           </div>
-                          <p class="h4" th:text="${book.key.price}+' đ'" style="color: greenyellow;"> đ</p>
+                          <p class="h4" th:text="${book.key.price}+' đ'" style="color: #01a14b;">
+                            đ</p>
                           <div class="row">
                             <div class="col-sm-3" style="padding-top: 20px;">
                               <strong style="min-width: 137px;">Tác giả</strong>
@@ -120,7 +146,6 @@
                             <div class="col-sm-3" style="padding-top: 20px;">
                               <span th:text="${book.key.date}" style="padding-left: 30px;"></span>
                             </div>
-
                             <div style="padding-top: 40px;">
                               <strong style="min-width: 137px;">Nội dung:</strong>
                               <p th:text="${book.key.detail}"></p>
@@ -140,20 +165,32 @@
                                   <div th:if="${session.userEmail==null}">
                                     <a th:href="@{/user/}" style="font-size: 25px;color:#01a14b;border: none;">
                                       <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
-                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM
-                                          VÀO GIỎ HÀNG
+                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                          THÊM VÀO GIỎ HÀNG
                                         </p>
                                       </i>
                                     </a>
                                   </div>
                                   <div th:unless="${session.userEmail==null}">
-                                    <button type="submit" style="font-size: 25px;color:#01a14b;border: none;">
-                                      <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
-                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM
-                                          VÀO GIỎ HÀNG
-                                        </p>
-                                      </i>
-                                    </button>
+                                    <div th:if="${book.key.SL}!=0">
+                                      <button type="submit" style="font-size: 25px;color:#01a14b;border: none;">
+                                        <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
+                                          <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                            THÊM VÀO GIỎ HÀNG
+                                          </p>
+                                        </i>
+                                      </button>
+                                    </div>
+                                    <div th:if="${book.key.SL}==0" style="display: inline-flex;">
+                                      <a onclick="alert('Hết Hàng')"
+                                        style="font-size: 25px;color:#01a14b;border: none;cursor: pointer;">
+                                        <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
+                                          <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                            THÊM VÀO GIỎ HÀNG
+                                          </p>
+                                        </i>
+                                      </a>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -182,7 +219,6 @@
                     onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                   </p>
                 </a>
-
                 <p class="card-text" th:text="${book.key.price}+'đ'" style="color: #01a14b;"></p>
                 <div class="row">
                   <div class="col-sm-9">
@@ -199,14 +235,20 @@
                         <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></a>
                     </div>
                     <div th:unless="${session.userEmail==null}">
-                      <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
-                        <input type="hidden" name="SL" value="1">
-                        <button type="submit" style="padding-right: 0px;float: right;"
+                      <div th:if="${book.key.SL}!=0">
+                        <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
+                          <input type="hidden" name="SL" value="1">
+                          <button type="submit" style="padding-right: 0px;float: right;"
+                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></button>
+                        </form>
+                      </div>
+                      <div th:unless="${book.key.SL}!=0">
+                        <button onclick="alert('Hết Hàng')" style="padding-right: 0px;float: right;"
                           onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                           <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></button>
-                      </form>
+                      </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -226,27 +268,52 @@
       <div class="col-sm-8">
         <div class="row">
           <div th:each="book,status : ${favouriteBookList}" class="col-sm-4" style="padding-top: 20px;">
-            <div class="card" style="width:300px;">
-              <button type="button" data-bs-toggle="modal" th:data-bs-target="|#favouriteBookModal${status.index}|">
-                <div style="height: 400px; overflow: hidden;">
-                  <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
-                    style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="card" style="width:300px;" data-mdb-toggle="animation" data-mdb-animation-reset="true"
+              data-mdb-animation="slide-right">
+              <button type="button" data-bs-toggle="modal" th:data-bs-target="|#bookModal${status.index}|">
+                <div th:if="${book.key.SL}!=0">
+                  <div style="height: 400px; overflow: hidden;">
+                    <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+
+                  </div>
+                </div>
+                <div th:unless="${book.key.SL}!=0">
+                  <div style="height: 400px; overflow: hidden;">
+                    <img class="card-img-top" th:src="@{'/images/'+${book.key.img}}"
+                      style="width: 100%; height: 100%; object-fit: cover;opacity: 0.7;">
+                    <div
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-size: xx-large; font-weight: bold;">
+                      Hết Hàng
+                    </div>
+                  </div>
                 </div>
               </button>
-
-              <div class="modal fade" th:id="|favouriteBookModal${status.index}|">
-                <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered">
+              <div class="modal fade" th:id="|bookModal${status.index}|">
+                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                     <div class="row">
                       <div class="col-sm-4">
-                        <img th:src="@{'/images/'+${book.key.img}}" ,
-                          style="background-size: cover;background-position: center;width: 100%;height: 100%;">
+                        <div th:if="${book.key.SL}!=0">
+                          <img th:src="@{'/images/'+${book.key.img}}"
+                            style="background-size: cover; background-position: center; width: 100%; height: 100%;">
+                        </div>
+                        <div th:unless="${book.key.SL}!=0" style="position: relative;">
+                          <img th:src="@{'/images/'+${book.key.img}}"
+                            style="background-size: cover; background-position: center; width: 100%; height: 100%;opacity: 0.7;">
+                          <div
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <div
+                              style="color: #333; padding: 10px; font-size: xx-large; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                              Hết Hàng
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-sm-8">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                          <p class="modal-title" th:text="${book.key.name}"
-                            style="font-size: xx-large;"></p>
+                          <p class="modal-title" th:text="${book.key.name}" style="font-size: xx-large;"></p>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"
                             style="font-size: larger;font-weight: bold;"></button>
 
@@ -257,7 +324,8 @@
                             <p class="h5" th:text="${book.value}" style="display: inline;color:#FF9529 ;"></p>
                             <i class="fa-solid fa-star" style="color: #FF9529;display: inline;font-size: larger;"></i>
                           </div>
-                          <p class="h4" th:text="${book.key.price}+' đ'" style="color: greenyellow;"> đ</p>
+                          <p class="h4" th:text="${book.key.price}+' đ'" style="color: #01a14b;">
+                            đ</p>
                           <div class="row">
                             <div class="col-sm-3" style="padding-top: 20px;">
                               <strong style="min-width: 137px;">Tác giả</strong>
@@ -288,11 +356,11 @@
                             <div class="col-sm-3" style="padding-top: 20px;">
                               <span th:text="${book.key.date}" style="padding-left: 30px;"></span>
                             </div>
-
                             <div style="padding-top: 40px;">
                               <strong style="min-width: 137px;">Nội dung:</strong>
                               <p th:text="${book.key.detail}"></p>
                             </div>
+
                             <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
                               <div style="padding-top: 2%;">
                                 <div class="input-group w-auto align-items-center" style="display: inline-flex;">
@@ -307,20 +375,32 @@
                                   <div th:if="${session.userEmail==null}">
                                     <a th:href="@{/user/}" style="font-size: 25px;color:#01a14b;border: none;">
                                       <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
-                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM
-                                          VÀO GIỎ HÀNG
+                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                          THÊM VÀO GIỎ HÀNG
                                         </p>
                                       </i>
                                     </a>
                                   </div>
                                   <div th:unless="${session.userEmail==null}">
-                                    <button type="submit" style="font-size: 25px;color:#01a14b;border: none;">
-                                      <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
-                                        <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">THÊM
-                                          VÀO GIỎ HÀNG
-                                        </p>
-                                      </i>
-                                    </button>
+                                    <div th:if="${book.key.SL}!=0">
+                                      <button type="submit" style="font-size: 25px;color:#01a14b;border: none;">
+                                        <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
+                                          <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                            THÊM VÀO GIỎ HÀNG
+                                          </p>
+                                        </i>
+                                      </button>
+                                    </div>
+                                    <div th:if="${book.key.SL}==0" style="display: inline-flex;">
+                                      <a onclick="alert('Hết Hàng')"
+                                        style="font-size: 25px;color:#01a14b;border: none;cursor: pointer;">
+                                        <i class="fa-solid fa-cart-shopping" style="font-weight: bolder;">
+                                          <p style="display: inline-flex;font-family:'Times New Roman', Times, serif">
+                                            THÊM VÀO GIỎ HÀNG
+                                          </p>
+                                        </i>
+                                      </a>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -337,6 +417,7 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -364,14 +445,20 @@
                         <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></a>
                     </div>
                     <div th:unless="${session.userEmail==null}">
-                      <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
-                        <input type="hidden" name="SL" value="1">
-                        <button type="submit" style="padding-right: 0px;float: right;"
+                      <div th:if="${book.key.SL}!=0">
+                        <form th:action="@{/cart/add/__${book.key.id}__}" th:method="post">
+                          <input type="hidden" name="SL" value="1">
+                          <button type="submit" style="padding-right: 0px;float: right;"
+                            onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
+                            <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></button>
+                        </form>
+                      </div>
+                      <div th:unless="${book.key.SL}!=0">
+                        <button onclick="alert('Hết Hàng')" style="padding-right: 0px;float: right;"
                           onmouseover="this.style.color='#01a14b';" onmouseout="this.style.color='black';">
                           <i class="fa-solid fa-cart-shopping" style="font-size:x-large;"></i></button>
-                      </form>
+                      </div>
                     </div>
-
                   </div>
                 </div>
               </div>
