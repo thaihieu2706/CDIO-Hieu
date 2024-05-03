@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,7 +59,7 @@ public class BillController {
         user = userService.getUserByEmail(session.getAttribute("userEmail").toString());
         bill = new Bill(0, user, LocalDateTime.now().withNano(0), "Chưa thanh toán");
         billService.addNew(bill);
-        bill = billService.getAll().get(billService.getAll().size() - 1);
+        bill = billService.getAll().get(billService.getAll().size()-1);
         for (String id : idCartPro) {
             CartProBox cartProBox = cartProBoxService.getById(Integer.parseInt(id));
             BillProBox billProBox = new BillProBox(0, bill, cartProBox.getBook(), cartProBox.getSL());
@@ -81,9 +82,8 @@ public class BillController {
         return "Payment";
     }
 
-    @GetMapping(value = "/showOrder")
+    @PostMapping(value = "/showOrder")
     public String showOrder(Model model) {
-        billService.payment(total, user);
         bill.setStatus("Đã thanh toán");
         billService.update(bill);
         model.addAttribute("total", total);
@@ -91,6 +91,7 @@ public class BillController {
         model.addAttribute("bill", bill);
         model.addAttribute("bookTypeList", bookTypeService.getAll());
         model.addAttribute("billProBoxs", biHashMap);
+        billService.payment(total, user);
         return "OrderDetail";
     }
 
