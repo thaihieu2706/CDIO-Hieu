@@ -39,6 +39,9 @@ public class BillController {
 
     ArrayList<BillProBox> billProBoxs = new ArrayList<>();
     HashMap<BillProBox,Double> biHashMap = new HashMap<>();
+    Bill bill;
+    User user;
+    double total;
     
     @GetMapping(value = "/viewPayment")
     public String viewPayment(Model model, @RequestParam(value = "selectedIds")String ids, HttpServletRequest request){
@@ -46,16 +49,17 @@ public class BillController {
         String idCartPro[] = ids.split(",");
         System.out.println(idCartPro.toString());
         HttpSession session = request.getSession();
-        User user =  userService.getUserByEmail(session.getAttribute("userEmail").toString());
-        Bill bill = new Bill(0, user, LocalDateTime.now().withNano(0), "chưa thanh toán");
+        user =  userService.getUserByEmail(session.getAttribute("userEmail").toString());
+        bill = new Bill(0, user, LocalDateTime.now().withNano(0), "chưa thanh toán");
         // billService.addNew(bill);
         for (String id : idCartPro) {
             CartProBox cartProBox = cartProBoxService.getById(Integer.parseInt(id));
             BillProBox billProBox = new BillProBox(0, bill, cartProBox);
             billProBoxs.add(billProBox);
             // billProBoxService.addNew(billProBox);
+            // cartProBoxService.delete(Integer.parseInt(id));
         }
-        double total = 0;
+        total = 0;
         for (BillProBox billProBox : billProBoxs) {
             total += billProBox.getCartProBox().getSL()*billProBox.getCartProBox().getBook().getPrice();
             biHashMap.put(billProBox, billProBox.getCartProBox().getSL()*billProBox.getCartProBox().getBook().getPrice());
@@ -67,4 +71,10 @@ public class BillController {
         return "Payment";
     }
 
+    @GetMapping(value = "/showOrder")
+    public String showOrder(Model model,HttpServletRequest request){
+        
+        model.addAttribute("bookTypeList", bookTypeService.getAll());
+        return "OrderDetail";
+    }
 }

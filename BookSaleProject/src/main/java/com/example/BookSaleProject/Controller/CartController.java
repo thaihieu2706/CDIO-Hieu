@@ -41,7 +41,13 @@ public class CartController {
     public String viewCart(Model model, HttpServletRequest request) {
         cartBookList.clear();
         cartProBoxs.clear();
+        model.addAttribute("bookTypeList", bookTypeService.getAll());
+        model.addAttribute("title", "Giỏ hàng");
         HttpSession session = request.getSession();
+        if (cartProBoxService.getAll() == null) {
+            model.addAttribute("check", 0);
+            return "Cart";
+        }
         ArrayList<CartProBox> cartProBoxAll = cartProBoxService.getAll();
         for (CartProBox cartProBox : cartProBoxAll) {
             int userIdFromSession = userService.getUserByEmail(session.getAttribute("userEmail").toString()).getId();
@@ -52,9 +58,10 @@ public class CartController {
         for (CartProBox cartProBox : cartProBoxs) {
             cartBookList.put(cartProBox, cartProBox.getSL() * cartProBox.getBook().getPrice());
         }
-        model.addAttribute("bookTypeList", bookTypeService.getAll());
+        if (cartBookList == null) {
+            model.addAttribute("check", 0);
+        }
         model.addAttribute("cartBookList", cartBookList);
-        model.addAttribute("title", "Giỏ hàng");
         return "Cart";
     }
 

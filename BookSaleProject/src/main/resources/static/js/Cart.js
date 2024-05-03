@@ -8,6 +8,7 @@ function toggleCheckboxes(source) {
 
 var selectedIds = [];
 
+
 function calculateOrderTotal() {
     var checkboxes = document.getElementsByName('checkBoxNoLabel');
     var orderTotal = 0;
@@ -26,7 +27,7 @@ function calculateOrderTotal() {
         orderTotalElement.innerText = orderTotal + 'đ';
     }
 
-    window.onload = toggleCheckboxes;
+
 }
 
 // Hàm để xử lý sự kiện khi nút thanh toán được nhấn
